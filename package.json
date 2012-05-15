@@ -1,0 +1,13 @@
+{
+  "name" : "fimo",
+  "version" : "0.0.1",
+  "dependencies" : {
+    "express": "2.5.x",
+    "jade": "0.25.x",
+    "underscore": "*"
+  },
+  "devDependencies" : {
+    "vows": "*",
+    "request": "*"
+  }
+}
