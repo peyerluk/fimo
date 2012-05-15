@@ -4,7 +4,9 @@
   "dependencies" : {
     "express": "2.5.x",
     "jade": "0.25.x",
-    "underscore": "*"
+    "underscore": "*",
+    "knox": "0.0.9",
+    "imagemagick": "0.1.2"
   },
   "devDependencies" : {
     "vows": "*",

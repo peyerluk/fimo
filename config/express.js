@@ -1,7 +1,9 @@
 // VARIABLES
-var application_root = __dirname + "/..",
+var appDir = __dirname + "/..",
     express = require("express"),
     expressPort = process.env.PORT || 3000;
+
+
 
 
 // EXPRESS
@@ -14,9 +16,9 @@ app.configure(function () {
   app.use(app.router);
 
   // views & assets
-  app.set('views', application_root + "/app/views");
+  app.set('views', appDir + "/app/views");
   app.set('view engine', 'jade');
-  app.use(express.static(application_root + "/public"));
+  app.use(express.static(appDir + "/public"));
 });
 
 app.configure('test', function() {
