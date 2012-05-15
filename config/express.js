@@ -29,7 +29,7 @@ app.configure('development', function() {
 
 app.configure('production', function() {
   app.use(express.errorHandler());
-  console.log("prod");
+  console.log("running in production mode");
 });
 
 // run internal server on port 3000

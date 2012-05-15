@@ -1,4 +1,5 @@
 Fimo
 ====
 
-Mobile Prototype
+Mobile Prototype:  
+[fimo.herokuapp.com](http://fimo.herokuapp.com)
