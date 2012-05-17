@@ -1,9 +1,8 @@
 // VARIABLES
 var appDir = __dirname + "/..",
     express = require("express"),
+    lessMiddleware = require('less-middleware'),
     expressPort = process.env.PORT || 3000;
-
-
 
 
 // EXPRESS
@@ -14,7 +13,17 @@ app.configure(function () {
   app.use(express.methodOverride());
   app.use(express.bodyParser());
   app.use(app.router);
-
+  
+  // asset pipeline - js, coffee
+  var bundle = require('browserify')(appDir + '/app/browser/test.coffee');
+  app.use(bundle);
+  
+  // asset pipeline - less
+  app.use(lessMiddleware({
+    src: appDir + '/public',
+    compress: true
+  }));
+  
   // views & assets
   app.set('views', appDir + "/app/views");
   app.set('view engine', 'jade');

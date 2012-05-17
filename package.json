@@ -4,12 +4,14 @@
   "dependencies" : {
     "express": "2.5.x",
     "jade": "0.25.x",
-    "underscore": "*",
-    "knox": "0.0.9",
-    "imagemagick": "0.1.2"
+    "underscore": "x",
+    "knox": "0.0.x",
+    "imagemagick": "0.1.x",
+    "browserify": "1.10.x",
+    "less-middleware": "0.1.x"
   },
   "devDependencies" : {
-    "vows": "*",
-    "request": "*"
+    "vows": "x",
+    "request": "x"
   }
 }
