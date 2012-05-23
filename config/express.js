@@ -7,6 +7,7 @@ var appDir = __dirname + "/..",
 
 // EXPRESS
 var app = express.createServer();
+
 app.configure(function () {
   
   // app.use(express.logger());
@@ -28,6 +29,7 @@ app.configure(function () {
   app.set('views', appDir + "/app/views");
   app.set('view engine', 'jade');
   app.use(express.static(appDir + "/public"));
+  
 });
 
 app.configure('test', function() {
