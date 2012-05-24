@@ -71,8 +71,12 @@ vows.describe("Cadabra and Imagemagick").addBatch({
     topic: function(){
       var callback = this.callback;
       var out = tmpFolder + '/texture.jpg';
-      var texture = appDir + '/test/data/cardboard.jpg';
-      im.convert([testImage, texture, '-composite', 'difference', out], function() {
+      
+      // var texture = appDir + '/test/data/cardboard.jpg';
+      var texture = appDir + '/test/data/texture.jpg';
+      
+      // im.convert([testImage, texture, '-compose', 'blend', '-define', 'compose:args=50,50', '-flatten', out], function() {
+      im.convert([testImage, texture, '-compose', 'hard-light', '-composite', out], function() {
         im.identify(out, callback);
       });
     },
