@@ -5,6 +5,7 @@
     "express": "2.5.x",
     "jade": "0.25.x",
     "underscore": "x",
+    "mongoose": "2.5.x",
     "knox": "0.0.x",
     "imagemagick": "0.1.x",
     "browserify": "1.10.x",
