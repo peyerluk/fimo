@@ -1,0 +1,52 @@
+# VARIABLES
+appDir = "#{ __dirname }/../.."
+express = require("express")
+lessMiddleware = require('less-middleware')
+expressPort = process.env.PORT || 3000
+
+
+# EXPRESS
+app = express.createServer()
+
+app.configure( ->
+  
+  # app.use(express.logger());
+  app.use(express.methodOverride());
+  app.use(express.bodyParser());
+  app.use(app.router);
+  
+  # // asset pipeline - js, coffee
+  bundle = require('browserify')("#{ appDir }/app/browser/test.js");
+  app.use(bundle);
+  
+  # // asset pipeline - less
+  app.use(lessMiddleware({
+    src: "#{ appDir }/public",
+    compress: true
+  }));
+  
+  # // views & assets
+  app.set('views', "#{ appDir }/app/views")
+  app.set('view engine', 'jade')
+  app.use(express.static("#{ appDir }/public"))
+  
+)
+
+app.configure 'test', ->
+  expressPort = 3011
+
+
+app.configure 'development', ->
+  app.use(express.errorHandler({ dumpExceptions: true, showStack: true }))
+
+
+app.configure 'production', ->
+  app.use(express.errorHandler())
+  console.log("running in production mode")
+
+
+# // run internal server on port 3000
+app.listen(expressPort)
+
+# // EXPORT
+module.exports = app
