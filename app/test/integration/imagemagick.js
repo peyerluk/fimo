@@ -76,7 +76,7 @@ vows.describe("Imagemagick").addBatch({
       var callback, out, texture;
       callback = this.callback;
       out = "" + tmpFolder + "/texture.jpg";
-      texture = "" + appDir + "/test/data/texture.jpg";
+      texture = "../data/texture.jpg";
       return im.convert([testImage, texture, '-compose', 'hard-light', '-composite', out], function() {
         return im.identify(out, callback);
       });

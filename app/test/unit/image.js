@@ -1,4 +1,4 @@
-var Image, appDir, assert, test, vows, _;
+var Image, User, appDir, assert, fs, test, vows, _;
 
 test = require("../setup");
 
@@ -8,34 +8,29 @@ assert = test.assert;
 
 _ = test._;
 
+fs = require("fs");
+
 appDir = __dirname + "/../../..";
 
 Image = require("../../models/image");
 
+User = require("../../models/user");
+
 vows.describe("image model").addBatch({
   "new image": {
     topic: function() {
-      return new Image({
-        url: {
-          original: "http://test.org/original.jpg"
-        }
-      });
+      return new Image({});
     },
     "should have a url": function(image) {
-      return assert.equal(image.url.original, "http://test.org/original.jpg");
+      return assert.isDefined(image.id);
     },
     "-> save": {
       topic: test.async(function(image) {
-        var callback;
-        callback = this.callback;
+        var _this = this;
         return image.save(function(err) {
-          return callback(err, image);
+          return _this.callback(err, image);
         });
-      }),
-      "should get saved": function(err, image) {
-        assert.isNull(err);
-        return assert.equal(image.url.original, "http://test.org/original.jpg");
-      }
+      })
     }
   },
   teardown: function() {

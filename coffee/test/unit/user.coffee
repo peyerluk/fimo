@@ -9,10 +9,10 @@ vows.describe("user model").addBatch({
   
   "new user": {
     topic: ->
-      new User({ username: "lukas" })
+      new User({ login: "kunigunde@upfront.io" })
     
     "should have a username": (user) ->
-      assert.equal(user.username, "lukas")
+      assert.equal(user.login, "kunigunde@upfront.io")
     
     
     "-> save": {
@@ -24,7 +24,7 @@ vows.describe("user model").addBatch({
       
       "should save": (err, user) ->
         assert.isNull(err)
-        assert.equal(user.username, "lukas")
+        assert.equal(user.login, "kunigunde@upfront.io")
       
     }
   },
@@ -33,7 +33,7 @@ vows.describe("user model").addBatch({
     topic: test.async ->
       callback = this.callback
       user = new User({ 
-        username: "gabriel",
+        login: "tabea-joline@upfront.io",
         coords: { lon: 8.533332999999999, lat: 47.383333 } # somewhere around Zürich
       })
       user.save( (err) ->
@@ -47,10 +47,10 @@ vows.describe("user model").addBatch({
     "-> search from a close location": {
       topic: test.async ->
         User.find({ coords : { $near : [8.7, 47], $maxDistance : 0.5 } }, this.callback)
-
+      
       "should find our user": (err, users) ->
         assert.equal(users.length, 1)
-        assert.equal(users[0].username, "gabriel")
+        assert.equal(users[0].login, "tabea-joline@upfront.io")
       
     },
     

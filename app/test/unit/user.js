@@ -16,11 +16,11 @@ vows.describe("user model").addBatch({
   "new user": {
     topic: function() {
       return new User({
-        username: "lukas"
+        login: "kunigunde@upfront.io"
       });
     },
     "should have a username": function(user) {
-      return assert.equal(user.username, "lukas");
+      return assert.equal(user.login, "kunigunde@upfront.io");
     },
     "-> save": {
       topic: test.async(function(user) {
@@ -32,7 +32,7 @@ vows.describe("user model").addBatch({
       }),
       "should save": function(err, user) {
         assert.isNull(err);
-        return assert.equal(user.username, "lukas");
+        return assert.equal(user.login, "kunigunde@upfront.io");
       }
     }
   },
@@ -41,7 +41,7 @@ vows.describe("user model").addBatch({
       var callback, user;
       callback = this.callback;
       user = new User({
-        username: "gabriel",
+        login: "tabea-joline@upfront.io",
         coords: {
           lon: 8.533332999999999,
           lat: 47.383333
@@ -65,7 +65,7 @@ vows.describe("user model").addBatch({
       }),
       "should find our user": function(err, users) {
         assert.equal(users.length, 1);
-        return assert.equal(users[0].username, "gabriel");
+        return assert.equal(users[0].login, "tabea-joline@upfront.io");
       }
     },
     "-> search from a location far away": {

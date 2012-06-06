@@ -12,5 +12,5 @@ build = (input, output, callback) ->
   coffee.on 'exit', (code) ->
     callback?() if code is 0
 
-task 'build', 'Build lib/ from src/', ->
+task 'build', 'Build app/ from coffee/', ->
   build("coffee", "app")

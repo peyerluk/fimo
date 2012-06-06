@@ -1,13 +1,14 @@
-var Schema, User, UserModel, mongoose;
+var Schema, User, UserModel, mongoose, mongooseAuth;
 
 mongoose = require("../config/mongodb");
+
+mongooseAuth = require('mongoose-auth');
 
 Schema = mongoose.Schema;
 
 User = new Schema({
   username: {
-    type: String,
-    required: true
+    type: String
   },
   name: {
     prename: String,
@@ -26,6 +27,36 @@ User = new Schema({
   created: {
     type: Date,
     "default": Date.now
+  }
+});
+
+User.plugin(mongooseAuth, {
+  everymodule: {
+    everyauth: {
+      User: function() {
+        return UserModel;
+      }
+    }
+  },
+  password: {
+    everyauth: {
+      getLoginPath: '/login',
+      postLoginPath: '/login',
+      loginView: 'login.jade',
+      getRegisterPath: '/register',
+      postRegisterPath: '/register',
+      registerView: 'register.jade',
+      loginSuccessRedirect: '/',
+      registerSuccessRedirect: '/'
+    }
+  },
+  facebook: {
+    everyauth: {
+      myHostname: 'http://localhost:3000',
+      appId: 'YOUR APP ID HERE',
+      appSecret: 'YOUR APP SECRET HERE',
+      redirectPath: '/'
+    }
   }
 });
 

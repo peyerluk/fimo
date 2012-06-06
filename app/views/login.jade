@@ -1,0 +1,15 @@
+div Fimo Login
+
+form(action='/login', method='POST')
+  #login
+    label(for=everyauth.password.loginFormFieldName) Login
+    input(type='text', name=everyauth.password.loginFormFieldName)
+  #password
+    label(for=everyauth.password.passwordFormFieldName) Password
+    input(type='password', name=everyauth.password.passwordFormFieldName)
+  #submit
+    input(type='submit') Login
+
+br    
+div
+  a(href="/register") create a new account

@@ -1,4 +1,4 @@
-var appDir, assert, s3, test, vows, _;
+var assert, s3, test, vows, _;
 
 test = require("../setup");
 
@@ -9,8 +9,6 @@ assert = test.assert;
 _ = test._;
 
 s3 = require("../../config/s3");
-
-appDir = __dirname + "/../../..";
 
 vows.describe("Amazon S3").addBatch({
   "post image": {

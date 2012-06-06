@@ -9,7 +9,9 @@
     "knox": "0.0.x",
     "imagemagick": "0.1.x",
     "browserify": "1.10.x",
-    "less-middleware": "0.1.x"
+    "less-middleware": "0.1.x",
+    "everyauth": "0.2.x",
+    "mongoose-auth": "0.0.x"
   },
   "devDependencies" : {
     "vows": "x",

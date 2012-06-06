@@ -70,9 +70,7 @@ vows.describe("Imagemagick").addBatch({
     topic: test.async ->
       callback = this.callback
       out = "#{ tmpFolder }/texture.jpg"
-      
-      # var texture = appDir + '/test/data/cardboard.jpg';
-      texture = "#{ appDir }/test/data/texture.jpg"
+      texture = "../data/texture.jpg"
       
       # im.convert([testImage, texture, '-compose', 'blend', '-define', 'compose:args=50,50', '-flatten', out], function() {
       im.convert([testImage, texture, '-compose', 'hard-light', '-composite', out], ->

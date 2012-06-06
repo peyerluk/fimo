@@ -3,7 +3,6 @@ vows = test.vows
 assert = test.assert
 _ = test._
 s3 = require("../../config/s3")
-appDir = __dirname + "/../../.."
 
 vows.describe("Amazon S3").addBatch({
   

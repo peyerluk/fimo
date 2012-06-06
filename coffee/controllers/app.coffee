@@ -2,25 +2,40 @@ app = require("../config/express")
 fs = require("fs")
 im = require("imagemagick")
 appDir = "#{ __dirname }/../.."
+before = require("./middleware")
+Image = require("../models/image")
 
+
+# ROUTES
 
 app.get '/', (req, res) ->
+  console.log("welcome: #{ req.user }")
   res.render('welcome', { 
     title: 'Welcome to Fimo!'
   })
-
-
-app.post '/', (req, res) ->
   
+app.get '/wall', (req, res) ->
+  Image.where().desc("created").limit(100).run (err, images) ->
+    res.render('wall', { 
+      title: 'The Wall',
+      images: images
+    })
+  
+app.get '/upload', before.login, (req, res) ->
+  console.log("user: #{ req.user }")
+  
+  res.render('upload', { 
+    title: 'Image upload'
+  })
+
+
+app.post '/upload', (req, res) ->
+  console.log("upload: #{ req.user }")
   fs.readFile req.files.displayImage.path, (err, data) ->
-    fileName = req.files.displayImage.name
-    newPath = "#{ appDir }/tmp/ #{ fileName }"
-    
-    fs.writeFile newPath, data, (err) ->  
-      cadabra.Image.open newPath, (err, image) ->
-        if (!err)
-          image.resize("100x100").write(appDir + "/tmp/100_" + fileName);
-          res.redirect("back");
+
+    Image.create data, req.user, ->
+      res.redirect("back")
+
       
     
 

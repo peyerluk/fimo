@@ -1,7 +1,9 @@
 doctype 5
 html(lang="en")
   head
-    title= title
+    if (typeof title != "undefined")
+      title= title
+      
     link(href="/styles/fimo.css", rel="stylesheet")
     script(src="/browserify.js")
   body
