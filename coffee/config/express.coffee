@@ -17,21 +17,21 @@ app.configure( ->
   # app.use(express.logger())
   app.use(express.methodOverride())
   app.use(express.bodyParser())
-  app.use(express.static("#{ appDir }/public"))
   app.use(express.cookieParser())
   app.use(express.session({ secret: 'I60b0ObILHStw7rx'}))
   app.use(mongooseAuth.middleware())
   # app.use(app.router)
   
-  # asset pipeline - js, coffee
-  bundle = require('browserify')("#{ appDir }/app/browser/test.js");
-  app.use(bundle);
+  # # asset pipeline - js, coffee
+  # bundle = require('browserify')("#{ appDir }/app/browser/test.js");
+  # app.use(bundle);
   
-  # asset pipeline - less
-  app.use(lessMiddleware({
-    src: "#{ appDir }/public",
-    compress: true
-  }));
+  # # asset pipeline - less
+  # app.use(lessMiddleware({
+  #   src: "#{ appDir }/public/",
+  #   compress: true
+  # }));
+  app.use(express.static("#{ appDir }/public"))
   
   # views & assets
   app.set('views', "#{ appDir }/app/views")

@@ -1,0 +1,127 @@
+// Typography.less
+// Headings, body text, lists, code, and more for a versatile and durable typography system
+// ----------------------------------------------------------------------------------------
+
+
+// BODY TEXT
+// ---------
+
+p {
+  margin: 0 0 @baseLineHeight / 2;
+  font-family: @baseFontFamily;
+  font-size: @baseFontSize;
+  line-height: @baseLineHeight;
+  small {
+    font-size: @baseFontSize - 2;
+    color: @grayLight;
+  }
+}
+.lead {
+  margin-bottom: @baseLineHeight;
+  font-size: 20px;
+  font-weight: 200;
+  line-height: @baseLineHeight * 1.5;
+}
+
+// HEADINGS
+// --------
+
+h1, h2, h3, h4, h5, h6 {
+  margin: 0;
+  font-family: @headingsFontFamily;
+  font-weight: @headingsFontWeight;
+  color: @headingsColor;
+  text-rendering: optimizelegibility; // Fix the character spacing for headings
+  small {
+    font-weight: normal;
+    color: @grayLight;
+  }
+}
+h1 {
+  font-size: 30px;
+  line-height: @baseLineHeight * 2;
+  small {
+    font-size: 18px;
+  }
+}
+h2 {
+  font-size: 24px;
+  line-height: @baseLineHeight * 2;
+  small {
+    font-size: 18px;
+  }
+}
+h3 {
+  font-size: 18px;
+  line-height: @baseLineHeight * 1.5;
+  small {
+    font-size: 14px;
+  }
+}
+h4, h5, h6 {
+  line-height: @baseLineHeight;
+}
+h4 {
+  font-size: 14px;
+  small {
+    font-size: 12px;
+  }
+}
+h5 {
+  font-size: 12px;
+}
+h6 {
+  font-size: 11px;
+  color: @grayLight;
+  text-transform: uppercase;
+}
+
+
+
+// LISTS
+// -----
+
+// Unordered and Ordered lists
+ul, ol {
+  padding: 0;
+  margin: 0 0 @baseLineHeight / 2 25px;
+}
+ul ul,
+ul ol,
+ol ol,
+ol ul {
+  margin-bottom: 0;
+}
+ul {
+  list-style: disc;
+}
+ol {
+  list-style: decimal;
+}
+li {
+  line-height: @baseLineHeight;
+}
+ul.unstyled,
+ol.unstyled {
+  margin-left: 0;
+  list-style: none;
+}
+
+// MISC
+// ----
+
+// Horizontal rules
+hr {
+  margin: @baseLineHeight 0;
+  border: 0;
+  border-top: 1px solid @hrBorder;
+  border-bottom: 1px solid @white;
+}
+
+// Emphasis
+strong {
+  font-weight: bold;
+}
+em {
+  font-style: italic;
+}
