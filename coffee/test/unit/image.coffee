@@ -21,9 +21,9 @@ vows.describe("image model").addBatch({
         image.save (err) =>
           @callback(err, image)
         
-      # "should get saved": (err, image) ->
-      #   assert.isNull(err)
-      #   assert.equal(image.url.original, "http://test.org/original.jpg")
+      "should get saved": (err, image) ->
+        assert.isNull(err)
+        assert.equal(image.url(), "http://fimo.s3.amazonaws.com/images/#{image.id}.jpg")
     
   
   

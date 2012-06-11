@@ -18,9 +18,5 @@ fimo.init = ->
       action()
     else
       alert("#{ path } not implemented")
-        
+  
     undefined
-  
-
-  
-  
