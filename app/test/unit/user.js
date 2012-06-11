@@ -16,11 +16,11 @@ vows.describe("user model").addBatch({
   "new user": {
     topic: function() {
       return new User({
-        login: "kunigunde@upfront.io"
+        email: "kunigunde@upfront.io"
       });
     },
-    "should have a username": function(user) {
-      return assert.equal(user.login, "kunigunde@upfront.io");
+    "should have an email address": function(user) {
+      return assert.equal(user.email, "kunigunde@upfront.io");
     },
     "-> save": {
       topic: test.async(function(user) {
@@ -30,9 +30,9 @@ vows.describe("user model").addBatch({
           return callback(err, user);
         });
       }),
-      "should save": function(err, user) {
+      "should save kunigunde": function(err, user) {
         assert.isNull(err);
-        return assert.equal(user.login, "kunigunde@upfront.io");
+        return assert.equal(user.email, "kunigunde@upfront.io");
       }
     }
   },
@@ -41,7 +41,7 @@ vows.describe("user model").addBatch({
       var callback, user;
       callback = this.callback;
       user = new User({
-        login: "tabea-joline@upfront.io",
+        email: "tabea-joline@upfront.io",
         coords: {
           lon: 8.533332999999999,
           lat: 47.383333
@@ -65,7 +65,7 @@ vows.describe("user model").addBatch({
       }),
       "should find our user": function(err, users) {
         assert.equal(users.length, 1);
-        return assert.equal(users[0].login, "tabea-joline@upfront.io");
+        return assert.equal(users[0].email, "tabea-joline@upfront.io");
       }
     },
     "-> search from a location far away": {

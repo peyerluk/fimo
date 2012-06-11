@@ -39,6 +39,7 @@ User.plugin(mongooseAuth, {
     }
   },
   password: {
+    loginWith: 'email',
     everyauth: {
       getLoginPath: '/login',
       postLoginPath: '/login',
@@ -48,14 +49,6 @@ User.plugin(mongooseAuth, {
       registerView: 'register.jade',
       loginSuccessRedirect: '/',
       registerSuccessRedirect: '/'
-    }
-  },
-  facebook: {
-    everyauth: {
-      myHostname: 'http://localhost:3000',
-      appId: 'YOUR APP ID HERE',
-      appSecret: 'YOUR APP SECRET HERE',
-      redirectPath: '/'
     }
   }
 });

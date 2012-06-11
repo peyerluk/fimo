@@ -20,7 +20,7 @@ app.configure( ->
   app.use(express.cookieParser())
   app.use(express.session({ secret: 'I60b0ObILHStw7rx'}))
   app.use(mongooseAuth.middleware())
-  # app.use(app.router)
+  # app.use(app.router) # Cannot use app.router together with mongooseAuth!
   
   # # asset pipeline - js, coffee
   # bundle = require('browserify')("#{ appDir }/app/browser/test.js");

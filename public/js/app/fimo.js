@@ -1,5 +1,5 @@
 
-/* NAMCESPACES
+/* NAMESPACES
 */
 
 
@@ -15,7 +15,7 @@
 
 
   fimo.init = (function() {
-    return $("#container").append("<div>Hello you</div>");
+    return $("#container").append("<div>BLA</div>");
   })();
 
 }).call(this);

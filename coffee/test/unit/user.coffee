@@ -9,10 +9,10 @@ vows.describe("user model").addBatch({
   
   "new user": {
     topic: ->
-      new User({ login: "kunigunde@upfront.io" })
+      new User({ email: "kunigunde@upfront.io" })
     
-    "should have a username": (user) ->
-      assert.equal(user.login, "kunigunde@upfront.io")
+    "should have an email address": (user) ->
+      assert.equal(user.email, "kunigunde@upfront.io")
     
     
     "-> save": {
@@ -22,9 +22,9 @@ vows.describe("user model").addBatch({
           callback(err, user)
         )
       
-      "should save": (err, user) ->
+      "should save kunigunde": (err, user) ->
         assert.isNull(err)
-        assert.equal(user.login, "kunigunde@upfront.io")
+        assert.equal(user.email, "kunigunde@upfront.io")
       
     }
   },
@@ -33,7 +33,7 @@ vows.describe("user model").addBatch({
     topic: test.async ->
       callback = this.callback
       user = new User({ 
-        login: "tabea-joline@upfront.io",
+        email: "tabea-joline@upfront.io",
         coords: { lon: 8.533332999999999, lat: 47.383333 } # somewhere around Zürich
       })
       user.save( (err) ->
@@ -50,7 +50,7 @@ vows.describe("user model").addBatch({
       
       "should find our user": (err, users) ->
         assert.equal(users.length, 1)
-        assert.equal(users[0].login, "tabea-joline@upfront.io")
+        assert.equal(users[0].email, "tabea-joline@upfront.io")
       
     },
     

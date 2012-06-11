@@ -16,13 +16,13 @@ User = new Schema({
 })
 
 User.plugin(mongooseAuth, {
-  # Here, we attach your User model to every module
   everymodule:
     everyauth:
       User: ->
         UserModel  
         
   password:
+    loginWith: 'email',
     everyauth:
       getLoginPath: '/login'
       postLoginPath: '/login'
@@ -32,13 +32,6 @@ User.plugin(mongooseAuth, {
       registerView: 'register.jade'
       loginSuccessRedirect: '/'
       registerSuccessRedirect: '/'
-                      
-  facebook:
-      everyauth:
-          myHostname: 'http://localhost:3000'
-          appId: 'YOUR APP ID HERE'
-          appSecret: 'YOUR APP SECRET HERE'
-          redirectPath: '/'
 })
 
 # INDEXES
