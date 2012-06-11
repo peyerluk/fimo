@@ -39,11 +39,28 @@
 <body>
   
   <div id="container">
-    <h1 class="heading">Fimo</h1>
+    <div id="page">
+      <h1 class="heading">Fimo</h1>
+    </div>
+    <nav id="navbar">
+      <ul class="navbar-items">
+        <li><a href="wall"><i class="icon-map-marker icon-white"></i> Wall</a></li>
+        <li><a href="profile"><i class="icon-home icon-white"></i> Profile</a></li>
+        <li><a href="add"><i class="icon-camera icon-white"></i> Picture</a></li>
+      </ul>
+    </nav>
   </div>
 
 <script src="/js/vendor/zepto.js"></script>
 <script src="/js/vendor/underscore.js"></script>
+<script src="/js/vendor/store.js"></script>
 <script src="/js/app/fimo.js"></script>
+<script src="/js/app/data.js"></script>
+<script src="/js/app/views.js"></script>
+<script src="/js/app/controller.js"></script>
+<script>
+  fimo.init()
+</script>
+
 </body>
 </html>

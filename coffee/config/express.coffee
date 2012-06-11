@@ -13,7 +13,6 @@ mongooseAuth = require('mongoose-auth')
 app = express.createServer()
 
 app.configure( ->
-  
   # app.use(express.logger())
   app.use(express.methodOverride())
   app.use(express.bodyParser())
@@ -39,6 +38,9 @@ app.configure( ->
   
   # mongoose-auth helpers
   mongooseAuth.helpExpress(app)
+  
+  # jsonp - so the iphone app can make calls from another domain (e.g. localhost)
+  app.enable("jsonp callback");
 )
 
 app.configure 'test', ->

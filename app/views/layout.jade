@@ -3,9 +3,15 @@ html(lang="en")
   head
     if (typeof title != "undefined")
       title= title
-      
+    
+    link(href='http://fonts.googleapis.com/css?family=Berkshire+Swash|Alegreya+SC', rel='stylesheet')
     link(href="/css/fimo.css", rel="stylesheet")
-    script(src="/browserify.js")
+    
+    // script(src="/browserify.js")
+    script(src="/js/vendor/zepto.js")
+    script(src="/js/vendor/underscore.js")
+    script(src="/js/app/fimo.js")
+    
   body
     .container!= body
 

@@ -99,8 +99,12 @@ Image.methods.s3Path = function(suffix) {
   }
 };
 
-Image.methods.url = function() {
-  return "http://fimo.s3.amazonaws.com/images/" + this.id + ".jpg";
+Image.methods.url = function(suffix) {
+  if (suffix) {
+    return "http://fimo.s3.amazonaws.com/images/" + this.id + "_" + suffix + ".jpg";
+  } else {
+    return "http://fimo.s3.amazonaws.com/images/" + this.id + ".jpg";
+  }
 };
 
 Image.index({

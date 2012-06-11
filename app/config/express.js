@@ -25,7 +25,8 @@ app.configure(function() {
   app.use(express["static"]("" + appDir + "/public"));
   app.set('views', "" + appDir + "/app/views");
   app.set('view engine', 'jade');
-  return mongooseAuth.helpExpress(app);
+  mongooseAuth.helpExpress(app);
+  return app.enable("jsonp callback");
 });
 
 app.configure('test', function() {

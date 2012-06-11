@@ -12,22 +12,6 @@ before = require("./middleware");
 
 Image = require("../models/image");
 
-app.get('/', function(req, res) {
-  console.log("welcome: " + req.user);
-  return res.render('welcome', {
-    title: 'Welcome to Fimo!'
-  });
-});
-
-app.get('/wall', function(req, res) {
-  return Image.where().desc("created").limit(100).run(function(err, images) {
-    return res.render('wall', {
-      title: 'The Wall',
-      images: images
-    });
-  });
-});
-
 app.get('/upload', before.login, function(req, res) {
   console.log("user: " + req.user);
   return res.render('upload', {

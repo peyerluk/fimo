@@ -20,7 +20,7 @@ User.plugin(mongooseAuth, {
   everymodule:
     everyauth:
       User: ->
-        UserModel  
+        UserModel
         
   password:
     everyauth:

@@ -27,6 +27,7 @@ Image.statics.create = (uploadedImage, user, callback) ->
             callback(undefined, img)
 
 
+
 # upload uploaded image and all thumbnails to s3
 # param callback: (err, res)
 Image.methods.uploadS3 = (callback) ->
@@ -66,8 +67,11 @@ Image.methods.s3Path = (suffix) ->
   else
     "/images/#{ this.id }.jpg"
 
-Image.methods.url = ->
-  "http://fimo.s3.amazonaws.com/images/#{ this.id }.jpg"
+Image.methods.url = (suffix) ->
+  if suffix
+    "http://fimo.s3.amazonaws.com/images/#{ this.id }_#{ suffix }.jpg"
+  else
+    "http://fimo.s3.amazonaws.com/images/#{ this.id }.jpg"
 
 
 
