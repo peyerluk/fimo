@@ -12,6 +12,6 @@ app.get('/profile', function(req, res) {
   return res.send({
     title: 'Profile',
     status: 200,
-    username: "Not logged in"
+    username: "You might not be logged in, but I don't know"
   });
 });
