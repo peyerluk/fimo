@@ -2,10 +2,8 @@
 
   this.fimo.events = (function() {
     return {
-      constructor: function() {
-        return this.triggers = {};
-      },
-      addCallback: function(trigger, instance, method) {
+      triggers: {},
+      add: function(trigger, instance, method) {
         var _base, _ref;
         if ((_ref = (_base = this.triggers)[trigger]) == null) {
           _base[trigger] = [];
@@ -16,7 +14,7 @@
           action: method
         });
       },
-      removeCallback: function(trigger, instance) {
+      remove: function(trigger, instance) {
         var listener;
         return this.triggers = (function() {
           var _i, _len, _ref, _results;
@@ -34,7 +32,7 @@
       removeTrigger: function(trigger) {
         return this.triggers[trigger] = null;
       },
-      fireCallback: function(trigger, param) {
+      fire: function(trigger, param) {
         var listener, _i, _len, _ref, _results;
         if (!this.triggers[trigger]) {
           return;

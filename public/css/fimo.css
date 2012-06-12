@@ -122,12 +122,25 @@ textarea {
 }
 body {
   margin: 0;
-  padding: 20px 0;
+  padding: 0;
   background: url(../img/bg2.jpg);
 }
 #container {
   width: 320px;
+  height: 460px;
   margin: 0 auto;
+}
+#page {
+  height: 420px;
+  position: absolute;
+  top: 0;
+}
+#navbar {
+  height: 40px;
+  position: absolute;
+  right: 0;
+  left: 0;
+  bottom: 0;
 }
 h1 {
   font-family: 'Alegreya SC', serif;
@@ -577,10 +590,6 @@ h1 {
   color: #ffffff;
   padding-left: 20px;
   padding-right: 20px;
-  position: fixed;
-  right: 0;
-  left: 0;
-  bottom: 0;
   z-index: 1030;
   margin-bottom: 0;
 }
@@ -737,4 +746,13 @@ em {
 .heading {
   font-family: 'Berkshire Swash', cursive;
   text-align: center;
+}
+#wall {
+  margin: 0;
+  list-style: none;
+  padding-top: 5px;
+}
+#wall li {
+  float: left;
+  padding: 0 0 5px 5px;
 }

@@ -2,13 +2,11 @@
 ### NAMCESPACES ###
 @fimo = {}
 fimo = @fimo
-fimo.device = {}
-ready = false
-phoneGapStack = []
 
 ### FIMO INITIALIZATION ###
 fimo.init = ->
   controller = fimo.controller
+  
   # authentication
   if store.get('user')
     # TODO: login user
@@ -32,18 +30,12 @@ fimo.init = ->
       alert("#{ path } not implemented")
   
     undefined
-
-
-onDeviceReady = ->
-  for callback in phoneGapStack
-    callback()
-  ready = true  
     
-fimo.device.ready = (callback) ->  
-  if ready
-    callback()
-  else
-    phoneGapStack.push(callback)
-    
+  # prevent native scrolling
+  $(document.body).on('touchmove', (event) ->
+    # This prevents native scrolling from happening.
+    event.preventDefault()
+  , false)
   
-document.addEventListener("deviceready", onDeviceReady, false);  
+  console.log($("#page")[0])
+  scrollable = new fimo.Scroller($("#page")[0])

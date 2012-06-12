@@ -2,9 +2,9 @@
   
   wall: _.template(
     """
-    <ul>
+    <ul id="wall">
     <% _.each(images, function(image) { %>
-      <li><img src='<%= image %>'></li> 
+      <li><img src='<%= image %>' width="100" height="100"></li> 
     <% }); %>
     </ul>
     """

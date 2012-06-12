@@ -19,8 +19,8 @@
     ft = new FileTransfer
     ft.upload(imageURI, "http://172.21.21.52:3000/upload", onPhotoUploadSuccess, onPhotoUploadFail, options)
   
-  onPhotoUploadSuccess = (r) ->
-    alert("got response code: #{r.repsonseCode}") 
+  onPhotoUploadSuccess = (res) ->
+    alert("got response code: #{res.repsonseCode}")
   
   wall: ->
     fimo.data.load "wall", (page) ->

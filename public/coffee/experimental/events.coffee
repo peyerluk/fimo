@@ -1,22 +1,21 @@
 @fimo.events = do ->
   
-  constructor:->
-    @triggers = {}
+  triggers: {}
 
-  addCallback:(trigger, instance, method) ->
+  add:(trigger, instance, method) ->
     @triggers[trigger] ?= []
     @triggers[trigger].push
       name: trigger
       instance: instance
       action: method
 
-  removeCallback:(trigger, instance) ->
+  remove:(trigger, instance) ->
     @triggers = (listener for listener in @triggers[trigger] when listener.instance != instance)
 
   removeTrigger:(trigger) ->
     @triggers[trigger] = null
 
-  fireCallback:(trigger, param) ->
+  fire:(trigger, param) ->
     return if !@triggers[trigger]
 
     for listener in @triggers[trigger]
