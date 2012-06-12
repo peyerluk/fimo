@@ -123,7 +123,7 @@ textarea {
 body {
   margin: 0;
   padding: 20px 0;
-  background: url(/img/bg2.jpg);
+  background: url(../img/bg2.jpg);
 }
 #container {
   width: 320px;
@@ -140,7 +140,7 @@ h1 {
   *margin-right: .3em;
   line-height: 14px;
   vertical-align: text-top;
-  background-image: url("/img/icons/glyphicons-halflings.png");
+  background-image: url("../img/icons/glyphicons-halflings.png");
   background-position: 14px 14px;
   background-repeat: no-repeat;
 }
@@ -149,7 +149,7 @@ h1 {
   *margin-left: 0;
 }
 .icon-white {
-  background-image: url("/img/icons/glyphicons-halflings-white.png");
+  background-image: url("../img/icons/glyphicons-halflings-white.png");
 }
 .icon-glass {
   background-position: 0      0;

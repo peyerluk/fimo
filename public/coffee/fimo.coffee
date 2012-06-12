@@ -2,7 +2,9 @@
 ### NAMCESPACES ###
 @fimo = {}
 fimo = @fimo
-
+fimo.device = {}
+ready = false
+phoneGapStack = []
 
 ### FIMO INITIALIZATION ###
 fimo.init = ->
@@ -20,3 +22,18 @@ fimo.init = ->
       alert("#{ path } not implemented")
   
     undefined
+
+
+onDeviceReady = ->
+  for callback in phoneGapStack
+    callback()
+  ready = true  
+    
+fimo.device.ready = (callback) ->  
+  if ready
+    callback()
+  else
+    phoneGapStack.push(callback)
+    
+  
+document.addEventListener("deviceready", onDeviceReady, false);  
