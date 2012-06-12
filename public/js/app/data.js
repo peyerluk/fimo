@@ -15,6 +15,11 @@
             return callback(data);
           }
         });
+      },
+      post: function(page, data, callback) {
+        return $.post("" + server + "/" + page, {
+          data: data
+        });
       }
     };
   })();

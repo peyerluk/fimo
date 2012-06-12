@@ -23,6 +23,11 @@
   fimo.init = function() {
     var controller;
     controller = fimo.controller;
+    if (store.get('user')) {
+
+    } else {
+
+    }
     return $(document).on("click", "a", function(event) {
       var action, path;
       event.preventDefault();
