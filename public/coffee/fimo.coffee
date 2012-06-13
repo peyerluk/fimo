@@ -30,12 +30,24 @@ fimo.init = ->
       alert("#{ path } not implemented")
   
     undefined
-    
-  # prevent native scrolling
-  $(document.body).on('touchmove', (event) ->
-    # This prevents native scrolling from happening.
-    event.preventDefault()
-  , false)
   
-  console.log($("#page")[0])
-  scrollable = new fimo.Scroller($("#page")[0])
+  imageIdRegex = /\w*(?=_\w*\.(?=jpg|png))/i
+  $(document).on "click", (event) ->
+    imageSrc = event.target.getAttribute("src")
+    if imageSrc
+      result = imageIdRegex.exec(imageSrc)
+      if result
+        controller.image(result[0])
+      
+    
+  # $(document).ready ->
+  #   scrollable = new iScroll("page")
+  
+  # test experimental/google_scroll
+  # # prevent native scrolling
+  # $(document.body).on('touchmove', (event) ->
+  #   # This prevents native scrolling from happening.
+  #   event.preventDefault()
+  # , false)
+  # 
+  # scrollable = new fimo.Scroller($("#page")[0])

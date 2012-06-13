@@ -15,7 +15,7 @@
 
 
   fimo.init = function() {
-    var controller, scrollable;
+    var controller, imageIdRegex;
     controller = fimo.controller;
     if (store.get('user')) {
 
@@ -34,11 +34,17 @@
       }
       return void 0;
     });
-    $(document.body).on('touchmove', function(event) {
-      return event.preventDefault();
-    }, false);
-    console.log($("#page")[0]);
-    return scrollable = new fimo.Scroller($("#page")[0]);
+    imageIdRegex = /\w*(?=_\w*\.(?=jpg|png))/i;
+    return $(document).on("click", function(event) {
+      var imageSrc, result;
+      imageSrc = event.target.getAttribute("src");
+      if (imageSrc) {
+        result = imageIdRegex.exec(imageSrc);
+        if (result) {
+          return controller.image(result[0]);
+        }
+      }
+    });
   };
 
 }).call(this);

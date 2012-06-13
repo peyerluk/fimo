@@ -2,11 +2,18 @@
   
   wall: _.template(
     """
-    <ul id="wall">
+    <ul id="wall" class="clearfix">
     <% _.each(images, function(image) { %>
       <li><img src='<%= image %>' width="100" height="100"></li> 
     <% }); %>
     </ul>
+    """
+  )
+  
+  image: _.template(
+    """
+    <a href="wall" class="back">back</a>
+    <img src='<%= imageUrl %>' class="portrait" width="300">
     """
   )
   

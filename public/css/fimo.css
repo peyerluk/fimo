@@ -744,6 +744,8 @@ em {
   font-style: italic;
 }
 .heading {
+  margin: 20px 0;
+  min-width: 320px;
   font-family: 'Berkshire Swash', cursive;
   text-align: center;
 }
@@ -755,4 +757,14 @@ em {
 #wall li {
   float: left;
   padding: 0 0 5px 5px;
+}
+#wall img {
+  cursor: pointer;
+}
+.back {
+  display: block;
+  color: #000000;
+}
+.portrait {
+  padding: 5px 10px;
 }
