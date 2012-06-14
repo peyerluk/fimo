@@ -10,12 +10,12 @@
     alert("got error code on photo upload #{error.code}")
     
   onPhotoDataSuccess = (imageURI) ->
-    alert("retrieved photo data")
     options = new FileUploadOptions()
     options.fileKey = "displayImage"
     options.fileName = imageURI.substr(imageURI.lastIndexOf('/')+1)
     options.mimeType = "image/jpeg"
     
+    # TODO: IP has to be defined somewhere on fimo object
     ft = new FileTransfer
     ft.upload(imageURI, "http://172.21.21.52:3000/upload", onPhotoUploadSuccess, onPhotoUploadFail, options)
   

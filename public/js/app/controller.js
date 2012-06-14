@@ -13,7 +13,6 @@
     };
     onPhotoDataSuccess = function(imageURI) {
       var ft, options;
-      alert("retrieved photo data");
       options = new FileUploadOptions();
       options.fileKey = "displayImage";
       options.fileName = imageURI.substr(imageURI.lastIndexOf('/') + 1);
