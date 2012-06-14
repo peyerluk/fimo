@@ -1,23 +1,27 @@
+@deviceWidth: 320px;
+@deviceHeight: 460px; // 480px - 20px iPhone status bar on top
+
 body {
   margin: 0;
   padding: 0;
-  background: url(../img/bg2.jpg);
+  background: url(../img/background/stripes_green.png);
 }
 
 #container {
-  width: 320px;
-  height: 460px;
+  width: @deviceWidth;
+  height: @deviceHeight;
   margin: 0 auto;
 }
 
-#page {
-  height: 420px;
+#page, #second-page {
+  width: @deviceWidth;
+  height: @deviceHeight - @navbarHeight;
   position: absolute;
   top: 0;
 }
 
 #navbar {
-  height: 40px;
+  height: @navbarHeight;
   position: absolute;
   right: 0;
   left: 0;

@@ -12,8 +12,12 @@
   
   image: _.template(
     """
-    <a href="wall" class="back">back</a>
-    <img src='<%= imageUrl %>' class="portrait" width="300">
+    <div>
+      <nav class="top-nav">
+        <a href="wall" class="btn back">back</a>
+      </nav>
+      <img src='<%= imageUrl %>' class="portrait" width="300">
+    </div>
     """
   )
   
