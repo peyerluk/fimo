@@ -1,7 +1,7 @@
 @fimo.controller = do ->
   data = @fimo.data
   views = @fimo.views
-  $page = $("#page")
+  page = @fimo.page
 
   onPhotoDataFail = ->
     alert("could not get photo data")
@@ -15,6 +15,7 @@
     options.fileName = imageURI.substr(imageURI.lastIndexOf('/')+1)
     options.mimeType = "image/jpeg"
     
+    # TODO: IP has to be defined somewhere on fimo object
     ft = new FileTransfer
     ft.upload(imageURI, "http://172.21.21.52:3000/upload", onPhotoUploadSuccess, onPhotoUploadFail, options)
   
@@ -22,12 +23,16 @@
     alert("got response code: #{res.repsonseCode}")
   
   wall: ->
-    fimo.data.load "wall", (page) ->
-      $page.html(views.wall({ images : page.images }))
+    fimo.data.load "wall", (content) ->
+      page.create(views.wall({ images : content.images }))
   
+  image: (id) ->
+    fimo.data.load "image?id=#{ id }", (content) ->
+      page.create(views.image({ imageUrl : content.url }))
+      
   profile: ->
-    fimo.data.load "profile", (page) ->
-      $page.html(views.profile({ username : page.username }))
+    fimo.data.load "profile", (content) ->
+      page.create(views.profile({ username : content.username }))
       
   add: ->
     fimo.device.ready ->

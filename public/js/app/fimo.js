@@ -15,7 +15,7 @@
 
 
   fimo.init = function() {
-    var controller, create_user, scrollable, user;
+    var controller, create_user, imageIdRegex, user;
     controller = fimo.controller;
     create_user = function() {
       var pretty_unique_name;
@@ -61,11 +61,17 @@
       }
       return void 0;
     });
-    $(document.body).on('touchmove', function(event) {
-      return event.preventDefault();
-    }, false);
-    console.log($("#page")[0]);
-    return scrollable = new fimo.Scroller($("#page")[0]);
+    imageIdRegex = /\w*(?=_\w*\.(?=jpg|png))/i;
+    return $(document).on("click", function(event) {
+      var imageSrc, result;
+      imageSrc = event.target.getAttribute("src");
+      if (imageSrc) {
+        result = imageIdRegex.exec(imageSrc);
+        if (result) {
+          return controller.image(result[0]);
+        }
+      }
+    });
   };
 
 }).call(this);

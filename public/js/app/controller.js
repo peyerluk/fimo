@@ -1,10 +1,10 @@
 (function() {
 
   this.fimo.controller = (function() {
-    var $page, data, onPhotoDataFail, onPhotoDataSuccess, onPhotoUploadFail, onPhotoUploadSuccess, views;
+    var data, onPhotoDataFail, onPhotoDataSuccess, onPhotoUploadFail, onPhotoUploadSuccess, page, views;
     data = this.fimo.data;
     views = this.fimo.views;
-    $page = $("#page");
+    page = this.fimo.page;
     onPhotoDataFail = function() {
       return alert("could not get photo data");
     };
@@ -25,16 +25,23 @@
     };
     return {
       wall: function() {
-        return fimo.data.load("wall", function(page) {
-          return $page.html(views.wall({
-            images: page.images
+        return fimo.data.load("wall", function(content) {
+          return page.create(views.wall({
+            images: content.images
+          }));
+        });
+      },
+      image: function(id) {
+        return fimo.data.load("image?id=" + id, function(content) {
+          return page.create(views.image({
+            imageUrl: content.url
           }));
         });
       },
       profile: function() {
-        return fimo.data.load("profile", function(page) {
-          return $page.html(views.profile({
-            username: page.username
+        return fimo.data.load("profile", function(content) {
+          return page.create(views.profile({
+            username: content.username
           }));
         });
       },
