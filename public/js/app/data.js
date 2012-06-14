@@ -24,7 +24,9 @@
           dataType: "json",
           data: data,
           success: function(data) {
-            return callback(data);
+            if (callback) {
+              return callback(data);
+            }
           },
           error: function(data, error, exception) {
             if (console) {

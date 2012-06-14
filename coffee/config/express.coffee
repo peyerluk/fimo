@@ -1,6 +1,7 @@
 # VARIABLES
 appDir = "#{ __dirname }/../.."
 express = require("express")
+_ = require("underscore")
 lessMiddleware = require('less-middleware')
 expressPort = process.env.PORT || 3000
 
@@ -12,6 +13,21 @@ mongooseAuth = require('mongoose-auth')
 # EXPRESS
 app = express.createServer()
 
+app.configure 'development', ->
+  app.use (req, res, next) ->
+    headers = { 'Cache-Control' : 'max-age:120' }
+    if !_.isUndefined req.headers.origin
+      headers = _.extend headers, {
+        'Access-Control-Allow-Origin': req.headers.origin
+      , 'Access-Control-Allow-Methods': 'GET, POST, OPTIONS'
+      , 'Access-Control-Allow-Headers': 'Content-Type, X-Requested-With, X-PINGOTHER'
+      , 'Access-Control-Max-Age': 86400 
+      }
+    _.each headers, ( value, key ) ->
+      res.setHeader key, value
+      
+    next()
+  
 app.configure( ->
   # app.use(express.logger())
   app.use(express.methodOverride())
@@ -49,6 +65,7 @@ app.configure 'test', ->
 
 app.configure 'development', ->
   app.use(express.errorHandler({ dumpExceptions: true, showStack: true }))
+    
 
 
 app.configure 'production', ->

@@ -19,7 +19,7 @@
       dataType: "json",
       data: data
       success: (data) ->
-        callback(data)
+        callback(data) if callback
       error: (data, error, exception) ->
         console.log("error from ajax request: #{error}, #{exception}") if console
         errorCallback() if errorCallback
