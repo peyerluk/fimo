@@ -48,7 +48,61 @@ User.plugin(mongooseAuth, {
       postRegisterPath: '/register',
       registerView: 'register.jade',
       loginSuccessRedirect: '/',
-      registerSuccessRedirect: '/'
+      registerSuccessRedirect: '/',
+      respondToRegistrationSucceed: function(res, user) {
+        console.log("registration successful");
+        if (res.req.header('accept') === 'application/json') {
+          console.log("from xhr");
+          return res.json({
+            success: true
+          }, 200);
+        } else {
+          console.log("from http");
+          return res.redirect("/");
+        }
+      },
+      respondToRegistrationFail: function(req, res, errors, login) {
+        console.log("registration failed");
+        if (req.header('accept') === 'application/json') {
+          console.log("..from xhr");
+          return res.json({
+            success: false
+          }, 500);
+        } else {
+          console.log("..from http");
+          return res.redirect("/register");
+        }
+      },
+      respondToLoginFail: function(req, res, errors, login) {
+        if (!errors || !errors.length) {
+          return;
+        }
+        console.log("login failed");
+        if (req.header('accept') === 'application/json') {
+          console.log(errors);
+          console.log("..from xhr");
+          return res.json({
+            success: false
+          }, 500);
+        } else {
+          console.log("..from http");
+          return res.redirect("/login");
+        }
+      },
+      respondToLoginSucceed: function(res, user) {
+        if (user) {
+          console.log("login succeeded");
+          if (res.req.header('accept') === 'application/json') {
+            console.log("..from xhr");
+            return res.json({
+              success: true
+            }, 200);
+          } else {
+            console.log("..from http");
+            return res.redirect("/");
+          }
+        }
+      }
     }
   }
 });

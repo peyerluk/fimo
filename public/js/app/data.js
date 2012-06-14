@@ -2,7 +2,7 @@
 
   this.fimo.data = (function() {
     var server;
-    server = "http://172.21.21.150:3000";
+    server = "http://172.21.21.52:3000";
     return {
       load: function(page, callback) {
         return $.ajax({
@@ -16,9 +16,24 @@
           }
         });
       },
-      post: function(page, data, callback) {
-        return $.post("" + server + "/" + page, {
-          data: data
+      post: function(page, data, callback, errorCallback) {
+        console.log("posting to " + server + "/" + page);
+        return $.ajax({
+          type: 'POST',
+          url: "" + server + "/" + page,
+          dataType: "json",
+          data: data,
+          success: function(data) {
+            return callback(data);
+          },
+          error: function(data, error, exception) {
+            if (console) {
+              console.log("error from ajax request: " + error + ", " + exception);
+            }
+            if (errorCallback) {
+              return errorCallback();
+            }
+          }
         });
       }
     };

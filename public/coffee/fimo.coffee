@@ -8,15 +8,26 @@ fimo.init = ->
   controller = fimo.controller
   
   # authentication
-  if store.get('user')
-    # TODO: login user
-  else
-    # TODO: call create user function on server
+  create_user = () ->
+    # create user
     # TODO: add in coordinates
-    #fimo.data.post 'register', {'email':'test@fimo.com', 'username':'test', 'password':'notsosecure'} ->
-      # TODO: login user
-      #alert("logging in...")
-      # TODO: store user to local store
+    pretty_unique_name = "#{Math.random().toString(32)}"
+    fimo.data.post 'register', {email:"#{pretty_unique_name}@fimo.com", username:"#{pretty_unique_name}", password:"notsosecure"}, ->
+      # login user
+      fimo.data.post 'login', {email:"#{pretty_unique_name}@fimo.com", password:'notsosecure'}, ->
+        # store user to local store
+        store.set('user', {email:"#{pretty_unique_name}@fimo.com", password:'notsosecure'})
+
+  user = store.get('user')
+  if user
+    # login user
+    console.log('logging in existing user')
+    fimo.data.post 'login', {'email':user.email, 'password': user.password}, undefined, ->
+      create_user()
+  else
+    console.log('about to create user')
+    create_user()
+
   
   # navigation
   $(document).on "click", "a", (event) ->

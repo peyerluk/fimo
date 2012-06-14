@@ -10,4 +10,3 @@ app.get '/profile', (req, res) ->
       status: 200,
       username: "You might not be logged in, but I don't know"
     })
-    
