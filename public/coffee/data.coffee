@@ -1,5 +1,5 @@
 @fimo.data = do ->
-	server = "http://fimo.heroku.com"
+  server = "http://fimo.heroku.com"
   # server = "http://172.21.21.52:3000"
   # server = "http://172.21.21.151:5000"
   
