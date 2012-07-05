@@ -1,5 +1,5 @@
 (function() {
 
-  this.fimo.hostname = '172.21.21.76:3000';
+  this.fimo.hostname = 'http://172.21.21.76:3000';
 
 }).call(this);

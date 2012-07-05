@@ -82,7 +82,7 @@ for (key in ifaces) {
     dev = iface[_i];
     if (dev.family && dev.family === 'IPv4') {
       if (dev.address.split(".")[0] !== '127') {
-        fs.writeFileSync("public/coffee/hostname.coffee", "@fimo.hostname = '" + dev.address + ":3000'");
+        fs.writeFileSync("public/coffee/hostname.coffee", "@fimo.hostname = 'http://" + dev.address + ":3000'");
         console.log("rewriting dev server address to: " + dev.address);
       }
     }

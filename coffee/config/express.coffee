@@ -83,7 +83,7 @@ for key, iface of ifaces
   for dev in iface
     if dev.family && dev.family == 'IPv4' # only IPv4
       unless dev.address.split(".")[0] == '127' # skip the local loopback
-        fs.writeFileSync("public/coffee/hostname.coffee", "@fimo.hostname = '#{dev.address}:3000'")
+        fs.writeFileSync("public/coffee/hostname.coffee", "@fimo.hostname = 'http://#{dev.address}:3000'")
         console.log("rewriting dev server address to: " + dev.address)
       
 # // EXPORT
