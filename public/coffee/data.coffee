@@ -1,5 +1,6 @@
 @fimo.data = do ->
   server = @fimo.hostname
+  #server = "http://fimo.herokuapp.com"
   
   load: (page, callback) ->
     

@@ -2,7 +2,7 @@
 
   this.fimo.data = (function() {
     var server;
-    server = "http://172.21.21.76:3000";
+    server = this.fimo.hostname;
     return {
       load: function(page, callback) {
         return $.ajax({
