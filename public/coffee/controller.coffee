@@ -14,8 +14,6 @@
     options.fileKey = "displayImage"
     options.fileName = imageURI.substr(imageURI.lastIndexOf('/')+1)
     options.mimeType = "image/jpeg"
-    
-    # TODO: IP has to be defined somewhere on fimo object
     ft = new FileTransfer
     ft.upload(imageURI, @fimo.hostname + "/upload", onPhotoUploadSuccess, onPhotoUploadFail, options)
   
@@ -34,6 +32,10 @@
     fimo.data.load "profile", (content) ->
       page.create(views.profile({ username : content.username }))
       
+  createObject: ->
+    fimo.data.load "createObject", (content) ->
+      page.create(views.profile({ url: "" + @fimo.hostname + "/objects/create" }))
+          
   add: ->
     fimo.device.ready ->
       pictureSource = Camera.PictureSourceType['PHOTOLIBRARY']

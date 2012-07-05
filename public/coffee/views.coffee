@@ -28,3 +28,25 @@
     </div>
     """
   )
+  
+  createObject: _.template(
+    """
+      <form action="<%=url%>" method="POST">
+        <h3>Why do you want to post this?</h3>
+        <select name="verbs">
+          Pass it on:
+        	<option>Give</option>
+        	<option>Swap</option>
+        	<option>Sell</option>
+        	Show it:
+        	<option>Like</option>
+        	<option>Want</option>
+        </select>
+        <h3>What is it? (optional)</h3>
+        <div>
+          <input type="text" name="tags" placeholder="Add #tag" />
+        </div>
+        <div><input type="submit" /></div>
+      </form>
+    """
+  )

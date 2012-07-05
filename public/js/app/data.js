@@ -7,12 +7,15 @@
       load: function(page, callback) {
         return $.ajax({
           url: "" + server + "/" + page,
-          dataType: "jsonp",
+          dataType: "json",
           success: function(data) {
             if (console) {
               console.log(data);
             }
             return callback(data);
+          },
+          error: function(jqXHR, error) {
+            return console.log(error);
           }
         });
       },

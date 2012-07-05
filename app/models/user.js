@@ -41,7 +41,6 @@ User.plugin(mongooseAuth, {
   password: {
     loginWith: 'email',
     everyauth: {
-      moduleTimeout: 8000,
       getLoginPath: '/login',
       postLoginPath: '/login',
       loginView: 'login.jade',

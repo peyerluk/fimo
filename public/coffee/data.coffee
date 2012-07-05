@@ -6,10 +6,13 @@
     
     $.ajax
       url: "#{ server }/#{ page }",
-      dataType: "jsonp"
+      dataType: "json"
       success: (data) ->
         console.log(data) if console
         callback(data)
+      error: (jqXHR, error) ->
+        console.log(error)
+        
         
   post: (page, data, callback, errorCallback) ->
     console.log("posting to #{server}/#{page}")

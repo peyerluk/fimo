@@ -8,8 +8,6 @@ _ = require('underscore')._
 Image = new Schema({
   user: { type: Schema.ObjectId, ref: 'User' },
   thumbnails: [String],
-  coords: { lon: Number, lat: Number },
-  location: Schema.Types.Mixed,
   likes: Number,
   created: { type: Date, default: Date.now }
 })

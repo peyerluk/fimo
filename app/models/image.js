@@ -18,11 +18,6 @@ Image = new Schema({
     ref: 'User'
   },
   thumbnails: [String],
-  coords: {
-    lon: Number,
-    lat: Number
-  },
-  location: Schema.Types.Mixed,
   likes: Number,
   created: {
     type: Date,

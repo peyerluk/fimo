@@ -45,6 +45,13 @@
           }));
         });
       },
+      createObject: function() {
+        return fimo.data.load("createObject", function(content) {
+          return page.create(views.profile({
+            url: "" + this.fimo.hostname + "/objects/create"
+          }));
+        });
+      },
       add: function() {
         return fimo.device.ready(function() {
           var destinationType, pictureSource;
