@@ -17,7 +17,7 @@
     
     # TODO: IP has to be defined somewhere on fimo object
     ft = new FileTransfer
-    ft.upload(imageURI, "http://172.21.21.52:3000/upload", onPhotoUploadSuccess, onPhotoUploadFail, options)
+    ft.upload(imageURI, @fimo.hostname + "/upload", onPhotoUploadSuccess, onPhotoUploadFail, options)
   
   onPhotoUploadSuccess = (res) ->
     alert("got response code: #{res.repsonseCode}")

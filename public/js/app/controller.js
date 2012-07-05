@@ -18,7 +18,7 @@
       options.fileName = imageURI.substr(imageURI.lastIndexOf('/') + 1);
       options.mimeType = "image/jpeg";
       ft = new FileTransfer;
-      return ft.upload(imageURI, "http://172.21.21.52:3000/upload", onPhotoUploadSuccess, onPhotoUploadFail, options);
+      return ft.upload(imageURI, this.fimo.hostname + "/upload", onPhotoUploadSuccess, onPhotoUploadFail, options);
     };
     onPhotoUploadSuccess = function(res) {
       return alert("got response code: " + res.repsonseCode);

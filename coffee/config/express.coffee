@@ -8,6 +8,9 @@ expressPort = process.env.PORT || 3000
 # we need to load User before mongoose-auth, so the plugins get initialized
 User = require('../models/user') 
 mongooseAuth = require('mongoose-auth')
+os = require('os')
+fs = require('fs')
+ifaces = os.networkInterfaces()
 
 
 # EXPRESS
@@ -71,10 +74,17 @@ app.configure 'development', ->
 app.configure 'production', ->
   app.use(express.errorHandler())
   console.log("running in production mode")
-
+  
 
 # // run internal server on port 3000
 app.listen(expressPort)
 
+for key, iface of ifaces
+  for dev in iface
+    if dev.family && dev.family == 'IPv4' # only IPv4
+      unless dev.address.split(".")[0] == '127' # skip the local loopback
+        fs.writeFileSync("public/coffee/hostname.coffee", "@fimo.hostname = '#{dev.address}:3000'")
+        console.log(dev.address)
+      
 # // EXPORT
 module.exports = app

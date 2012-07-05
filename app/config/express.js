@@ -1,4 +1,4 @@
-var User, app, appDir, express, expressPort, lessMiddleware, mongooseAuth, _;
+var User, app, appDir, dev, express, expressPort, fs, iface, ifaces, key, lessMiddleware, mongooseAuth, os, _, _i, _len;
 
 appDir = "" + __dirname + "/../..";
 
@@ -13,6 +13,12 @@ expressPort = process.env.PORT || 3000;
 User = require('../models/user');
 
 mongooseAuth = require('mongoose-auth');
+
+os = require('os');
+
+fs = require('fs');
+
+ifaces = os.networkInterfaces();
 
 app = express.createServer();
 
@@ -69,5 +75,18 @@ app.configure('production', function() {
 });
 
 app.listen(expressPort);
+
+for (key in ifaces) {
+  iface = ifaces[key];
+  for (_i = 0, _len = iface.length; _i < _len; _i++) {
+    dev = iface[_i];
+    if (dev.family && dev.family === 'IPv4') {
+      if (dev.address.split(".")[0] !== '127') {
+        fs.writeFileSync("public/coffee/hostname.coffee", "@fimo.hostname = '" + dev.address + ":3000'");
+        console.log(dev.address);
+      }
+    }
+  }
+}
 
 module.exports = app;
