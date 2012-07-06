@@ -30,10 +30,11 @@ app.get '/upload', before.login, (req, res) ->
 
 
 app.post '/upload', (req, res) ->
+  console.log "about to upload..."
   console.log("upload: #{ req.user }")
   fs.readFile req.files.displayImage.path, (err, data) ->
 
-    Image.create data, req.user, ->
+    Image.create data, req.user, (err, img) ->
       res.redirect("back")
 
       

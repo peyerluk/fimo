@@ -29,24 +29,24 @@
     """
   )
   
-  createObject: _.template(
+  newObject: _.template(
     """
-      <form action="<%=url%>" method="POST">
-        <h3>Why do you want to post this?</h3>
-        <select name="verbs">
-          Pass it on:
+      <form class="well" action="<%=url%>" method="POST">
+        <label>Why do you want to post this?</label>
+        <br/>
+        <select name="verbs" multiple size="6">
         	<option>Give</option>
         	<option>Swap</option>
         	<option>Sell</option>
-        	Show it:
         	<option>Like</option>
         	<option>Want</option>
         </select>
-        <h3>What is it? (optional)</h3>
-        <div>
-          <input type="text" name="tags" placeholder="Add #tag" />
-        </div>
-        <div><input type="submit" /></div>
+        <br/>
+        <label>What is it? (optional)</label>
+        <br/>
+        <input type="text" class="span3" name="tags" placeholder="Add #tag" />
+        <br/>
+        <button type="submit" class="btn">jumble it</button>
       </form>
     """
   )

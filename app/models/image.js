@@ -34,9 +34,13 @@ Image.statics.create = function(uploadedImage, user, callback) {
     return img.crop("100x100", function() {
       return img.resize("300x", function() {
         return img.save(function(err) {
-          return img.uploadS3(function() {
-            return callback(void 0, img);
-          });
+          if (err) {
+            return callback(err, img);
+          } else {
+            return img.uploadS3(function() {
+              return callback(void 0, img);
+            });
+          }
         });
       });
     });

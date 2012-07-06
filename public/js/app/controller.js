@@ -13,6 +13,7 @@
     };
     onPhotoDataSuccess = function(imageURI) {
       var ft, options;
+      alert("got photo data");
       options = new FileUploadOptions();
       options.fileKey = "displayImage";
       options.fileName = imageURI.substr(imageURI.lastIndexOf('/') + 1);
@@ -21,7 +22,7 @@
       return ft.upload(imageURI, this.fimo.hostname + "/upload", onPhotoUploadSuccess, onPhotoUploadFail, options);
     };
     onPhotoUploadSuccess = function(res) {
-      return alert("got response code: " + res.repsonseCode);
+      return alert("uploaded photo data");
     };
     return {
       wall: function() {
@@ -45,24 +46,22 @@
           }));
         });
       },
-      createObject: function() {
-        return fimo.data.load("createObject", function(content) {
-          return page.create(views.profile({
-            url: "" + this.fimo.hostname + "/objects/create"
+      newObject: function() {
+        return fimo.data.load("newObject", function(content) {
+          return page.create(views.newObject({
+            url: "" + this.fimo.hostname + "/createObject"
           }));
         });
       },
       add: function() {
-        return fimo.device.ready(function() {
-          var destinationType, pictureSource;
-          pictureSource = Camera.PictureSourceType['PHOTOLIBRARY'];
-          destinationType = Camera.DestinationType.FILE_URI;
-          return navigator.camera.getPicture(onPhotoDataSuccess, onPhotoDataFail, {
-            quality: 50,
-            allowEdit: true,
-            destinationType: destinationType,
-            sourceType: pictureSource
-          });
+        var destinationType, pictureSource;
+        pictureSource = Camera.PictureSourceType['PHOTOLIBRARY'];
+        destinationType = Camera.DestinationType.FILE_URI;
+        return navigator.camera.getPicture(onPhotoDataSuccess, onPhotoDataFail, {
+          quality: 50,
+          allowEdit: true,
+          destinationType: destinationType,
+          sourceType: pictureSource
         });
       }
     };

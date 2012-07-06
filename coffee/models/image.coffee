@@ -21,8 +21,11 @@ Image.statics.create = (uploadedImage, user, callback) ->
     img.crop "100x100", ->
       img.resize "300x", ->
         img.save (err) ->
-          img.uploadS3 ->
-            callback(undefined, img)
+          if err
+            callback(err, img)
+          else
+            img.uploadS3 ->
+              callback(undefined, img)
 
 
 
