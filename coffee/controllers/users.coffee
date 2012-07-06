@@ -3,7 +3,7 @@ appDir = "#{ __dirname }/../.."
 before = require("./middleware")
 User = require("../models/user")
 
-app.get '/profile', (req, res) ->
+app.get '/users/profile', (req, res) ->
     
     res.send({
       title: 'Profile',

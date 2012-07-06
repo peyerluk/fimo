@@ -19,12 +19,46 @@ app.get('/upload', before.login, function(req, res) {
   });
 });
 
-app.post('/upload', function(req, res) {
+app.post('/webUpload', function(req, res) {
   console.log("about to upload...");
   console.log("upload: " + req.user);
   return fs.readFile(req.files.displayImage.path, function(err, data) {
     return Image.create(data, req.user, function(err, img) {
-      return res.redirect("back");
+      return res.redirect('back');
     });
   });
+});
+
+app.post('/upload', function(req, res) {
+  if (req.loggedIn === false) {
+    return res.send({
+      status: 403
+    });
+  } else {
+    return fs.readFile(req.files.displayImage.path, function(err, data) {
+      if (err) {
+        console.log(err);
+        return res.send({
+          status: 500,
+          error: err
+        });
+      } else {
+        return Image.create(data, req.user, function(err, img) {
+          if (err) {
+            console.log(err);
+            return res.send({
+              status: 500,
+              error: err
+            });
+          } else {
+            return res.send(JSON.stringify({
+              status: 200,
+              imageId: img._id,
+              imageUrl: img.url("100x100")
+            }));
+          }
+        });
+      }
+    });
+  }
 });

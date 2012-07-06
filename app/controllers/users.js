@@ -8,7 +8,7 @@ before = require("./middleware");
 
 User = require("../models/user");
 
-app.get('/profile', function(req, res) {
+app.get('/users/profile', function(req, res) {
   return res.send({
     title: 'Profile',
     status: 200,

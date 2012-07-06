@@ -32,10 +32,14 @@
   newObject: _.template(
     """
       <form class="well" action="<%=url%>" method="POST">
+        <label>Your object</label>
+        <br/>
+        <img src="<%=imageUrl%>" alt="preview"/>
+        <br/>
         <label>Why do you want to post this?</label>
         <br/>
         <select name="verbs" multiple size="6">
-        	<option>Give</option>
+        	<option selected="true">Give</option>
         	<option>Swap</option>
         	<option>Sell</option>
         	<option>Like</option>
@@ -46,6 +50,7 @@
         <br/>
         <input type="text" class="span3" name="tags" placeholder="Add #tag" />
         <br/>
+        <input type="hidden" name="imageId" value="<%=imageId%>" />
         <button type="submit" class="btn">jumble it</button>
       </form>
     """

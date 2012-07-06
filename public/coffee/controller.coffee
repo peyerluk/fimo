@@ -2,6 +2,7 @@
   data = @fimo.data
   views = @fimo.views
   page = @fimo.page
+  hostname = @fimo.hostname
 
   onPhotoDataFail = ->
     alert("could not get photo data")
@@ -10,17 +11,19 @@
     alert("got error code on photo upload #{error.code}")
     
   onPhotoUploadSuccess = (res) ->
-    alert("uploaded photo data")
-    #alert("got response code: #{res.repsonseCode}")
+    #alert res.response
+    jsonResponse = JSON.parse(unescape(res.response))
+    page.create(views.newObject({ url: "" + hostname + "/objects/create", imageUrl: jsonResponse.imageUrl, imageId: jsonResponse.imageId }))
     
   onPhotoDataSuccess = (imageURI) ->
-    alert("got photo data: #{imageURI}")
     options = new FileUploadOptions()
     options.fileKey = "displayImage"
     options.fileName = imageURI.substr(imageURI.lastIndexOf('/')+1)
     options.mimeType = "image/jpeg"
     ft = new FileTransfer
-    ft.upload(imageURI, @fimo.hostname + "/upload", onPhotoUploadSuccess, onPhotoUploadFail, options)
+    
+    ft.upload(imageURI,  "#{hostname}/upload", onPhotoUploadSuccess, onPhotoUploadFail, options)
+    undefined
   
   wall: ->
     fimo.data.load "wall", (content) ->
@@ -31,13 +34,9 @@
       page.create(views.image({ imageUrl : content.url }))
       
   profile: ->
-    fimo.data.load "profile", (content) ->
+    fimo.data.load "users/profile", (content) ->
       page.create(views.profile({ username : content.username }))
-      
-  newObject: ->
-    fimo.data.load "newObject", (content) ->
-      page.create(views.newObject({ url: "" + @fimo.hostname + "/createObject" }))
-          
+        
   add: ->
     fimo.device.ready ->
       pictureSource = Camera.PictureSourceType['PHOTOLIBRARY']
@@ -47,4 +46,3 @@
         allowEdit: true,
         destinationType: destinationType,
         sourceType: pictureSource
-    
