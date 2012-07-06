@@ -26,10 +26,10 @@ exports.async = function(test) {
       var args;
       args = Array.prototype.slice.call(arguments, 0);
       test.apply(this, args);
-      return;
+      return void 0;
     };
   } else {
-    return;
+    return void 0;
   }
 };
 

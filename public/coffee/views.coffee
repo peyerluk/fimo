@@ -31,7 +31,7 @@
   
   newObject: _.template(
     """
-      <form class="well" action="<%=url%>" method="POST">
+      <form action="<%=url%>" method="POST">
         <label>Your object</label>
         <br/>
         <img src="<%=imageUrl%>" alt="preview"/>
