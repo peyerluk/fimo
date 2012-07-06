@@ -9,18 +9,18 @@
   onPhotoUploadFail = (error) ->
     alert("got error code on photo upload #{error.code}")
     
+  onPhotoUploadSuccess = (res) ->
+    alert("uploaded photo data")
+    #alert("got response code: #{res.repsonseCode}")
+    
   onPhotoDataSuccess = (imageURI) ->
-    alert("got photo data")
+    alert("got photo data: #{imageURI}")
     options = new FileUploadOptions()
     options.fileKey = "displayImage"
     options.fileName = imageURI.substr(imageURI.lastIndexOf('/')+1)
     options.mimeType = "image/jpeg"
     ft = new FileTransfer
     ft.upload(imageURI, @fimo.hostname + "/upload", onPhotoUploadSuccess, onPhotoUploadFail, options)
-  
-  onPhotoUploadSuccess = (res) ->
-    alert("uploaded photo data")
-    #alert("got response code: #{res.repsonseCode}")
   
   wall: ->
     fimo.data.load "wall", (content) ->
@@ -39,13 +39,12 @@
       page.create(views.newObject({ url: "" + @fimo.hostname + "/createObject" }))
           
   add: ->
-    #TODO: this is sometimes not working with the Simulator => debug
-    #fimo.device.ready ->
-    pictureSource = Camera.PictureSourceType['PHOTOLIBRARY']
-    destinationType = Camera.DestinationType.FILE_URI
-    navigator.camera.getPicture onPhotoDataSuccess, onPhotoDataFail,
-      quality: 50, 
-      allowEdit: true,
-      destinationType: destinationType,
-      sourceType: pictureSource
+    fimo.device.ready ->
+      pictureSource = Camera.PictureSourceType['PHOTOLIBRARY']
+      destinationType = Camera.DestinationType.FILE_URI
+      navigator.camera.getPicture onPhotoDataSuccess, onPhotoDataFail,
+        quality: 50, 
+        allowEdit: true,
+        destinationType: destinationType,
+        sourceType: pictureSource
     

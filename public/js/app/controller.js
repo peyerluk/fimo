@@ -11,18 +11,18 @@
     onPhotoUploadFail = function(error) {
       return alert("got error code on photo upload " + error.code);
     };
+    onPhotoUploadSuccess = function(res) {
+      return alert("uploaded photo data");
+    };
     onPhotoDataSuccess = function(imageURI) {
       var ft, options;
-      alert("got photo data");
+      alert("got photo data: " + imageURI);
       options = new FileUploadOptions();
       options.fileKey = "displayImage";
       options.fileName = imageURI.substr(imageURI.lastIndexOf('/') + 1);
       options.mimeType = "image/jpeg";
       ft = new FileTransfer;
       return ft.upload(imageURI, this.fimo.hostname + "/upload", onPhotoUploadSuccess, onPhotoUploadFail, options);
-    };
-    onPhotoUploadSuccess = function(res) {
-      return alert("uploaded photo data");
     };
     return {
       wall: function() {
@@ -54,14 +54,16 @@
         });
       },
       add: function() {
-        var destinationType, pictureSource;
-        pictureSource = Camera.PictureSourceType['PHOTOLIBRARY'];
-        destinationType = Camera.DestinationType.FILE_URI;
-        return navigator.camera.getPicture(onPhotoDataSuccess, onPhotoDataFail, {
-          quality: 50,
-          allowEdit: true,
-          destinationType: destinationType,
-          sourceType: pictureSource
+        return fimo.device.ready(function() {
+          var destinationType, pictureSource;
+          pictureSource = Camera.PictureSourceType['PHOTOLIBRARY'];
+          destinationType = Camera.DestinationType.FILE_URI;
+          return navigator.camera.getPicture(onPhotoDataSuccess, onPhotoDataFail, {
+            quality: 50,
+            allowEdit: true,
+            destinationType: destinationType,
+            sourceType: pictureSource
+          });
         });
       }
     };
