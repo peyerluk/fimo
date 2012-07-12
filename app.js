@@ -1,4 +1,5 @@
 var app = require("./app/controllers/app"),
     users = require("./app/controllers/users"),
     images = require("./app/controllers/images"),
-    objects = require("./app/controllers/objects");
+    objects = require("./app/controllers/objects"),
+    javascript = require("./app/config/javascript");

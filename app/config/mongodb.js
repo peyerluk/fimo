@@ -3,7 +3,12 @@ var mongoose;
 mongoose = require('mongoose');
 
 if (process.env.NODE_ENV === void 0) {
-  mongoose.connect('mongodb://localhost/fimo');
+  if (process.env.MONGOLAB_URI) {
+    mongoose.connect(process.env.MONGOLAB_URI);
+  } else {
+    console.log("!! could not find MONGOLAB_URI config var. Please make sure .env file is present and use 'foreman start'");
+    mongoose.connect('mongodb://localhost/fimo');
+  }
 }
 
 if (process.env.NODE_ENV === "test") {
