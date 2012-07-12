@@ -2,7 +2,7 @@
 
   this.fimo.data = (function() {
     var server;
-    server = this.fimo.hostname;
+    server = this.fimo.hostname || "http://fimo.herokuapp.com";
     return {
       load: function(page, callback) {
         return $.ajax({
