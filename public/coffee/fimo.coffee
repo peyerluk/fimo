@@ -9,7 +9,7 @@ fimo.init = ->
   
   # init user
   fimo.user.init()
-
+  
   # navigation events
   $(document).on "click", "a", (event) ->
     event.preventDefault()
@@ -18,21 +18,30 @@ fimo.init = ->
     action = controller[path]
     if action
       action()
-    else
+    else if path != "" && path != "#"
       alert("#{ path } not implemented")
   
     undefined
   
+  # fimo.events.on "click", ->
+  #   alert("clicked")
+    
   # clicks on object images
   imageIdRegex = /\w*(?=_\w*\.(?=jpg|png))/i
   $(document).on "click", (event) ->
-    imageSrc = event.target.getAttribute("src")
-    if imageSrc
-      result = imageIdRegex.exec(imageSrc)
-      if result
-        controller.image(result[0])
+    if fimo.events.fire("click", event)
+        
+      imageSrc = event.target.getAttribute("src")
+      if imageSrc
+        result = imageIdRegex.exec(imageSrc)
+        if result
+          controller.image(result[0])
       
-    
+  
+  # render the welcome page
+  controller.welcome()
+  
+  
   # $(document).ready ->
   #   scrollable = new iScroll("page")
   

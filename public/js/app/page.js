@@ -7,26 +7,38 @@
       $page: $("#page"),
       $second: $("#second-page"),
       create: function(content, _arg) {
-        var element, scroll;
-        scroll = (_arg != null ? _arg : {}).scroll;
+        var scroll, slideDirection, _ref;
+        _ref = _arg != null ? _arg : {}, scroll = _ref.scroll, slideDirection = _ref.slideDirection;
         if (scroll == null) {
           scroll = true;
         }
-        this.destroyPage();
+        if (slideDirection == null) {
+          slideDirection = void 0;
+        }
         this.$page.hide();
         this.$second.hide();
+        this.destroyPage();
         this.$page.html(content);
-        element = this.$page[0];
-        element.style.webkitTransform = "translate3d(" + 320. + "px, 0, 0)";
-        this.$page.show();
-        element.style.webkitTransition = "-webkit-transform 400ms cubic-bezier(0.33, 0.66, 0.66, 1)";
-        element.style.webkitTransform = "translate3d(" + 0. + "px, 0, 0)";
         if (scroll) {
           scrollable = new iScroll(this.$page[0], {
             hScrollbar: false,
             vScrollbar: false
           });
         }
+        if (slideDirection) {
+          return this.slideIn(slideDirection);
+        } else {
+          return this.$page.show();
+        }
+      },
+      slideIn: function(slideDirection) {
+        var element, startX;
+        startX = slideDirection === "right" ? 320 : -320;
+        element = this.$page[0];
+        element.style.webkitTransform = "translate3d(" + startX + "px, 0, 0)";
+        this.$page.show();
+        element.style.webkitTransition = "-webkit-transform 400ms cubic-bezier(0.33, 0.66, 0.66, 1)";
+        element.style.webkitTransform = "translate3d(" + 0. + "px, 0, 0)";
         return this.swapPageContainers();
       },
       update: function(content) {
@@ -42,7 +54,8 @@
         var temp;
         temp = this.$page;
         this.$page = this.$second;
-        return this.$second = temp;
+        this.$second = temp;
+        return this.$page.html("");
       }
     };
   })();

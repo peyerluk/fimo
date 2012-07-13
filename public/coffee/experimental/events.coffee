@@ -1,22 +1,42 @@
+id = 0
+
 @fimo.events = do ->
   
+  ensureMethodId = (method) ->
+    if method.id == undefined
+      method.id = id++
+
+    return method
+        
   triggers: {}
 
-  add:(trigger, instance, method) ->
+  on: (trigger, method) ->
+    console.log("hallo")
     @triggers[trigger] ?= []
+    
+    ensureMethodId(method)
+    
     @triggers[trigger].push
       name: trigger
-      instance: instance
+      instance: method.id
       action: method
+      
+    console.log(@triggers)
 
-  remove:(trigger, instance) ->
-    @triggers = (listener for listener in @triggers[trigger] when listener.instance != instance)
+  off: (trigger, method) ->
+    if method && method.id != undefined
+      @triggers = (listener for listener in @triggers[trigger] when listener.instance != method.id)
 
-  removeTrigger:(trigger) ->
+  removeTrigger: (trigger) ->
     @triggers[trigger] = null
 
-  fire:(trigger, param) ->
-    return if !@triggers[trigger]
-
+  # return false if any of the listeners returns false, otherwise returns true
+  fire: (trigger) ->
+    result = true
+    return result if !@triggers[trigger]
+    
+    params = Array.prototype.slice.call(arguments, 1)
     for listener in @triggers[trigger]
-      listener.instance[listener.action]( param )
+      result = false if listener.action.call(undefined, params) == false
+        
+    return result

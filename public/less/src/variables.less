@@ -32,16 +32,18 @@
 
 // Typography
 // -------------------------
-@baseFontSize:          13px;
+@baseFontSize:          15px;
 @baseFontFamily:        "Helvetica Neue", Helvetica, Arial, sans-serif;
 @baseLineHeight:        18px;
-@altFontFamily:         Georgia, "Times New Roman", Times, serif;
+/*@altFontFamily:         Georgia, "Times New Roman", Times, serif;*/
 
 @logoFontFamily:        'Berkshire Swash', cursive;
 @headingsFontFamily:    'Alegreya SC', serif;
-/*@headingsFontFamily:    'Vollkorn', serif;*/
 @headingsFontWeight:    normal;    // instead of browser default, bold
 @headingsColor:         #39332C; // empty to use BS default, @textColor
+
+@handwritingFontFamily: 'Sunshiney', cursive;
+
 
 // Horizontal Line
 // -------------------------
@@ -86,10 +88,10 @@
 
 // Buttons
 // -------------------------
-@btnBackground:                     @gray;
-@btnBackgroundHighlight:            darken(@grayDarker, 30%);
-@btnBorder:                         #ccc;
-@btnLinkColor:                      @white;
+@btnBackground:                     @white;
+@btnBackgroundHighlight:            darken(@white, 10%);
+@btnBorder:                         #bbb;
+@btnLinkColor:                      @grayDarker;
 
 @btnPrimaryBackground:              @linkColor;
 @btnPrimaryBackgroundHighlight:     spin(@btnPrimaryBackground, 15%);
@@ -112,12 +114,12 @@
 
 // Input placeholder text color
 // -------------------------
-@placeholderText:         @grayLight;
+@placeholderText:         @gray;
 
 // Forms
 // -------------------------
 @inputBackground:               @white;
-@inputBorder:                   #ccc;
+@inputBorder:                   #999;
 @inputBorderRadius:             3px;
 @inputDisabledBackground:       @grayLighter;
 @formActionsBackground:         #f5f5f5;

@@ -10,11 +10,84 @@
   
 }
 
-.heading { 
-  margin: 20px 0;
+.heading {
+  margin: 70px 0 50px;
   min-width: 320px;
-  font-family: @logoFontFamily;
   text-align: center; 
+  h1 { font-family: @logoFontFamily; font-size:50px; margin-bottom: 5px; }
+}
+
+.box {
+  padding:10px 5px;
+  margin-bottom:5px;
+  background: @white;
+  border:1px solid @gray;
+  .border-radius(5px)
+}
+
+.narrow {
+  width:220px;
+  margin:10px auto;
+}
+
+.btn-large {
+  width:280px;
+  margin:2px 5px;
+}
+
+.btn-form {
+  width:218px;
+  padding: 5px 10px;
+  font-size: @baseFontSize + 2px;
+  line-height: normal;
+  .border-radius(5px);
+  margin: 2px;
+}
+
+.btn-twitter {
+  .buttonBackground(#67c9e7, #1da5ce);
+  color: @white;
+}
+
+.separator {
+  color: @grayDark;
+  text-align: center;
+  position: relative;
+  margin:7px 10px;
+  
+  span { 
+    display: inline-block;
+    &:before, &:after {
+      border-top: 1px solid @grayDark;
+      display: block;
+      height: 1px;
+      content: " ";
+      width: 40%;
+      position: absolute;
+      left: 0;
+      top: 10px;
+    }
+    &:after {
+      right: 0;  
+      left: auto; 
+    }
+  }
+}
+
+.handwriting {
+  text-align: center;
+  font-family: @handwritingFontFamily;
+  line-height:1.1;
+  font-size: 25px;
+  padding:40px 0;
+}
+
+.footnote {
+  padding: 5px;
+  text-align: center;
+  a {
+    color: #333;
+  }
 }
 
 #wall {

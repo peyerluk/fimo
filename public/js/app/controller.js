@@ -32,6 +32,9 @@
       return void 0;
     };
     return {
+      welcome: function() {
+        return page.create(views.welcome());
+      },
       wall: function() {
         return fimo.data.load("wall", function(content) {
           return page.create(views.wall({
@@ -43,7 +46,9 @@
         return fimo.data.load("image?id=" + id, function(content) {
           return page.create(views.image({
             imageUrl: content.url
-          }));
+          }), {
+            slideDirection: "right"
+          });
         });
       },
       profile: function() {
@@ -52,6 +57,9 @@
             username: content.username
           }));
         });
+      },
+      login: function() {
+        return page.create(views.login());
       },
       add: function() {
         return fimo.device.ready(function() {
