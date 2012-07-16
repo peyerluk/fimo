@@ -6,14 +6,30 @@
     return {
       $page: $("#page"),
       $second: $("#second-page"),
+      $navbar: $("#navbar"),
+      $title: $("#navbar-title"),
       create: function(content, _arg) {
-        var scroll, slideDirection, _ref;
-        _ref = _arg != null ? _arg : {}, scroll = _ref.scroll, slideDirection = _ref.slideDirection;
+        var navbar, scroll, slideDirection, title, _ref;
+        _ref = _arg != null ? _arg : {}, scroll = _ref.scroll, slideDirection = _ref.slideDirection, navbar = _ref.navbar, title = _ref.title;
+        fimo.events.fire("newPage");
         if (scroll == null) {
           scroll = true;
         }
         if (slideDirection == null) {
           slideDirection = void 0;
+        }
+        if (navbar == null) {
+          navbar = true;
+        }
+        if (navbar) {
+          this.$navbar.show();
+        } else {
+          this.$navbar.hide();
+        }
+        if (title) {
+          this.$title.text(title);
+        } else {
+          this.$title.html("&nbsp;");
         }
         this.$page.hide();
         this.$second.hide();
@@ -28,7 +44,11 @@
         if (slideDirection) {
           return this.slideIn(slideDirection);
         } else {
-          return this.$page.show();
+          this.$page.show();
+          return setTimeout(function() {
+            fimo.events.fire("pageLoaded");
+            return scrollable.refresh();
+          }, 0);
         }
       },
       slideIn: function(slideDirection) {
@@ -39,7 +59,10 @@
         this.$page.show();
         element.style.webkitTransition = "-webkit-transform 400ms cubic-bezier(0.33, 0.66, 0.66, 1)";
         element.style.webkitTransform = "translate3d(" + 0. + "px, 0, 0)";
-        return this.swapPageContainers();
+        this.swapPageContainers();
+        return setTimeout(function() {
+          return fimo.events.fire("pageLoaded");
+        }, 400);
       },
       update: function(content) {
         return true;

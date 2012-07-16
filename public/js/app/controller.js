@@ -33,7 +33,14 @@
     };
     return {
       welcome: function() {
-        return page.create(views.welcome());
+        return page.create(views.welcome(), {
+          navbar: false
+        });
+      },
+      jumbles: function() {
+        return page.create(views.jumbles(), {
+          title: "jumbles nearby"
+        });
       },
       wall: function() {
         return fimo.data.load("wall", function(content) {
@@ -59,7 +66,10 @@
         });
       },
       login: function() {
-        return page.create(views.login());
+        return page.create(views.login(), {
+          scroll: false,
+          navbar: false
+        });
       },
       add: function() {
         return fimo.device.ready(function() {

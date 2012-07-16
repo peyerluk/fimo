@@ -7,7 +7,7 @@
       url: "#{ server }/#{ page }",
       dataType: "json"
       success: (data) ->
-        console.log(data) if console
+        console.log("ajax: #{ data }") if console
         callback(data)
       error: (jqXHR, error) ->
         console.log(error)

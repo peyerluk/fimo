@@ -17,7 +17,7 @@ body {
   width: @deviceWidth;
   height: @deviceHeight - @navbarHeight;
   position: absolute;
-  top: 0;
+  top: @navbarHeight;
 }
 
 #navbar {
@@ -25,9 +25,5 @@ body {
   position: absolute;
   right: 0;
   left: 0;
-  bottom: 0;
-}
-
-h1 {
-  font-family: @headingsFontFamily;
+  top: 0;
 }

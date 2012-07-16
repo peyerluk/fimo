@@ -1,15 +1,30 @@
 @fimo.views = do ->
   
-  current: undefined
+  current = undefined
+  next = undefined
+    
+  fimo.events.on "newPage", ->
+    if current
+      current.destroy()
+      
+    current = undefined
+    
+  fimo.events.on "pageLoaded", ->
+    current = next
+    next = undefined
+    current.loaded() if current
   
-  add: (name, obj) ->
+  # add a view programmatically
+  add: (name, module) ->
+    view = module()
     this[name] = ->
-      # set listener to page created
-      obj.template.call(undefined, arguments)
+      next = view
+      view.template.apply(undefined, arguments)
+      
   
   welcome: _.template(
     """
-    <div class="heading">
+    <div class="welcome">
       <h1>Jumbler</h1>
       <h3>more than a market</h3>
     </div>
@@ -21,40 +36,12 @@
     
     <a href="register" class="btn btn-large">
       <i class="icon-user"></i>
-      Create an account
+      Signup with email
     </a>
     
     <div class="footnote">
       <a href="login">Already have a Jumbler Account?</a>
     </div>
-    """
-  )
-  
-  login: _.template(
-    """
-    <div class="narrow">
-      <div class="handwriting">
-        good to have you back!
-      </div>
-    
-      <form class="login">
-        <input type="email" placeholder="email" name="email">
-        <input type="password" placeholder="password" name="password">
-        <br>
-        <button class="btn btn-form btn-primary" type="submit">login</button>
-      </form>
-
-    </div>
-    """
-  )
-  
-  wall: _.template(
-    """
-    <ul id="wall" class="clearfix">
-    <% _.each(images, function(image) { %>
-      <li><img src='<%= image %>' width="100" height="100"></li> 
-    <% }); %>
-    </ul>
     """
   )
   

@@ -15,22 +15,23 @@
       triggers: {},
       on: function(trigger, method) {
         var _base, _ref;
-        console.log("hallo");
         if ((_ref = (_base = this.triggers)[trigger]) == null) {
           _base[trigger] = [];
         }
         ensureMethodId(method);
-        this.triggers[trigger].push({
+        return this.triggers[trigger].push({
           name: trigger,
           instance: method.id,
           action: method
         });
-        return console.log(this.triggers);
       },
       off: function(trigger, method) {
         var listener;
+        if (!this.triggers[trigger]) {
+          return;
+        }
         if (method && method.id !== void 0) {
-          return this.triggers = (function() {
+          this.triggers[trigger] = (function() {
             var _i, _len, _ref, _results;
             _ref = this.triggers[trigger];
             _results = [];
@@ -42,10 +43,13 @@
             }
             return _results;
           }).call(this);
+          if (this.triggers[trigger].length === 0) {
+            return this.triggers[trigger] = void 0;
+          }
         }
       },
       removeTrigger: function(trigger) {
-        return this.triggers[trigger] = null;
+        return this.triggers[trigger] = void 0;
       },
       fire: function(trigger) {
         var listener, params, result, _i, _len, _ref;
@@ -57,7 +61,7 @@
         _ref = this.triggers[trigger];
         for (_i = 0, _len = _ref.length; _i < _len; _i++) {
           listener = _ref[_i];
-          if (listener.action.call(void 0, params) === false) {
+          if (listener.action.apply(void 0, params) === false) {
             result = false;
           }
         }

@@ -11,7 +11,6 @@ id = 0
   triggers: {}
 
   on: (trigger, method) ->
-    console.log("hallo")
     @triggers[trigger] ?= []
     
     ensureMethodId(method)
@@ -21,14 +20,17 @@ id = 0
       instance: method.id
       action: method
       
-    console.log(@triggers)
 
   off: (trigger, method) ->
+    return if !@triggers[trigger]
+    
     if method && method.id != undefined
-      @triggers = (listener for listener in @triggers[trigger] when listener.instance != method.id)
+      @triggers[trigger] = (listener for listener in @triggers[trigger] when listener.instance != method.id)
+      @triggers[trigger] = undefined if @triggers[trigger].length == 0
+      
 
   removeTrigger: (trigger) ->
-    @triggers[trigger] = null
+    @triggers[trigger] = undefined
 
   # return false if any of the listeners returns false, otherwise returns true
   fire: (trigger) ->
@@ -37,6 +39,6 @@ id = 0
     
     params = Array.prototype.slice.call(arguments, 1)
     for listener in @triggers[trigger]
-      result = false if listener.action.call(undefined, params) == false
+      result = false if listener.action.apply(undefined, params) == false
         
     return result

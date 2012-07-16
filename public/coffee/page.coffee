@@ -3,11 +3,26 @@
   
   $page: $("#page")
   $second: $("#second-page")
+  $navbar: $("#navbar")
+  $title: $("#navbar-title")
   
-  create: (content, { scroll, slideDirection } = {}) ->
+  create: (content, { scroll, slideDirection, navbar, title } = {}) ->
+    fimo.events.fire("newPage")
+    
     scroll ?= true
     slideDirection ?= undefined
+    navbar ?= true
     
+    if navbar
+      @$navbar.show()
+    else
+      @$navbar.hide()
+      
+    if title 
+      @$title.text(title)
+    else
+      @$title.html("&nbsp;")
+      
     @$page.hide()    
     @$second.hide()
   
@@ -22,6 +37,13 @@
       # element = @$page[0]
       # element.style.webkitTransform = "translate3d(0px, 0, 0)"
       @$page.show()
+      
+      # wait for a cycle before firing "pageLoaded" to avoid artefact events
+      setTimeout ->
+        fimo.events.fire("pageLoaded")
+        scrollable.refresh()
+      , 0
+      
     
     
   slideIn: (slideDirection) ->
@@ -35,6 +57,11 @@
     element.style.webkitTransform = "translate3d(#{ 0 }px, 0, 0)"
 
     @swapPageContainers()
+    
+    setTimeout ->
+      fimo.events.fire("pageLoaded")
+    , 400
+    
     
   update: (content) ->
     # todo:

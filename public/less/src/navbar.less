@@ -2,10 +2,20 @@
   min-height: @navbarHeight;
   background: @black;
   color: @white;
-  padding-left:  20px;
-  padding-right: 20px;
+  padding-left:  5px;
+  padding-right: 5px;
   z-index: @zindexFixedNavbar;
   margin-bottom: 0; // remove 18px margin for static navbar  
+}
+
+#navbar-title {
+  width: 224px;
+  padding: 0 5px;
+  display: block;
+  text-align: center;
+  font-size: 18px;
+  line-height: @navbarHeight;
+  color: lighten(@black, 60%)
 }
 
 .navbar-items {
@@ -13,7 +23,7 @@
   left: 0;
   display: block;
   float: left;
-  margin: 0 10px 0 0;
+  margin: 0;
 }
 
 .navbar-items > li {
@@ -21,7 +31,7 @@
   float: left;
 }
 
-.navbar-items > li > a {
+/*.navbar-items > li > a {
   font-family: @logoFontFamily;
   float: none;
   display: block;
@@ -48,4 +58,4 @@
       .opacity(100);
     }
   }
-}
+}*/

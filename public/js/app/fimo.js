@@ -15,7 +15,7 @@
 
 
   fimo.init = function() {
-    var controller, imageIdRegex;
+    var controller;
     controller = fimo.controller;
     fimo.user.init();
     $(document).on("click", "a", function(event) {
@@ -30,18 +30,9 @@
       }
       return void 0;
     });
-    imageIdRegex = /\w*(?=_\w*\.(?=jpg|png))/i;
     $(document).on("click", function(event) {
-      var imageSrc, result;
-      if (fimo.events.fire("click", event)) {
-        imageSrc = event.target.getAttribute("src");
-        if (imageSrc) {
-          result = imageIdRegex.exec(imageSrc);
-          if (result) {
-            return controller.image(result[0]);
-          }
-        }
-      }
+      fimo.events.fire("click", event);
+      return void 0;
     });
     return controller.welcome();
   };

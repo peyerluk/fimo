@@ -10,7 +10,8 @@ fimo.init = ->
   # init user
   fimo.user.init()
   
-  # navigation events
+  # prevent link clicks from reloading page
+  # use internal routing instead
   $(document).on "click", "a", (event) ->
     event.preventDefault()
     
@@ -23,33 +24,11 @@ fimo.init = ->
   
     undefined
   
-  # fimo.events.on "click", ->
-  #   alert("clicked")
-    
-  # clicks on object images
-  imageIdRegex = /\w*(?=_\w*\.(?=jpg|png))/i
-  $(document).on "click", (event) ->
-    if fimo.events.fire("click", event)
-        
-      imageSrc = event.target.getAttribute("src")
-      if imageSrc
-        result = imageIdRegex.exec(imageSrc)
-        if result
-          controller.image(result[0])
+  # capture all clicks an send them to fimo.events
+  $(document).on "click", (event) ->   
+    fimo.events.fire("click", event)
+    undefined
       
-  
   # render the welcome page
   controller.welcome()
-  
-  
-  # $(document).ready ->
-  #   scrollable = new iScroll("page")
-  
-  # test experimental/google_scroll
-  # # prevent native scrolling
-  # $(document.body).on('touchmove', (event) ->
-  #   # This prevents native scrolling from happening.
-  #   event.preventDefault()
-  # , false)
-  # 
-  # scrollable = new fimo.Scroller($("#page")[0])
+  # controller.jumbles()

@@ -28,9 +28,16 @@
   # WELCOME
   
   welcome: ->
-    page.create(views.welcome())
+    page.create(views.welcome(), 
+      navbar: false
+    )
     
-  # OBJECTS
+  # Jumbles
+    
+  jumbles: ->
+    page.create(views.jumbles(),
+      title: "jumbles nearby"
+    )
     
   wall: ->
     fimo.data.load "wall", (content) ->
@@ -38,7 +45,9 @@
   
   image: (id) ->
     fimo.data.load "image?id=#{ id }", (content) ->
-      page.create(views.image({ imageUrl : content.url }), { slideDirection: "right" })
+      page.create(views.image({ imageUrl : content.url }),
+        slideDirection: "right"
+      )
   
   # USER
   
@@ -47,7 +56,10 @@
       page.create(views.profile({ username : content.username }))
       
   login: ->
-    page.create(views.login())
+    page.create(views.login(),
+      scroll: false
+      navbar: false
+    )
         
   # IMAGE HANDLING
   

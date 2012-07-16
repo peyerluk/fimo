@@ -10,7 +10,7 @@
           dataType: "json",
           success: function(data) {
             if (console) {
-              console.log(data);
+              console.log("ajax: " + data);
             }
             return callback(data);
           },
