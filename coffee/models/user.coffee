@@ -55,7 +55,7 @@ User.plugin(mongooseAuth, {
         if ( req.header('accept') == 'application/json' )
           console.log(errors)
           console.log("..from xhr")
-          res.json { success: false }, 500
+          res.json { success: false }, 403
         else
           console.log("..from http")
           res.redirect("/login")    

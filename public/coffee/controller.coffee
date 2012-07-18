@@ -60,17 +60,26 @@
       scroll: false
       navbar: false
     )
+    
+  register: ->
+    page.create(views.register(),
+      scroll: false
+      navbar: false
+    )  
         
   # IMAGE HANDLING
   
   add: ->
-    fimo.device.ready ->
-      pictureSource = Camera.PictureSourceType['PHOTOLIBRARY']
-      destinationType = Camera.DestinationType.FILE_URI
-      navigator.camera.getPicture onPhotoDataSuccess, onPhotoDataFail,
-        quality: 50, 
-        allowEdit: true,
-        destinationType: destinationType,
-        sourceType: pictureSource
-
+    # hack for browser views
+    if fimo.device.getAgent() == "browser"
+      page.create(views.newObject({ url: "" + hostname + "/objects/create", imageUrl: "http://upfront.io/assets/logo/logo-1.png", imageId: "5006bc6daa33c7100800004a" }))
+    else  
+      fimo.device.ready ->
+        pictureSource = Camera.PictureSourceType['PHOTOLIBRARY']
+        destinationType = Camera.DestinationType.FILE_URI
+        navigator.camera.getPicture onPhotoDataSuccess, onPhotoDataFail,
+          quality: 50, 
+          allowEdit: true,
+          destinationType: destinationType,
+          sourceType: pictureSource
     

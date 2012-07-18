@@ -6,10 +6,13 @@
       <div class="handwriting handwriting-login">
         good to have you back!
       </div>
-  
-      <form class="login">
-        <input type="email" placeholder="email" name="email">
-        <input type="text" placeholder="password" name="password">
+      
+      <div class="alert alert-error" style="display:none">
+        Die E-Mail Adresse oder das Passwort stimmt nicht.
+      </div>  
+      <form class="login" id="loginForm">
+        <input type="email" placeholder="email" name="email" id="email"}>
+        <input type="password" placeholder="password" name="password" id="password">
         <br>
         <button class="btn btn-form btn-primary" type="submit">login</button>
       </form>
@@ -20,14 +23,21 @@
   
   click: (event) ->
     console.log("clicked in login")
-    if event.target.getAttribute("type") == "submit"
-      event.preventDefault()
-      fimo.controller.jumbles()
     
     
   loaded: ->
     fimo.events.on "click", this.click
-  
+    $('#loginForm').submit ->
+      console.log "logging in on login form..."
+      fimo.data.post 'login', { email: $('input#email').val(), password: $('input#password').val() }, ->
+        # store user to local store
+        window.localStorage.setItem('user', JSON.stringify({ email: $('input#email').val(), password: $('input#password').val() }))
+        fimo.controller.jumbles()
+      , ->
+        $('.alert-error').show()
+        
+      false
+      
   destroy: ->
     fimo.events.off "click", this.click
     console.log("destroyed login")

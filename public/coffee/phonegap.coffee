@@ -2,6 +2,11 @@
   _ready = false
   _phoneGapStack = []
   
+  if navigator.userAgent.match(/(iPhone|iPod|iPad|Android|BlackBerry)/)
+    _agent = "phone"
+  else
+    _agent = "browser"
+  
   onDeviceReady = ->
     _ready = true
     for callback in _phoneGapStack
@@ -17,3 +22,5 @@
     else
       _phoneGapStack.push(callback)
     
+  getAgent: ->
+    return _agent;

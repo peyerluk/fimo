@@ -1,9 +1,14 @@
 (function() {
 
   this.fimo.device = (function() {
-    var onDeviceReady, _phoneGapStack, _ready;
+    var onDeviceReady, _agent, _phoneGapStack, _ready;
     _ready = false;
     _phoneGapStack = [];
+    if (navigator.userAgent.match(/(iPhone|iPod|iPad|Android|BlackBerry)/)) {
+      _agent = "phone";
+    } else {
+      _agent = "browser";
+    }
     onDeviceReady = function() {
       var callback, _i, _len, _results;
       _ready = true;
@@ -25,6 +30,9 @@
         } else {
           return _phoneGapStack.push(callback);
         }
+      },
+      getAgent: function() {
+        return _agent;
       }
     };
   })();

@@ -83,7 +83,7 @@ User.plugin(mongooseAuth, {
           console.log("..from xhr");
           return res.json({
             success: false
-          }, 500);
+          }, 403);
         } else {
           console.log("..from http");
           return res.redirect("/login");
