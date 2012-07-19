@@ -41,7 +41,7 @@
       # wait for a cycle before firing "pageLoaded" to avoid artefact events
       setTimeout ->
         fimo.events.fire("pageLoaded")
-        #scrollable.refresh()
+        scrollable.refresh() if scrollable
       , 0
       
     

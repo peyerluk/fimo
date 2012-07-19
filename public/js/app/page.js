@@ -46,7 +46,10 @@
         } else {
           this.$page.show();
           return setTimeout(function() {
-            return fimo.events.fire("pageLoaded");
+            fimo.events.fire("pageLoaded");
+            if (scrollable) {
+              return scrollable.refresh();
+            }
           }, 0);
         }
       },

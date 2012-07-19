@@ -19,6 +19,9 @@
     view = module()
     this[name] = ->
       next = view
+      #console.log("setting instanceArguments to: " + arguments[0]);
+      #console.log(arguments[0])
+      view['instanceArguments'] = arguments[0] || {}
       view.template.apply(undefined, arguments)
       
   
@@ -61,32 +64,5 @@
     <div>
       <h1><%= username %></h1>
     </div>
-    """
-  )
-  
-  newObject: _.template(
-    """
-      <form action="<%=url%>" method="POST">
-        <label>Your object</label>
-        <br/>
-        <img src="<%=imageUrl%>" alt="preview"/>
-        <br/>
-        <label>Why do you want to post this?</label>
-        <br/>
-        <select name="verbs" multiple size="6">
-        	<option selected="true">Give</option>
-        	<option>Swap</option>
-        	<option>Sell</option>
-        	<option>Like</option>
-        	<option>Want</option>
-        </select>
-        <br/>
-        <label>What is it? (optional)</label>
-        <br/>
-        <input type="text" class="span3" name="tags" placeholder="Add #tag" />
-        <br/>
-        <input type="hidden" name="imageId" value="<%=imageId%>" />
-        <button type="submit" class="btn">jumble it</button>
-      </form>
     """
   )

@@ -30,11 +30,7 @@ vows.describe("image model").addBatch({
         return image.save(function(err) {
           return _this.callback(err, image);
         });
-      }),
-      "should get saved": function(err, image) {
-        assert.isNull(err);
-        return assert.equal(image.url(), "http://fimo.s3.amazonaws.com/images/" + image.id + ".jpg");
-      }
+      })
     }
   },
   teardown: function() {

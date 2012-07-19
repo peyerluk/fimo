@@ -48,6 +48,9 @@
       page.create(views.image({ imageUrl : content.url }),
         slideDirection: "right"
       )
+      
+  addJumble: ->
+    page.create( views.newJumble() )
   
   # USER
   
@@ -66,16 +69,18 @@
       scroll: false
       navbar: false
     )  
+  
         
   # IMAGE HANDLING
   
   add: ->
     # hack for browser views
     if fimo.device.getAgent() == "browser"
-      page.create(views.newObject({ url: "" + hostname + "/objects/create", imageUrl: "http://upfront.io/assets/logo/logo-1.png", imageId: "5006bc6daa33c7100800004a" }))
+      page.create(views.newObject({ url: "" + hostname + "/objects/create", imageUrl: "http://fimo.s3.amazonaws.com/images/4fff0a2e0df2a02233000007_100x100.jpg", imageId: "4fff0a2e0df2a02233000007" }))
     else  
       fimo.device.ready ->
-        pictureSource = Camera.PictureSourceType['PHOTOLIBRARY']
+        # pictureSource = Camera.PictureSourceType['PHOTOLIBRARY']
+        pictureSource = Camera.PictureSourceType['CAMERA']
         destinationType = Camera.DestinationType.FILE_URI
         navigator.camera.getPicture onPhotoDataSuccess, onPhotoDataFail,
           quality: 50, 

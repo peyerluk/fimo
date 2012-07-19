@@ -58,6 +58,9 @@
           });
         });
       },
+      addJumble: function() {
+        return page.create(views.newJumble());
+      },
       profile: function() {
         return fimo.data.load("users/profile", function(content) {
           return page.create(views.profile({
@@ -81,13 +84,13 @@
         if (fimo.device.getAgent() === "browser") {
           return page.create(views.newObject({
             url: "" + hostname + "/objects/create",
-            imageUrl: "http://upfront.io/assets/logo/logo-1.png",
-            imageId: "5006bc6daa33c7100800004a"
+            imageUrl: "http://fimo.s3.amazonaws.com/images/4fff0a2e0df2a02233000007_100x100.jpg",
+            imageId: "4fff0a2e0df2a02233000007"
           }));
         } else {
           return fimo.device.ready(function() {
             var destinationType, pictureSource;
-            pictureSource = Camera.PictureSourceType['PHOTOLIBRARY'];
+            pictureSource = Camera.PictureSourceType['CAMERA'];
             destinationType = Camera.DestinationType.FILE_URI;
             return navigator.camera.getPicture(onPhotoDataSuccess, onPhotoDataFail, {
               quality: 50,
