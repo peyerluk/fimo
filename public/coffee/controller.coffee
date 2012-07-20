@@ -79,8 +79,8 @@
       page.create(views.newObject({ url: "" + hostname + "/objects/create", imageUrl: "http://fimo.s3.amazonaws.com/images/4fff0a2e0df2a02233000007_100x100.jpg", imageId: "4fff0a2e0df2a02233000007" }))
     else  
       fimo.device.ready ->
-        # pictureSource = Camera.PictureSourceType['PHOTOLIBRARY']
-        pictureSource = Camera.PictureSourceType['CAMERA']
+        pictureSource = Camera.PictureSourceType['PHOTOLIBRARY']
+        #pictureSource = Camera.PictureSourceType['CAMERA']
         destinationType = Camera.DestinationType.FILE_URI
         navigator.camera.getPicture onPhotoDataSuccess, onPhotoDataFail,
           quality: 50, 
