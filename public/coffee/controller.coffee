@@ -25,6 +25,14 @@
     ft.upload(imageURI,  "#{hostname}/upload", onPhotoUploadSuccess, onPhotoUploadFail, options)
     undefined
   
+  # BACK
+  
+  back: ->
+    # experimental!
+    lastPage = fimo.views.moveBack()
+    if lastPage
+      fimo.controller[lastPage]()
+    
   # WELCOME
   
   welcome: ->
@@ -41,7 +49,9 @@
     
   wall: ->
     fimo.data.load "wall", (content) ->
-      page.create(views.wall({ images : content.images }))
+      page.create(views.wall({ images : content.images }), 
+        title: content.title
+      )
   
   image: (id) ->
     fimo.data.load "image?id=#{ id }", (content) ->
@@ -50,7 +60,9 @@
       )
       
   addJumble: ->
-    page.create( views.newJumble() )
+    page.create( views.newJumble(),
+      scroll: false
+    )
   
   # USER
   
@@ -61,13 +73,11 @@
   login: ->
     page.create(views.login(),
       scroll: false
-      navbar: false
     )
     
   register: ->
     page.create(views.register(),
       scroll: false
-      navbar: false
     )  
   
         
@@ -75,8 +85,13 @@
   
   add: ->
     # hack for browser views
-    if fimo.device.getAgent() == "browser"
-      page.create(views.newObject({ url: "" + hostname + "/objects/create", imageUrl: "http://fimo.s3.amazonaws.com/images/4fff0a2e0df2a02233000007_100x100.jpg", imageId: "4fff0a2e0df2a02233000007" }))
+    if fimo.device.isRunning() # && fimo.device.getAgent() == "browser"
+      page.create(views.newObject(
+        url: "" + hostname + "/objects/create"
+        imageUrl: "http://fimo.s3.amazonaws.com/images/4fff0a2e0df2a02233000007_100x100.jpg"
+        imageId: "4fff0a2e0df2a02233000007"
+      ))
+      
     else  
       fimo.device.ready ->
         # pictureSource = Camera.PictureSourceType['PHOTOLIBRARY']

@@ -2,10 +2,11 @@
   
   template: _.template(
     """
+    <div style="min-height:500px;">
     <form id="newObjectForm">
       <label>Your object</label>
       <br/>
-      <img src="<%=imageUrl%>" alt="preview"/>
+      <img src="<%=imageUrl%>" width="100" height="100" alt="preview">
       <br/>
       <label>Why do you want to post this?</label>
       <br/>
@@ -23,6 +24,7 @@
       <br/>
       <button type="submit" class="btn">jumble it</button>
     </form>
+    </div>
     """
   )
   

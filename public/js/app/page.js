@@ -26,6 +26,7 @@
         } else {
           this.$navbar.hide();
         }
+        this.$title = $("#navbar-title");
         if (title) {
           this.$title.text(title);
         } else {
@@ -63,8 +64,10 @@
         element.style.webkitTransform = "translate3d(" + 0. + "px, 0, 0)";
         this.swapPageContainers();
         return setTimeout(function() {
+          element.style.webkitTransition = "";
+          element.style.webkitTransform = "";
           return fimo.events.fire("pageLoaded");
-        }, 400);
+        }, 420);
       },
       update: function(content) {
         return true;

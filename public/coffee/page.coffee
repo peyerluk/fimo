@@ -17,7 +17,8 @@
       @$navbar.show()
     else
       @$navbar.hide()
-      
+    
+    @$title = $("#navbar-title")
     if title 
       @$title.text(title)
     else
@@ -59,8 +60,10 @@
     @swapPageContainers()
     
     setTimeout ->
+      element.style.webkitTransition = "";
+      element.style.webkitTransform = "";
       fimo.events.fire("pageLoaded")
-    , 400
+    , 420
     
     
   update: (content) ->

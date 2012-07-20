@@ -23,4 +23,10 @@
       _phoneGapStack.push(callback)
     
   getAgent: ->
-    return _agent;
+    _agent
+    
+  isReady: ->
+    _ready
+  
+  isRunning: ->
+    window.cordova

@@ -1,11 +1,13 @@
 @fimo.views = do ->
   
+  history = []
   current = undefined
   next = undefined
     
   fimo.events.on "newPage", ->
     if current
       current.destroy()
+      history.push(current.name)
       
     current = undefined
     
@@ -13,10 +15,18 @@
     current = next
     next = undefined
     current.loaded() if current
+    fimo.events.fire("afterPageLoaded", current?.name)
   
   # add a view programmatically
+  moveBack: () ->
+    if history.length
+      history.pop()
+    else
+      undefined
+    
   add: (name, module) ->
     view = module()
+    view.name = name
     this[name] = ->
       next = view
       #console.log("setting instanceArguments to: " + arguments[0]);
@@ -44,17 +54,6 @@
     
     <div class="footnote">
       <a href="login">Already have a Jumbler Account?</a>
-    </div>
-    """
-  )
-  
-  image: _.template(
-    """
-    <div>
-      <nav class="top-nav">
-        <a href="wall" class="btn back">back</a>
-      </nav>
-      <img src='<%= imageUrl %>' class="portrait" width="300">
     </div>
     """
   )

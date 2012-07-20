@@ -32,6 +32,13 @@
       return void 0;
     };
     return {
+      back: function() {
+        var lastPage;
+        lastPage = fimo.views.moveBack();
+        if (lastPage) {
+          return fimo.controller[lastPage]();
+        }
+      },
       welcome: function() {
         return page.create(views.welcome(), {
           navbar: false
@@ -46,7 +53,9 @@
         return fimo.data.load("wall", function(content) {
           return page.create(views.wall({
             images: content.images
-          }));
+          }), {
+            title: content.title
+          });
         });
       },
       image: function(id) {
@@ -59,7 +68,9 @@
         });
       },
       addJumble: function() {
-        return page.create(views.newJumble());
+        return page.create(views.newJumble(), {
+          scroll: false
+        });
       },
       profile: function() {
         return fimo.data.load("users/profile", function(content) {
@@ -70,18 +81,16 @@
       },
       login: function() {
         return page.create(views.login(), {
-          scroll: false,
-          navbar: false
+          scroll: false
         });
       },
       register: function() {
         return page.create(views.register(), {
-          scroll: false,
-          navbar: false
+          scroll: false
         });
       },
       add: function() {
-        if (fimo.device.getAgent() === "browser") {
+        if (fimo.device.isRunning()) {
           return page.create(views.newObject({
             url: "" + hostname + "/objects/create",
             imageUrl: "http://fimo.s3.amazonaws.com/images/4fff0a2e0df2a02233000007_100x100.jpg",

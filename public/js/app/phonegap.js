@@ -33,6 +33,12 @@
       },
       getAgent: function() {
         return _agent;
+      },
+      isReady: function() {
+        return _ready;
+      },
+      isRunning: function() {
+        return window.cordova;
       }
     };
   })();

@@ -15,10 +15,15 @@
   text-align: center;
   font-size: 18px;
   line-height: @navbarHeight;
-  color: lighten(@black, 60%)
+  color: lighten(@black, 60%);
+  
+  &.navbar-title-back {
+    width:200px;
+  }
 }
 
 .navbar-items {
+  width: 310px;
   position: relative;
   left: 0;
   display: block;
@@ -29,6 +34,12 @@
 .navbar-items > li {
   display: block;
   float: left;
+  
+  &.navbar-right {
+    position: absolute;
+    top: 0px;
+    right: 0px;
+  }
 }
 
 /*.navbar-items > li > a {
