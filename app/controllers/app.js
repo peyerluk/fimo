@@ -32,24 +32,25 @@ app.post('/webUpload', function(req, res) {
 app.post('/upload', function(req, res) {
   if (req.loggedIn === false) {
     return res.send({
-      status: 403
-    });
+      status: 403,
+      message: "Not Logged in"
+    }, 403);
   } else {
     return fs.readFile(req.files.displayImage.path, function(err, data) {
       if (err) {
         console.log(err);
         return res.send({
           status: 500,
-          error: err
-        });
+          message: err
+        }, 500);
       } else {
         return Image.create(data, req.user, function(err, img) {
           if (err) {
             console.log(err);
             return res.send({
               status: 500,
-              error: err
-            });
+              message: err
+            }, 500);
           } else {
             return res.send(JSON.stringify({
               status: 200,
