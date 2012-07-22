@@ -13,7 +13,7 @@ if (process.env.NODE_ENV === void 0) {
         if (dev.address.split(".")[0] !== '127') {
           serverAddr = "@fimo.hostname = 'http://" + dev.address + ":" + expressPort + "'";
           fs.writeFileSync("public/coffee/hostname.coffee", serverAddr);
-          console.log("setting broser javascript: " + serverAddr);
+          console.log("setting browser javascript: " + serverAddr);
         }
       }
     }

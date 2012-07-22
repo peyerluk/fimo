@@ -1756,16 +1756,36 @@ input[type="submit"].btn {
     *padding-bottom: 1px;
   }
 } */
-/*.top-nav {
-  padding: 4px 10px;
-  margin-bottom: 5px;
-  background: @black;
-  background-color: rgba(0,0,0, 0.5);
-  
-  .back {
-    font-family: @logoFontFamily;
-  }
-}*/
+.tags {
+  list-style: none;
+  margin: 0;
+}
+.tags li {
+  float: left;
+  display: block;
+  height: 26px;
+  background-image: url(/img/background/tag-tip.png);
+  background-repeat: no-repeat;
+  background-position: top left;
+  margin-left: -10px;
+}
+.tags li a {
+  color: #666;
+  display: block;
+  margin-left: 20px;
+  height: 26px;
+  padding: 4px 15px 0 0;
+  background-image: url(/img/background/tag.png);
+  background-repeat: no-repeat;
+  background-position: top right;
+}
+.tags li:first-child {
+  background-image: url(/img/background/tag-tip-first.png);
+  background-repeat: no-repeat;
+  background-position: top left;
+  margin-left: 0px;
+}
+/* EXPLORE JUMBLES */
 .jumble-wall {
   padding-bottom: 30px;
 }
@@ -1789,14 +1809,48 @@ input[type="submit"].btn {
 .jumble .jumble-image {
   height: 200px;
   overflow: hidden;
+  position: relative;
 }
 .jumble .jumble-image img {
   margin-top: -20px;
+}
+.jumble .jumble-image .tags {
+  position: absolute;
+  bottom: 8px;
+  left: 8px;
 }
 .jumble .description {
   padding: 5px 5px;
   border-top: 1px solid #f2f2f2;
 }
+/* JUMBLE WALL */
+#wall {
+  margin: 0;
+  list-style: none;
+  padding-top: 5px;
+}
+#wall li {
+  float: left;
+  padding: 0 0 3px 3px;
+}
+#wall img {
+  border: 1px solid #ffffff;
+  cursor: pointer;
+}
+/* OBJECT */
+.object-image {
+  margin: 3px 8px;
+  position: relative;
+}
+.object-image .tags {
+  position: absolute;
+  bottom: 8px;
+  left: 8px;
+}
+.portrait {
+  border: 2px solid #ffffff;
+}
+/* WELCOME */
 .welcome {
   margin: 50px 0 50px;
   min-width: 320px;
@@ -1807,19 +1861,7 @@ input[type="submit"].btn {
   font-size: 50px;
   margin-bottom: 5px;
 }
-.box {
-  padding: 10px 5px;
-  margin-bottom: 5px;
-  background: #ffffff;
-  border: 1px solid #999999;
-  -webkit-border-radius: 5px;
-  -moz-border-radius: 5px;
-  border-radius: 5px;
-}
-.narrow {
-  width: 220px;
-  margin: 10px auto;
-}
+/* BUTTONS */
 .btn-large {
   width: 280px;
   margin: 2px 5px;
@@ -1864,6 +1906,19 @@ input[type="submit"].btn {
 .btn-twitter.active {
   background-color: #1781a1 \9;
 }
+.box {
+  padding: 10px 5px;
+  margin-bottom: 5px;
+  background: #ffffff;
+  border: 1px solid #999999;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+}
+.narrow {
+  width: 220px;
+  margin: 10px auto;
+}
 .separator {
   color: #333333;
   text-align: center;
@@ -1907,7 +1962,7 @@ input[type="submit"].btn {
   padding: 40px 0;
 }
 .handwriting-jumbles {
-  padding: 20px 0;
+  padding: 20px 8px;
 }
 .footnote {
   padding: 5px;
@@ -1916,24 +1971,7 @@ input[type="submit"].btn {
 .footnote a {
   color: #333;
 }
-#wall {
-  margin: 0;
-  list-style: none;
-  padding-top: 5px;
-}
-#wall li {
-  float: left;
-  padding: 0 0 3px 3px;
-}
-#wall img {
-  border: 1px solid #ffffff;
-  cursor: pointer;
-}
 /*.back {
   display: block;
   color: @black;
 }*/
-.portrait {
-  margin: 3px 8px;
-  border: 2px solid #ffffff;
-}

@@ -23,7 +23,7 @@
         });
       },
       destroy: function() {
-        return console.log("destroyed login");
+        return true;
       }
     };
   });

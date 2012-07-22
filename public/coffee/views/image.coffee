@@ -3,7 +3,13 @@
   template: _.template(
     """
     <div>
-      <img src='<%= imageUrl %>' class="portrait" width="300">
+      <div class="object-image">
+        <img src='<%= imageUrl %>' class="portrait" width="300">
+        <ul class="tags">
+          <li><a href="">vintage</a></li>
+          <li><a href="">decoration</a></li>
+        </ul>
+      </div>
     </div>
     """
   )
@@ -18,7 +24,6 @@
   
   destroy: ->
     fimo.events.off "click", this.click
-    console.log("destroyed image")
 
 
 

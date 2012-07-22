@@ -1,25 +1,38 @@
 (function() {
 
   this.fimo.page = (function() {
-    var scrollable;
-    scrollable = void 0;
     return {
       $page: $("#page"),
       $second: $("#second-page"),
       $navbar: $("#navbar"),
       $title: $("#navbar-title"),
+      currentLevel: 1,
       create: function(content, _arg) {
-        var navbar, scroll, slideDirection, title, _ref;
-        _ref = _arg != null ? _arg : {}, scroll = _ref.scroll, slideDirection = _ref.slideDirection, navbar = _ref.navbar, title = _ref.title;
+        var level, navbar, scroll, slideDirection, title, _ref, _ref1;
+        _ref = _arg != null ? _arg : {}, scroll = _ref.scroll, slideDirection = _ref.slideDirection, navbar = _ref.navbar, title = _ref.title, level = _ref.level;
         fimo.events.fire("newPage");
         if (scroll == null) {
           scroll = true;
+        }
+        if ((_ref1 = this.scrollable) == null) {
+          this.scrollable = void 0;
+        }
+        if (level == null) {
+          level = void 0;
         }
         if (slideDirection == null) {
           slideDirection = void 0;
         }
         if (navbar == null) {
           navbar = true;
+        }
+        if (level) {
+          if (level > this.currentLevel) {
+            slideDirection = "right";
+          } else if (level < this.currentLevel) {
+            slideDirection = "left";
+          }
+          this.currentLevel = level;
         }
         if (navbar) {
           this.$navbar.show();
@@ -37,7 +50,7 @@
         this.destroyPage();
         this.$page.html(content);
         if (scroll) {
-          scrollable = new iScroll(this.$page[0], {
+          this.scrollable = new iScroll(this.$page[0], {
             hScrollbar: false,
             vScrollbar: false
           });
@@ -48,14 +61,15 @@
           this.$page.show();
           return setTimeout(function() {
             fimo.events.fire("pageLoaded");
-            if (scrollable) {
-              return scrollable.refresh();
+            if (this.scrollable) {
+              return this.scrollable.refresh();
             }
           }, 0);
         }
       },
       slideIn: function(slideDirection) {
-        var element, startX;
+        var element, startX,
+          _this = this;
         startX = slideDirection === "right" ? 320 : -320;
         element = this.$page[0];
         element.style.webkitTransform = "translate3d(" + startX + "px, 0, 0)";
@@ -66,16 +80,19 @@
         return setTimeout(function() {
           element.style.webkitTransition = "";
           element.style.webkitTransform = "";
-          return fimo.events.fire("pageLoaded");
+          fimo.events.fire("pageLoaded");
+          if (_this.scrollable) {
+            return _this.scrollable.refresh();
+          }
         }, 420);
       },
       update: function(content) {
         return true;
       },
       destroyPage: function() {
-        if (scrollable) {
-          scrollable.destroy();
-          return scrollable = void 0;
+        if (this.scrollable) {
+          this.scrollable.destroy();
+          return this.scrollable = void 0;
         }
       },
       swapPageContainers: function() {

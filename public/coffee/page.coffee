@@ -1,18 +1,28 @@
 @fimo.page = do ->
-  scrollable = undefined
   
   $page: $("#page")
   $second: $("#second-page")
   $navbar: $("#navbar")
   $title: $("#navbar-title")
+  currentLevel: 1
   
-  create: (content, { scroll, slideDirection, navbar, title } = {}) ->
+  create: (content, { scroll, slideDirection, navbar, title, level } = {}) ->
     fimo.events.fire("newPage")
     
     scroll ?= true
+    @scrollable ?= undefined
+    level ?= undefined
     slideDirection ?= undefined
     navbar ?= true
     
+    if level
+      if level > @currentLevel
+        slideDirection = "right"
+      else if level < @currentLevel
+        slideDirection = "left"
+        
+      @currentLevel = level
+        
     if navbar
       @$navbar.show()
     else
@@ -30,7 +40,7 @@
     @destroyPage()
     
     @$page.html(content)
-    scrollable = new iScroll(@$page[0], { hScrollbar: false, vScrollbar: false }) if scroll
+    @scrollable = new iScroll(@$page[0], { hScrollbar: false, vScrollbar: false }) if scroll
     
     if slideDirection
       @slideIn(slideDirection)
@@ -42,7 +52,7 @@
       # wait for a cycle before firing "pageLoaded" to avoid artefact events
       setTimeout ->
         fimo.events.fire("pageLoaded")
-        scrollable.refresh() if scrollable
+        @scrollable.refresh() if @scrollable
       , 0
       
     
@@ -59,10 +69,11 @@
 
     @swapPageContainers()
     
-    setTimeout ->
+    setTimeout =>
       element.style.webkitTransition = "";
       element.style.webkitTransform = "";
       fimo.events.fire("pageLoaded")
+      @scrollable.refresh() if @scrollable
     , 420
     
     
@@ -71,9 +82,9 @@
     true
     
   destroyPage: ->
-    if scrollable
-      scrollable.destroy()
-      scrollable = undefined
+    if @scrollable
+      @scrollable.destroy()
+      @scrollable = undefined
       
   swapPageContainers: ->
     temp = @$page

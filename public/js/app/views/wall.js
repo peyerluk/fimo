@@ -7,7 +7,6 @@
       template: _.template("<ul id=\"wall\" class=\"clearfix\">\n<% _.each(images, function(image) { %>\n  <li><img src='<%= image %>' width=\"100\" height=\"100\"></li> \n<% }); %>\n</ul>"),
       click: function(event) {
         var imageSrc, result;
-        console.log("clicked in wall");
         imageSrc = event.target.getAttribute("src");
         if (imageSrc) {
           result = imageIdRegex.exec(imageSrc);
@@ -20,8 +19,7 @@
         return fimo.events.on("click", this.click);
       },
       destroy: function() {
-        fimo.events.off("click", this.click);
-        return console.log("destroyed wall");
+        return fimo.events.off("click", this.click);
       }
     };
   });

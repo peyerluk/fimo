@@ -1,14 +1,5 @@
-/*.top-nav {
-  padding: 4px 10px;
-  margin-bottom: 5px;
-  background: @black;
-  background-color: rgba(0,0,0, 0.5);
-  
-  .back {
-    font-family: @logoFontFamily;
-  }
-}*/
 
+/* EXPLORE JUMBLES */
 .jumble-wall { padding-bottom:30px; }
 .jumble {
   border-right: 1px solid darken(@white, 35%);
@@ -29,6 +20,12 @@
     height:200px;
     overflow:hidden;
     img { margin-top:-20px;}
+    position: relative;
+    .tags {
+      position: absolute;
+      bottom: 8px;
+      left: 8px;
+    }
   }
   .description { 
     padding: 5px 5px;
@@ -36,6 +33,39 @@
   }
 }
 
+/* JUMBLE WALL */
+#wall {
+  margin: 0;
+  list-style: none;
+  padding-top: 5px;
+  
+  li {
+    float: left;
+    padding:0 0 3px 3px;
+  }
+  
+  img {
+    border: 1px solid @white;
+    cursor: pointer;
+  }
+}
+
+/* OBJECT */
+.object-image {
+  margin:3px 8px;
+  position: relative;
+  .tags {
+    position: absolute;
+    bottom: 8px;
+    left: 8px;
+  }
+}
+
+.portrait {
+  border: 2px solid @white;
+}
+
+/* WELCOME */
 .welcome {
   margin: 50px 0 50px;
   min-width: 320px;
@@ -43,19 +73,7 @@
   h1 { font-family: @logoFontFamily; font-size:50px; margin-bottom: 5px; }
 }
 
-.box {
-  padding:10px 5px;
-  margin-bottom:5px;
-  background: @white;
-  border:1px solid @gray;
-  .border-radius(5px)
-}
-
-.narrow {
-  width:220px;
-  margin:10px auto;
-}
-
+/* BUTTONS */
 .btn-large {
   width:280px;
   margin:2px 5px;
@@ -73,6 +91,19 @@
 .btn-twitter {
   .buttonBackground(#67c9e7, #1da5ce);
   color: @white;
+}
+
+.box {
+  padding:10px 5px;
+  margin-bottom:5px;
+  background: @white;
+  border:1px solid @gray;
+  .border-radius(5px)
+}
+
+.narrow {
+  width:220px;
+  margin:10px auto;
 }
 
 .separator {
@@ -110,7 +141,7 @@
 }
 
 .handwriting-login { padding:40px 0; }
-.handwriting-jumbles { padding:20px 0; }
+.handwriting-jumbles { padding:20px 8px; }
 
 .footnote {
   padding: 5px;
@@ -120,28 +151,7 @@
   }
 }
 
-#wall {
-  margin: 0;
-  list-style: none;
-  padding-top: 5px;
-  
-  li {
-    float: left;
-    padding:0 0 3px 3px;
-  }
-  
-  img {
-    border: 1px solid @white;
-    cursor: pointer;
-  }
-}
-
 /*.back {
   display: block;
   color: @black;
 }*/
-
-.portrait {
-  margin: 3px 8px;
-  border: 2px solid @white;
-}

@@ -28,7 +28,6 @@
   loaded: ->
     fimo.events.on "click", this.click
     $('#loginForm').submit ->
-      console.log "logging in on login form..."
       fimo.data.post 'login', { email: $('input#email').val(), password: $('input#password').val() }, ->
         # store user to local store
         window.localStorage.setItem('user', JSON.stringify({ email: $('input#email').val(), password: $('input#password').val() }))
@@ -40,4 +39,3 @@
       
   destroy: ->
     fimo.events.off "click", this.click
-    console.log("destroyed login")

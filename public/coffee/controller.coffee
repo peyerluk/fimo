@@ -45,18 +45,20 @@
   jumbles: ->
     page.create(views.jumbles(),
       title: "jumbles nearby"
+      level: 1
     )
     
   wall: ->
     fimo.data.load "wall", (content) ->
       page.create(views.wall({ images : content.images }), 
         title: content.title
+        level: 2
       )
   
   image: (id) ->
     fimo.data.load "image?id=#{ id }", (content) ->
       page.create(views.image({ imageUrl : content.url }),
-        slideDirection: "right"
+        level: 3
       )
       
   addJumble: ->

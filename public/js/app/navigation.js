@@ -8,9 +8,7 @@
     back = _.template("<ul class=\"navbar-items\">\n  <li><a href=\"<%= back %>\" class=\"btn btn-navbar\">back</a></li>\n  <li><div id=\"navbar-title\" class=\"navbar-title-back\"><%= title %></div></li>\n</ul>");
     return fimo.events.on("afterPageLoaded", function(viewName) {
       var title;
-      console.log("afterPageLoaded: " + viewName);
       title = $("#navbar-title").html();
-      console.log(title);
       switch (viewName) {
         case "jumbles":
           return $nav.html(jumbles({

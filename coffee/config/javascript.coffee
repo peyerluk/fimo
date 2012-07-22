@@ -14,5 +14,5 @@ if process.env.NODE_ENV == undefined
         unless dev.address.split(".")[0] == '127' # skip the local loopback
           serverAddr = "@fimo.hostname = 'http://#{dev.address}:#{ expressPort }'"
           fs.writeFileSync("public/coffee/hostname.coffee", serverAddr)
-          console.log("setting broser javascript: #{ serverAddr }")
+          console.log("setting browser javascript: #{ serverAddr }")
   

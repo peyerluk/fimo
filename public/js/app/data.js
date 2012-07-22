@@ -1,23 +1,29 @@
 (function() {
 
   this.fimo.data = (function() {
-    var server;
+    var cache, server;
     server = this.fimo.hostname || "http://fimo.herokuapp.com";
+    cache = fimo.cache;
     return {
       load: function(page, callback) {
-        return $.ajax({
-          url: "" + server + "/" + page,
-          dataType: "json",
-          success: function(data) {
-            if (console) {
-              console.log("ajax: " + data);
+        var cached;
+        if (cached = cache.get(page)) {
+          return callback(cached);
+        } else {
+          return $.ajax({
+            url: "" + server + "/" + page,
+            dataType: "json",
+            success: function(data) {
+              cache.set(page, data, {
+                 secondsToLive: 10 * 60
+              });
+              return callback(data);
+            },
+            error: function(jqXHR, error) {
+              return console.log(error);
             }
-            return callback(data);
-          },
-          error: function(jqXHR, error) {
-            return console.log(error);
-          }
-        });
+          });
+        }
       },
       post: function(page, data, callback, errorCallback) {
         console.log("posting to " + server + "/" + page);

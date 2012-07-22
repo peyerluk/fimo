@@ -1,1 +1,2 @@
 web: nodemon app.js
+watch: bundle exec guard

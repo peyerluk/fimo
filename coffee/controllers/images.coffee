@@ -18,7 +18,7 @@ app.get '/wall', (req, res) ->
 app.get '/image', (req, res) ->
   Image.findById req.query.id, (err, image) ->
     if err
-      res.send
+      return res.send
         title: 'An Error occurred'
         error: err
         status: 500

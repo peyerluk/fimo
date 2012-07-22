@@ -2,7 +2,7 @@
 
   this.fimo.views.add("image", function() {
     return {
-      template: _.template("<div>\n  <img src='<%= imageUrl %>' class=\"portrait\" width=\"300\">\n</div>"),
+      template: _.template("<div>\n  <div class=\"object-image\">\n    <img src='<%= imageUrl %>' class=\"portrait\" width=\"300\">\n    <ul class=\"tags\">\n      <li><a href=\"\">vintage</a></li>\n      <li><a href=\"\">decoration</a></li>\n    </ul>\n  </div>\n</div>"),
       click: function(event) {
         return true;
       },
@@ -10,8 +10,7 @@
         return fimo.events.on("click", this.click);
       },
       destroy: function() {
-        fimo.events.off("click", this.click);
-        return console.log("destroyed image");
+        return fimo.events.off("click", this.click);
       }
     };
   });

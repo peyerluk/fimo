@@ -31,7 +31,7 @@ app.get('/wall', function(req, res) {
 app.get('/image', function(req, res) {
   return Image.findById(req.query.id, function(err, image) {
     if (err) {
-      res.send({
+      return res.send({
         title: 'An Error occurred',
         error: err,
         status: 500

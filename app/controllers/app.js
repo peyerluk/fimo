@@ -31,11 +31,13 @@ app.post('/webUpload', function(req, res) {
 
 app.post('/upload', function(req, res) {
   if (req.loggedIn === false) {
+    console.log("not allowed");
     return res.send({
       status: 403,
       message: "Not Logged in"
     }, 403);
   } else {
+    console.log("uploading...");
     return fs.readFile(req.files.displayImage.path, function(err, data) {
       if (err) {
         console.log(err);
@@ -52,6 +54,7 @@ app.post('/upload', function(req, res) {
               message: err
             }, 500);
           } else {
+            console.log(img);
             return res.send(JSON.stringify({
               status: 200,
               imageId: img._id,

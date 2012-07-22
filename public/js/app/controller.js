@@ -46,7 +46,8 @@
       },
       jumbles: function() {
         return page.create(views.jumbles(), {
-          title: "jumbles nearby"
+          title: "jumbles nearby",
+          level: 1
         });
       },
       wall: function() {
@@ -54,7 +55,8 @@
           return page.create(views.wall({
             images: content.images
           }), {
-            title: content.title
+            title: content.title,
+            level: 2
           });
         });
       },
@@ -63,7 +65,7 @@
           return page.create(views.image({
             imageUrl: content.url
           }), {
-            slideDirection: "right"
+            level: 3
           });
         });
       },

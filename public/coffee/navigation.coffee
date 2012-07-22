@@ -1,7 +1,5 @@
 @fimo.navigation = do ->
   
-  # state: hidden, jumbles, jumble, view object, create jumble, create object
-  
   $nav = $("#navbar")        
   
   jumbles = _.template(
@@ -34,9 +32,7 @@
   );
   
   fimo.events.on "afterPageLoaded", (viewName) ->
-    console.log("afterPageLoaded: #{ viewName }")
     title = $("#navbar-title").html()
-    console.log(title)
     
     switch viewName
       when "jumbles"

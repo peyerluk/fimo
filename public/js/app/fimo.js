@@ -34,7 +34,8 @@
       fimo.events.fire("click", event);
       return void 0;
     });
-    return controller.welcome();
+    controller.welcome();
+    return fimo.cache.clean();
   };
 
 }).call(this);

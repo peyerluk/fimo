@@ -26,6 +26,10 @@
         <h2>Rearrange your home</h2>
         <div class="jumble-image">
           <img src="http://fimo.s3.amazonaws.com/images/4fff0a570df2a02233000017_300x.jpg" width="300">
+          <ul class="tags">
+            <li><a href="">decoration</a></li>
+            <li><a href="">modern</a></li>
+          </ul>
         </div>
         <div class="description">Zürich</div>
       </div>
@@ -33,6 +37,11 @@
         <h2>Wooden Furniture</h2>
         <div class="jumble-image">
           <img src="http://fimo.s3.amazonaws.com/images/4fff0a2e0df2a02233000007_300x.jpg" width="300">
+          <ul class="tags">
+            <li><a href="">wood</a></li>
+            <li><a href="">vintage</a></li>
+            <li><a href="">furniture</a></li>
+          </ul>
         </div>
         <div class="description">Zürich</div>
       </div>
@@ -41,7 +50,6 @@
   )
   
   click: (event) ->
-    console.log("clicked in jumbles")
     jumble = $(event.target).parents(".jumble")
     if jumble.length
       fimo.controller.wall()
@@ -51,6 +59,5 @@
   
   destroy: ->
     fimo.events.off "click", this.click
-    console.log("destroyed jumbles")
     
     

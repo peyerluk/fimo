@@ -12,7 +12,6 @@
   )
   
   click: (event) ->
-    console.log("clicked in wall")
     imageSrc = event.target.getAttribute("src")
     if imageSrc
       result = imageIdRegex.exec(imageSrc)
@@ -25,5 +24,4 @@
   
   destroy: ->
     fimo.events.off "click", this.click
-    console.log("destroyed wall")
 

@@ -9,7 +9,6 @@
       loaded: function() {
         fimo.events.on("click", this.click);
         return $('#loginForm').submit(function() {
-          console.log("logging in on login form...");
           fimo.data.post('login', {
             email: $('input#email').val(),
             password: $('input#password').val()
@@ -26,8 +25,7 @@
         });
       },
       destroy: function() {
-        fimo.events.off("click", this.click);
-        return console.log("destroyed login");
+        return fimo.events.off("click", this.click);
       }
     };
   });

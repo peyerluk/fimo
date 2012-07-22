@@ -35,4 +35,4 @@
       false
       
   destroy: ->
-    console.log("destroyed login")
+    true
