@@ -1,4 +1,8 @@
 
+.page { 
+  margin: 0 10px;
+}
+
 /* EXPLORE JUMBLES */
 .jumble-wall { padding-bottom:30px; }
 .jumble {
@@ -65,6 +69,10 @@
   border: 2px solid @white;
 }
 
+.preview {
+  padding: 0 0 0 100px;
+}
+
 /* WELCOME */
 .welcome {
   margin: 50px 0 50px;
@@ -79,13 +87,17 @@
   margin:2px 5px;
 }
 
-.btn-form {
+.btn-form, btn-form-large {
   width:218px;
   padding: 5px 10px;
   font-size: @baseFontSize + 2px;
   line-height: normal;
   .border-radius(5px);
   margin: 2px;
+}
+
+.btn-form-large {
+  width:298px;
 }
 
 .btn-twitter {
@@ -110,9 +122,9 @@
   color: @grayDark;
   text-align: center;
   position: relative;
-  margin:7px 10px;
+  margin: 7px 0;
   
-  span { 
+  em { 
     display: inline-block;
     &:before, &:after {
       border-top: 1px solid @grayDark;
@@ -127,6 +139,37 @@
     &:after {
       right: 0;  
       left: auto; 
+    }
+  }
+}
+.separator-1 {
+  em {
+    &:before, &:after {
+      width: 30%;
+    }
+  }
+}
+
+.separator-2 {
+  em {
+    &:before, &:after {
+      width: 25%;
+    }
+  }
+}
+
+.separator-3 {
+  em {
+    &:before, &:after {
+      width: 20%;
+    }
+  }
+}
+
+.separator-4 {
+  em {
+    &:before, &:after {
+      width: 10%;
     }
   }
 }

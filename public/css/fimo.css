@@ -321,6 +321,12 @@ input[type="checkbox"]:focus {
 .checkbox.inline + .checkbox.inline {
   margin-left: 10px;
 }
+/*.input-mini       { width: 60px; }
+.input-small      { width: 90px; }
+.input-medium     { width: 150px; }
+.input-large      { width: 210px; }
+.input-xlarge     { width: 270px; }
+.input-xxlarge    { width: 530px; }*/
 .input-mini {
   width: 60px;
 }
@@ -331,13 +337,7 @@ input[type="checkbox"]:focus {
   width: 150px;
 }
 .input-large {
-  width: 210px;
-}
-.input-xlarge {
-  width: 270px;
-}
-.input-xxlarge {
-  width: 530px;
+  width: 290px;
 }
 input[class*="span"],
 select[class*="span"],
@@ -1785,6 +1785,9 @@ input[type="submit"].btn {
   background-position: top left;
   margin-left: 0px;
 }
+.page {
+  margin: 0 10px;
+}
 /* EXPLORE JUMBLES */
 .jumble-wall {
   padding-bottom: 30px;
@@ -1850,6 +1853,9 @@ input[type="submit"].btn {
 .portrait {
   border: 2px solid #ffffff;
 }
+.preview {
+  padding: 0 0 0 100px;
+}
 /* WELCOME */
 .welcome {
   margin: 50px 0 50px;
@@ -1866,7 +1872,8 @@ input[type="submit"].btn {
   width: 280px;
   margin: 2px 5px;
 }
-.btn-form {
+.btn-form,
+btn-form-large {
   width: 218px;
   padding: 5px 10px;
   font-size: 17px;
@@ -1875,6 +1882,9 @@ input[type="submit"].btn {
   -moz-border-radius: 5px;
   border-radius: 5px;
   margin: 2px;
+}
+.btn-form-large {
+  width: 298px;
 }
 .btn-twitter {
   background-color: #49bbdd;
@@ -1923,13 +1933,13 @@ input[type="submit"].btn {
   color: #333333;
   text-align: center;
   position: relative;
-  margin: 7px 10px;
+  margin: 7px 0;
 }
-.separator span {
+.separator em {
   display: inline-block;
 }
-.separator span:before,
-.separator span:after {
+.separator em:before,
+.separator em:after {
   border-top: 1px solid #333333;
   display: block;
   height: 1px;
@@ -1939,9 +1949,25 @@ input[type="submit"].btn {
   left: 0;
   top: 10px;
 }
-.separator span:after {
+.separator em:after {
   right: 0;
   left: auto;
+}
+.separator-1 em:before,
+.separator-1 em:after {
+  width: 30%;
+}
+.separator-2 em:before,
+.separator-2 em:after {
+  width: 25%;
+}
+.separator-3 em:before,
+.separator-3 em:after {
+  width: 20%;
+}
+.separator-4 em:before,
+.separator-4 em:after {
+  width: 10%;
 }
 .handwriting {
   text-align: center;

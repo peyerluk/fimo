@@ -2,14 +2,13 @@
   
   template: _.template(
     """
-    <div style="min-height:500px;">
-    <form id="newObjectForm">
-      <label>Your object</label>
+    <div class="page" style="min-height:0px;">
+    <form id="newObjectForm"s>
+      <div class="separator separator-1"><em>Your object</em></div>
+      <img src="<%=imageUrl%>" class="preview" width="100" height="100" alt="preview">
       <br/>
-      <img src="<%=imageUrl%>" width="100" height="100" alt="preview">
-      <br/>
-      <label>Why do you want to post this?</label>
-      <br/>
+      
+      <div class="separator separator-4"><em>Why do you want to post this?</em></div>
       <select name="verbs" multiple size="6" id="verbs">
       	<option selected="true">Give</option>
       	<option>Swap</option>
@@ -18,11 +17,12 @@
       	<option>Want</option>
       </select>
       <br/>
-      <label>What is it? (optional)</label>
+      
+      <div class="separator separator-2"><em>What is it? (optional)</em></div>
+      <input type="text" class="input-large" name="tags" placeholder="Add #tag" id="tags" />
       <br/>
-      <input type="text" class="span3" name="tags" placeholder="Add #tag" id="tags" />
-      <br/>
-      <button type="submit" class="btn">jumble it</button>
+      
+      <button type="submit" class="btn btn-primary btn-form-large">jumble it</button>
     </form>
     </div>
     """
