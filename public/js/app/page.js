@@ -9,19 +9,17 @@
       currentLevel: 1,
       create: function(content, _arg) {
         var level, navbar, scroll, slideDirection, title, _ref, _ref1;
-        _ref = _arg != null ? _arg : {}, scroll = _ref.scroll, slideDirection = _ref.slideDirection, navbar = _ref.navbar, title = _ref.title, level = _ref.level;
+        _ref = _arg != null ? _arg : {}, scroll = _ref.scroll, navbar = _ref.navbar, title = _ref.title, level = _ref.level;
         fimo.events.fire("newPage");
+        slideDirection = void 0;
         if (scroll == null) {
-          scroll = true;
+          scroll = false;
         }
         if ((_ref1 = this.scrollable) == null) {
           this.scrollable = void 0;
         }
         if (level == null) {
           level = void 0;
-        }
-        if (slideDirection == null) {
-          slideDirection = void 0;
         }
         if (navbar == null) {
           navbar = true;

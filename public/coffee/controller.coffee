@@ -46,6 +46,7 @@
     page.create(views.jumbles(),
       title: "jumbles nearby"
       level: 1
+      scroll: true
     )
     
   wall: ->
@@ -53,6 +54,7 @@
       page.create(views.wall({ images : content.images }), 
         title: content.title
         level: 2
+        scroll: true
       )
   
   image: (id) ->
@@ -62,9 +64,7 @@
       )
       
   addJumble: ->
-    page.create( views.newJumble(),
-      scroll: false
-    )
+    page.create( views.newJumble() )
   
   # USER
   
@@ -73,14 +73,10 @@
       page.create(views.profile({ username : content.username }))
       
   login: ->
-    page.create(views.login(),
-      scroll: false
-    )
+    page.create( views.login() )
     
   register: ->
-    page.create(views.register(),
-      scroll: false
-    )  
+    page.create( views.register() )
   
         
   # IMAGE HANDLING

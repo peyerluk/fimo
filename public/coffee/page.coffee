@@ -6,13 +6,13 @@
   $title: $("#navbar-title")
   currentLevel: 1
   
-  create: (content, { scroll, slideDirection, navbar, title, level } = {}) ->
+  create: (content, { scroll, navbar, title, level } = {}) ->
     fimo.events.fire("newPage")
     
-    scroll ?= true
+    slideDirection = undefined
+    scroll ?= false
     @scrollable ?= undefined
     level ?= undefined
-    slideDirection ?= undefined
     navbar ?= true
     
     if level
@@ -40,6 +40,7 @@
     @destroyPage()
     
     @$page.html(content)
+    
     @scrollable = new iScroll(@$page[0], { hScrollbar: false, vScrollbar: false }) if scroll
     
     if slideDirection

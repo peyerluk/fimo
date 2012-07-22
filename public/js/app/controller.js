@@ -47,7 +47,8 @@
       jumbles: function() {
         return page.create(views.jumbles(), {
           title: "jumbles nearby",
-          level: 1
+          level: 1,
+          scroll: true
         });
       },
       wall: function() {
@@ -56,7 +57,8 @@
             images: content.images
           }), {
             title: content.title,
-            level: 2
+            level: 2,
+            scroll: true
           });
         });
       },
@@ -70,9 +72,7 @@
         });
       },
       addJumble: function() {
-        return page.create(views.newJumble(), {
-          scroll: false
-        });
+        return page.create(views.newJumble());
       },
       profile: function() {
         return fimo.data.load("users/profile", function(content) {
@@ -82,14 +82,10 @@
         });
       },
       login: function() {
-        return page.create(views.login(), {
-          scroll: false
-        });
+        return page.create(views.login());
       },
       register: function() {
-        return page.create(views.register(), {
-          scroll: false
-        });
+        return page.create(views.register());
       },
       add: function() {
         if (fimo.device.isRunning()) {
