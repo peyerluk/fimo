@@ -2,7 +2,7 @@
 
   this.fimo.views.add("jumblePeople", function() {
     return {
-      template: _.template("<p>Who would like this jumble? Invite at least 5 friends to get started, because jumblin alone ain't no fun.</p>\n<form id=\"jumblePeopleForm\">\n  <label>Invite your friends</label>\n  <a href=\"\" id=\"friendsLink\">Select from your contacts</a><br/>\n  <select name=\"friends\" multiple size=\"6\" id=\"friends\" style=\"display:none;\">\n  </select>\n  <label>Add a personal message (optional)</label>\n  <br/>\n  <input type=\"text\" name=\"message\" id=\"message\" placeholder=\"Hi! I just started a new jumble. Have a look. http://jum.bl/<%=jumbleName%>\" />\n  <br/>\n  <button type=\"submit\" class=\"btn\">next step</button>\n</form>"),
+      template: _.template("<p>Who would like this jumble? Invite at least 5 friends to get started, because jumblin alone ain't no fun.</p>\n<form id=\"jumblePeopleForm\">\n  <label>Invite your friends</label>\n  <a href=\"\" id=\"friendsLink\">Select from your contacts</a><br/>\n  <select name=\"friends\" multiple size=\"6\" id=\"friends\" style=\"display:none;\">\n  </select>\n  <label>Add a personal message (optional)</label>\n  <br/>\n  <input type=\"text\" name=\"message\" id=\"message\" placeholder=\"Hi! I just started a new jumble. Have a look. http://jum.bl/<%=name%>\" />\n  <br/>\n  <button type=\"submit\" class=\"btn\">submit</button>\n</form>"),
       onContactsSuccess: function(contacts) {
         return this.populateFriends(contacts);
       },
@@ -22,13 +22,18 @@
       loaded: function() {
         var extendInstanceArguments,
           _this = this;
+        if (!this.instanceArguments['invitation']) {
+          this.instanceArguments['invitation'] = {};
+        }
         extendInstanceArguments = function() {
           return _this.instanceArguments = _.extend(_this.instanceArguments, {
-            jumbleFriendsMessage: $('#message').val(),
-            jumbleSelectedFriends: $('#friends').val()
+            invitation: {
+              jumbleFriendsMessage: $('#message').val(),
+              jumbleSelectedFriends: $('#friends').val()
+            }
           });
         };
-        if (this.instanceArguments['jumbleFriendsMessage']) {
+        if (this.instanceArguments['invitation']['jumbleFriendsMessage']) {
           $('#message').val(this.instanceArguments['jumbleFriendsMessage']);
         }
         $('#friendsLink').click(function() {
@@ -60,7 +65,12 @@
           }
         });
         $('#jumbleObjectForm').submit(function() {
-          alert("not implemented yet");
+          console.log("creating jumble...");
+          fimo.data.post('jumbles/create', _this.instanceArguments, function() {
+            return fimo.controller.jumbles();
+          }, function() {
+            return alert("error");
+          });
           return false;
         });
         return $('#back').click(function() {

@@ -52,7 +52,7 @@
   click: (event) ->
     jumble = $(event.target).parents(".jumble")
     if jumble.length
-      fimo.controller.wall()
+      fimo.controller.wall( "" )
     
   loaded: ->
     fimo.events.on "click", this.click

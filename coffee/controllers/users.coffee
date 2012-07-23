@@ -5,7 +5,7 @@ User = require("../models/user")
 
 app.get '/users/profile', (req, res) ->
     
-    # console.log(req.user)
+    #console.log(req.user)
     
     if req.loggedIn
       res.send({

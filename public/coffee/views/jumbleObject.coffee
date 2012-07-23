@@ -37,8 +37,8 @@
       return jsonResponse.imageUrl
     $('#previewImage').show()
     # set the vars in the views attributes
-    @instanceArguments['jumbleObjectImageUrl'] = jsonResponse.imageUrl
-    @instanceArguments['jumbleObjectImageId'] = jsonResponse.imageId
+    @instanceArguments['primaryObject']['imageUrl'] = jsonResponse.imageUrl
+    @instanceArguments['primaryObject']['imageId'] = jsonResponse.imageId
     
     
   
@@ -57,16 +57,20 @@
   
   loaded: ->
     
-    extendInstanceArguments = =>
-      @instanceArguments = _.extend(@instanceArguments, { jumbleObjectVerbs: $('#verbs').val(), jumbleObjectTags: $('#tags').val()  })
+    # init empty
+    if !@instanceArguments['primaryObject']
+      @instanceArguments['primaryObject'] = {}
     
-    if @instanceArguments['jumbleObjectVerbs']
-      $('#verbs').val(@instanceArguments['jumbleObjectVerbs'])
-    if @instanceArguments['jumbleObjectTags']
-      $('#tags').val(@instanceArguments['jumbleObjectTags']) 
-    if @instanceArguments['jumbleObjectImageUrl']
+    extendInstanceArguments = =>
+      @instanceArguments = _.extend(@instanceArguments, { primaryObject: { verbs: $('#verbs').val(), tags: $('#tags').val() } })
+    
+    if @instanceArguments['primaryObject']['verbs']
+      $('#verbs').val(@instanceArguments['primaryObject']['verbs'])
+    if @instanceArguments['primaryObject']['tags']
+      $('#tags').val(@instanceArguments['primaryObject']['tags']) 
+    if @instanceArguments['primaryObject']['imageUrl']
       $('#previewImage').attr 'src', => 
-        @instanceArguments['jumbleObjectImageUrl']
+        @instanceArguments['primaryObject']['imageUrl']
       $('#previewImage').show()
       
     $('#imageLink').click =>
@@ -83,14 +87,12 @@
     
     $('#jumbleObjectForm').submit =>
       extendInstanceArguments()
-      fimo.page.create( fimo.views.jumblePeople( @instanceArguments ) ) 
-      #fimo.controller['jumblePeople']( @instanceArguments )
+      fimo.controller['jumblePeople']( @instanceArguments )
       false
       
     $('#back').click =>
       extendInstanceArguments()
       fimo.controller['newJumble']( @instanceArguments )
-      #fimo.page.create( fimo.views.newJumble( @instanceArguments ) )
       false
       
   destroy: ->

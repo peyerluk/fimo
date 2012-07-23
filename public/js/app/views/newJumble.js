@@ -8,19 +8,23 @@
           _this = this;
         extendInstanceArguments = function() {
           return _this.instanceArguments = _.extend(_this.instanceArguments, {
-            jumbleName: $('#name').val(),
-            jumbleTags: $('#tags').val()
+            name: $('#name').val(),
+            tags: $('#tags').val()
           });
         };
-        if (this.instanceArguments['jumbleName']) {
-          $('input#name').val(this.instanceArguments['jumbleName']);
+        if (this.instanceArguments['name']) {
+          $('input#name').val(this.instanceArguments['name']);
         }
-        if (this.instanceArguments['jumbleTags']) {
-          $('input#tags').val(this.instanceArguments['jumbleTags']);
+        if (this.instanceArguments['tags']) {
+          $('input#tags').val(this.instanceArguments['tags']);
         }
-        return $('#newJumbleForm').submit(function() {
+        $('#newJumbleForm').submit(function() {
           extendInstanceArguments();
           fimo.controller['jumbleObject'](_this.instanceArguments);
+          return false;
+        });
+        return $('#back').click(function() {
+          fimo.controller['jumbles']();
           return false;
         });
       },

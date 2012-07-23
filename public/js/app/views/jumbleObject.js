@@ -13,8 +13,8 @@
           return jsonResponse.imageUrl;
         });
         $('#previewImage').show();
-        this.instanceArguments['jumbleObjectImageUrl'] = jsonResponse.imageUrl;
-        return this.instanceArguments['jumbleObjectImageId'] = jsonResponse.imageId;
+        this.instanceArguments['primaryObject']['imageUrl'] = jsonResponse.imageUrl;
+        return this.instanceArguments['primaryObject']['imageId'] = jsonResponse.imageId;
       },
       onPhotoDataSuccess: function(imageURI) {
         var ft, options;
@@ -33,21 +33,26 @@
       loaded: function() {
         var extendInstanceArguments,
           _this = this;
+        if (!this.instanceArguments['primaryObject']) {
+          this.instanceArguments['primaryObject'] = {};
+        }
         extendInstanceArguments = function() {
           return _this.instanceArguments = _.extend(_this.instanceArguments, {
-            jumbleObjectVerbs: $('#verbs').val(),
-            jumbleObjectTags: $('#tags').val()
+            primaryObject: {
+              verbs: $('#verbs').val(),
+              tags: $('#tags').val()
+            }
           });
         };
-        if (this.instanceArguments['jumbleObjectVerbs']) {
-          $('#verbs').val(this.instanceArguments['jumbleObjectVerbs']);
+        if (this.instanceArguments['primaryObject']['verbs']) {
+          $('#verbs').val(this.instanceArguments['primaryObject']['verbs']);
         }
-        if (this.instanceArguments['jumbleObjectTags']) {
-          $('#tags').val(this.instanceArguments['jumbleObjectTags']);
+        if (this.instanceArguments['primaryObject']['tags']) {
+          $('#tags').val(this.instanceArguments['primaryObject']['tags']);
         }
-        if (this.instanceArguments['jumbleObjectImageUrl']) {
+        if (this.instanceArguments['primaryObject']['imageUrl']) {
           $('#previewImage').attr('src', function() {
-            return _this.instanceArguments['jumbleObjectImageUrl'];
+            return _this.instanceArguments['primaryObject']['imageUrl'];
           });
           $('#previewImage').show();
         }
@@ -73,7 +78,7 @@
         });
         $('#jumbleObjectForm').submit(function() {
           extendInstanceArguments();
-          fimo.page.create(fimo.views.jumblePeople(_this.instanceArguments));
+          fimo.controller['jumblePeople'](_this.instanceArguments);
           return false;
         });
         return $('#back').click(function() {

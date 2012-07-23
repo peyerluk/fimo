@@ -49,7 +49,7 @@
       scroll: true
     )
     
-  wall: ->
+  wall: (jumbleId) ->
     fimo.data.load "wall", (content) ->
       page.create(views.wall({ images : content.images }), 
         title: content.title

@@ -10,9 +10,9 @@
       </select>
       <label>Add a personal message (optional)</label>
       <br/>
-      <input type="text" name="message" id="message" placeholder="Hi! I just started a new jumble. Have a look. http://jum.bl/<%=jumbleName%>" />
+      <input type="text" name="message" id="message" placeholder="Hi! I just started a new jumble. Have a look. http://jum.bl/<%=name%>" />
       <br/>
-      <button type="submit" class="btn">next step</button>
+      <button type="submit" class="btn">submit</button>
     </form>
     """
   )
@@ -33,10 +33,15 @@
   
   loaded: ->
     
-    extendInstanceArguments = =>
-      @instanceArguments = _.extend(@instanceArguments, { jumbleFriendsMessage: $('#message').val(), jumbleSelectedFriends: $('#friends').val() })
+    # init empty
+    if !@instanceArguments['invitation']
+      @instanceArguments['invitation'] = {}
     
-    if @instanceArguments['jumbleFriendsMessage']
+    
+    extendInstanceArguments = =>
+      @instanceArguments = _.extend(@instanceArguments, { invitation: { jumbleFriendsMessage: $('#message').val(), jumbleSelectedFriends: $('#friends').val() } })
+    
+    if @instanceArguments['invitation']['jumbleFriendsMessage']
       $('#message').val(@instanceArguments['jumbleFriendsMessage'])
     
     $('#friendsLink').click =>
@@ -53,7 +58,13 @@
         false        
     
     $('#jumbleObjectForm').submit =>
-      alert("not implemented yet")
+      console.log "creating jumble..."
+      fimo.data.post 'jumbles/create', @instanceArguments, =>
+        # TODO: route to jumble view
+        fimo.controller.jumbles()
+      , ->
+        alert("error")
+        #$('.alert-error').show()
       false
       
     $('#back').click =>

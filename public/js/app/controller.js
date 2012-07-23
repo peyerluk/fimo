@@ -51,7 +51,7 @@
           scroll: true
         });
       },
-      wall: function() {
+      wall: function(jumbleId) {
         return fimo.data.load("wall", function(content) {
           return page.create(views.wall({
             images: content.images

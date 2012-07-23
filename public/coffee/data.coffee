@@ -9,7 +9,7 @@
     else
       $.ajax
         url: "#{ server }/#{ page }",
-        dataType: "json"
+        dataType: "json",
         success: (data) ->
           # console.log("ajax success:")
           # console.log(data)
