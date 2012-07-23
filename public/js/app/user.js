@@ -19,9 +19,11 @@
           }, function() {
             return fimo.controller.jumbles();
           }, function() {
-            console.log("automatic login unsuccessful. removing local storage user.");
-            return window.localStorage.removeItem('user');
+            console.log("automatic login unsuccessful.");
+            return fimo.controller.welcome();
           });
+        } else {
+          return fimo.controller.welcome();
         }
       },
       getId: function() {

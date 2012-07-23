@@ -30,7 +30,7 @@ fimo.init = ->
     undefined
       
   # render the welcome page
-  controller.welcome()
+  # controller.welcome()
   # controller.jumbles()
   
   # clean calche (easiest to do at startup, performance penalty should be negligible)

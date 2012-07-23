@@ -52,6 +52,10 @@
         $nav.html(back({ title: title, back: "wall" })).show()
       when "login", "register"
         $nav.html(back({ title: title, back: "welcome" })).show()
+      when "dashboard"
+        $nav.html(back({ title: title, back: "jumbles" })).show()
+      when "profile"
+        $nav.html(back({ title: title, back: "dashboard" })).show()
       when "welcome"
         $nav.hide()
       when "newJumble", "jumbleObject", "jumblePeople"
