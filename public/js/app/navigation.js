@@ -31,6 +31,16 @@
             title: title,
             back: "welcome"
           })).show();
+        case "dashboard":
+          return $nav.html(back({
+            title: title,
+            back: "jumbles"
+          })).show();
+        case "profile":
+          return $nav.html(back({
+            title: title,
+            back: "dashboard"
+          })).show();
         case "welcome":
           return $nav.hide();
         case "newJumble":

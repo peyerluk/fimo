@@ -26,14 +26,11 @@
       fimo.data.post 'login', { 'email': user.email, 'password': user.password }, ->
         fimo.controller.jumbles()
       , ->
-        console.log "automatic login unsuccessful. removing local storage user."
-        window.localStorage.removeItem('user')
-        #store.remove('user')
-        #create_user()
-    #else
-      #console.log('about to create user')
-      #create_user()
-  
+        console.log "automatic login unsuccessful."
+        fimo.controller.welcome()
+    else
+      fimo.controller.welcome()
+        
   getId: ->
     user = loadUser()
     user.userId

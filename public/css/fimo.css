@@ -1764,7 +1764,7 @@ input[type="submit"].btn {
   float: left;
   display: block;
   height: 26px;
-  background-image: url(/img/background/tag-tip.png);
+  background-image: url(../img/background/tag-tip.png);
   background-repeat: no-repeat;
   background-position: top left;
   margin-left: -10px;
@@ -1775,12 +1775,12 @@ input[type="submit"].btn {
   margin-left: 20px;
   height: 26px;
   padding: 4px 15px 0 0;
-  background-image: url(/img/background/tag.png);
+  background-image: url(../img/background/tag.png);
   background-repeat: no-repeat;
   background-position: top right;
 }
 .tags li:first-child {
-  background-image: url(/img/background/tag-tip-first.png);
+  background-image: url(../img/background/tag-tip-first.png);
   background-repeat: no-repeat;
   background-position: top left;
   margin-left: 0px;
