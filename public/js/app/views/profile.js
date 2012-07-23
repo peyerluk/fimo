@@ -2,7 +2,7 @@
 
   this.fimo.views.add("profile", function() {
     return {
-      template: _.template("<div class=\"page\">\n  <h1><%= username %></h1>\n</div>"),
+      template: _.template("<div class=\"page\">\n  <h1><%= user.username %></h1>\n  <h3>Email: <%= user.email %></h3>\n</div>"),
       click: function(event) {
         return true;
       },

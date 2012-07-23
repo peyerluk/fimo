@@ -9,18 +9,17 @@ before = require("./middleware");
 User = require("../models/user");
 
 app.get('/users/profile', function(req, res) {
-  if (req.loggedIn) {
+  if (req.user) {
     return res.send({
       title: 'Profile',
       status: 200,
-      user: req.user,
-      username: "Logged in"
+      user: req.user
     });
   } else {
     return res.send({
       title: 'Profile',
-      status: 200,
-      username: "You might not be logged in, but I don't know."
+      status: 404,
+      message: "You might not be logged in, but I don't know."
     });
   }
 });

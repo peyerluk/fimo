@@ -3,7 +3,8 @@
   template: _.template(
     """
     <div class="page">
-      <h1><%= username %></h1>
+      <h1><%= user.username %></h1>
+      <h3>Email: <%= user.email %></h3>
     </div>
     """
   )

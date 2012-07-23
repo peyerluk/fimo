@@ -9,13 +9,17 @@
       loaded: function() {
         fimo.events.on("click", this.click);
         return $('#loginForm').submit(function() {
+          var email, password;
+          email = $('input#email').val();
+          password = $('input#password').val();
           fimo.data.post('login', {
-            email: $('input#email').val(),
-            password: $('input#password').val()
-          }, function() {
+            email: email,
+            password: password
+          }, function(res) {
             window.localStorage.setItem('user', JSON.stringify({
-              email: $('input#email').val(),
-              password: $('input#password').val()
+              email: email,
+              password: password,
+              userId: res.userId
             }));
             return fimo.controller.jumbles();
           }, function() {

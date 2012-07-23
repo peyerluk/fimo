@@ -13,8 +13,11 @@
           return $.ajax({
             url: "" + server + "/" + page,
             dataType: "json",
+            beforeSend: function(xhr) {
+              return xhr.withCredentials = true;
+            },
             success: function(data) {
-              if (page !== "users/profile") {
+              if (!/users\/profile/.test(page)) {
                 cache.set(page, data, {
                    secondsToLive: 10 * 60
                 });
@@ -34,6 +37,9 @@
           url: "" + server + "/" + page,
           dataType: "json",
           data: data,
+          beforeSend: function(xhr) {
+            return xhr.withCredentials = true;
+          },
           success: function(data) {
             if (callback) {
               return callback(data);

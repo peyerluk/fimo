@@ -36,7 +36,7 @@ User.plugin(mongooseAuth, {
         console.log("registration successful")
         if ( res.req.header('accept') == 'application/json' )
           console.log("from xhr")
-          res.json { success: true }, 200
+          res.json { success: true, userId: user._id }, 200
         else
           console.log("from http")
           res.redirect("/")

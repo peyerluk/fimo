@@ -10,12 +10,12 @@
       $.ajax
         url: "#{ server }/#{ page }",
         dataType: "json"
+        beforeSend: (xhr) ->
+          xhr.withCredentials = true
         success: (data) ->
-          # console.log("ajax success:")
-          # console.log(data)
           
           # cache for x minutes
-          if page != "users/profile"
+          if !/users\/profile/.test(page)
             cache.set(page, data, { secondsToLive: 10 * 60 })
           
           callback(data)
@@ -30,6 +30,8 @@
       url:  "#{ server }/#{ page }",
       dataType: "json",
       data: data
+      beforeSend: (xhr) ->
+        xhr.withCredentials = true
       success: (data) ->
         callback(data) if callback
       error: (data, error, exception) ->

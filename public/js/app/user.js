@@ -1,13 +1,17 @@
 (function() {
 
   this.fimo.user = (function() {
-    return {
-      /* PUBLIC
-      */
+    /* PUBLIC
+    */
 
+    var loadUser;
+    loadUser = function() {
+      return JSON.parse(window.localStorage.getItem('user'));
+    };
+    return {
       init: function() {
         var user;
-        user = JSON.parse(window.localStorage.getItem('user'));
+        user = loadUser();
         if (user) {
           return fimo.data.post('login', {
             'email': user.email,
@@ -19,6 +23,11 @@
             return window.localStorage.removeItem('user');
           });
         }
+      },
+      getId: function() {
+        var user;
+        user = loadUser();
+        return user.userId;
       },
       logout: function() {
         return window.localStorage.removeItem('user');

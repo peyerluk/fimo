@@ -28,9 +28,13 @@
   loaded: ->
     fimo.events.on "click", this.click
     $('#loginForm').submit ->
-      fimo.data.post 'login', { email: $('input#email').val(), password: $('input#password').val() }, ->
-        # store user to local store
-        window.localStorage.setItem('user', JSON.stringify({ email: $('input#email').val(), password: $('input#password').val() }))
+      email = $('input#email').val()
+      password = $('input#password').val()
+      
+      fimo.data.post 'login', { email: email, password: password }, (res) ->
+        
+        # store user to local store        
+        window.localStorage.setItem('user', JSON.stringify({ email: email, password: password, userId: res.userId }))
         fimo.controller.jumbles()
       , ->
         $('.alert-error').show()
