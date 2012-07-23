@@ -37,6 +37,7 @@
       return jsonResponse.imageUrl
     $('#previewImage').show()
     # set the vars in the views attributes
+    #alert(_.keys(@instanceArguments))
     @instanceArguments['primaryObject']['imageUrl'] = jsonResponse.imageUrl
     @instanceArguments['primaryObject']['imageId'] = jsonResponse.imageId
     
@@ -62,7 +63,8 @@
       @instanceArguments['primaryObject'] = {}
     
     extendInstanceArguments = =>
-      @instanceArguments = _.extend(@instanceArguments, { primaryObject: { verbs: $('#verbs').val(), tags: $('#tags').val() } })
+      primaryObject = _.extend(@instanceArguments['primaryObject'], { verbs: $('#verbs').val(), tags: $('#tags').val() } )
+      @instanceArguments = _.extend(@instanceArguments, { primaryObject: primaryObject })
     
     if @instanceArguments['primaryObject']['verbs']
       $('#verbs').val(@instanceArguments['primaryObject']['verbs'])

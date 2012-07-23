@@ -64,9 +64,17 @@
             return false;
           }
         });
-        $('#jumbleObjectForm').submit(function() {
+        $('#jumblePeopleForm').submit(function(event) {
+          event.preventDefault();
           console.log("creating jumble...");
+          _this.instanceArguments['tags'] = _.map(_this.instanceArguments['tags'].split(","), function(tag) {
+            return $.trim(tag);
+          });
+          _this.instanceArguments['primaryObject']['tags'] = _.map(_this.instanceArguments['primaryObject']['tags'].split(","), function(tag) {
+            return $.trim(tag);
+          });
           fimo.data.post('jumbles/create', _this.instanceArguments, function() {
+            alert("reroute");
             return fimo.controller.jumbles();
           }, function() {
             return alert("error");

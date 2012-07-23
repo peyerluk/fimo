@@ -6,7 +6,7 @@ Object = new Schema({
   image:      { type: Schema.ObjectId, ref: 'Image', required: true },
   tags:       { type: [String] },
   # comments: ,
-  jumble:     { type: String, default: "Philipps Veloliebhaber-Ecke" },
+  jumble:     { type: Schema.ObjectId, ref: "Jumble" },
   coords:     { lon: Number, lat: Number },
   verbs:      { type: [String] }
 })

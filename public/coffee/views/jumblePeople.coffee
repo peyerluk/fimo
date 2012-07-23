@@ -57,8 +57,15 @@
           false
         false        
     
-    $('#jumbleObjectForm').submit =>
+    $('#jumblePeopleForm').submit (event) =>
+      event.preventDefault()
       console.log "creating jumble..."
+      # pre-conditioning
+      @instanceArguments['tags'] = _.map @instanceArguments['tags'].split(","), (tag) ->
+        return $.trim(tag)
+      @instanceArguments['primaryObject']['tags'] = _.map @instanceArguments['primaryObject']['tags'].split(","), (tag) -> 
+        return $.trim(tag)
+      
       fimo.data.post 'jumbles/create', @instanceArguments, =>
         # TODO: route to jumble view
         fimo.controller.jumbles()
