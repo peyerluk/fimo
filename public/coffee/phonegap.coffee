@@ -28,5 +28,5 @@
   isReady: ->
     _ready
   
-  isRunning: ->
-    window.cordova
+  isBrowser: ->
+    _agent == "browser"

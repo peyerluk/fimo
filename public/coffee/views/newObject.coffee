@@ -31,7 +31,8 @@
   loaded: ->
     $('#newObjectForm').submit =>
       console.log "creating object..."
-      fimo.data.post 'objects/create', { imageId: @instanceArguments['imageId'], verbs: $('#verbs').val(), tags: $('#tags').val() }, =>
+      tags = $('#tags').val().split(",")
+      fimo.data.post 'objects/create', { imageId: @instanceArguments['imageId'], verbs: $('#verbs').val(), tags: tags }, =>
         # TODO: route to object view
         fimo.controller.jumbles()
       , ->

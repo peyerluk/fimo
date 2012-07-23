@@ -30,7 +30,7 @@
   back: ->
     # experimental!
     lastPage = fimo.views.moveBack()
-    if lastPage
+    if lastPage && fimo.controller[lastPage]
       fimo.controller[lastPage]()
     
   # WELCOME
@@ -63,8 +63,14 @@
         level: 3
       )
       
-  addJumble: ->
-    page.create( views.newJumble() )
+  newJumble: (args) ->
+    page.create( views.newJumble(args) )
+    
+  jumbleObject: (args) ->
+    page.create( views.jumbleObject(args) )
+    
+  jumblePeople: (args) ->
+    page.create( views.jumblePeople(args) )
   
   # USER
   
@@ -90,7 +96,7 @@
   
   add: ->
     # hack for browser views
-    if fimo.device.isRunning() # && fimo.device.getAgent() == "browser"
+    if fimo.device.isBrowser() # && fimo.device.getAgent() == "browser"
       page.create(views.newObject(
         url: "" + hostname + "/objects/create"
         imageUrl: "http://fimo.s3.amazonaws.com/images/4fff0a2e0df2a02233000007_100x100.jpg"

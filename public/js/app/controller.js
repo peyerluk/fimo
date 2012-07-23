@@ -35,7 +35,7 @@
       back: function() {
         var lastPage;
         lastPage = fimo.views.moveBack();
-        if (lastPage) {
+        if (lastPage && fimo.controller[lastPage]) {
           return fimo.controller[lastPage]();
         }
       },
@@ -71,8 +71,14 @@
           });
         });
       },
-      addJumble: function() {
-        return page.create(views.newJumble());
+      newJumble: function(args) {
+        return page.create(views.newJumble(args));
+      },
+      jumbleObject: function(args) {
+        return page.create(views.jumbleObject(args));
+      },
+      jumblePeople: function(args) {
+        return page.create(views.jumblePeople(args));
       },
       dashboard: function() {
         return page.create(views.dashboard());
@@ -95,7 +101,7 @@
         return page.create(views.register());
       },
       add: function() {
-        if (fimo.device.isRunning()) {
+        if (fimo.device.isBrowser()) {
           return page.create(views.newObject({
             url: "" + hostname + "/objects/create",
             imageUrl: "http://fimo.s3.amazonaws.com/images/4fff0a2e0df2a02233000007_100x100.jpg",

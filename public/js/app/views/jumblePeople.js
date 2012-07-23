@@ -2,7 +2,7 @@
 
   this.fimo.views.add("jumblePeople", function() {
     return {
-      template: _.template("<a href=\"\" id=\"back\">back</a>\n<p>Who would like this jumble? Invite at least 5 friends to get started, because jumblin alone ain't no fun.</p>\n<form id=\"jumblePeopleForm\">\n  <label>Invite your friends</label>\n  <a href=\"\" id=\"friendsLink\">Select from your contacts</a><br/>\n  <select name=\"friends\" multiple size=\"6\" id=\"friends\" style=\"display:none;\">\n  </select>\n  <label>Add a personal message (optional)</label>\n  <br/>\n  <input type=\"text\" name=\"message\" id=\"message\" placeholder=\"Hi! I just started a new jumble. Have a look. http://jum.bl/<%=jumbleName%>\" />\n  <br/>\n  <button type=\"submit\" class=\"btn\">next step</button>\n</form>"),
+      template: _.template("<p>Who would like this jumble? Invite at least 5 friends to get started, because jumblin alone ain't no fun.</p>\n<form id=\"jumblePeopleForm\">\n  <label>Invite your friends</label>\n  <a href=\"\" id=\"friendsLink\">Select from your contacts</a><br/>\n  <select name=\"friends\" multiple size=\"6\" id=\"friends\" style=\"display:none;\">\n  </select>\n  <label>Add a personal message (optional)</label>\n  <br/>\n  <input type=\"text\" name=\"message\" id=\"message\" placeholder=\"Hi! I just started a new jumble. Have a look. http://jum.bl/<%=jumbleName%>\" />\n  <br/>\n  <button type=\"submit\" class=\"btn\">next step</button>\n</form>"),
       onContactsSuccess: function(contacts) {
         return this.populateFriends(contacts);
       },
@@ -20,12 +20,19 @@
         return _results;
       },
       loaded: function() {
-        var _this = this;
+        var extendInstanceArguments,
+          _this = this;
+        extendInstanceArguments = function() {
+          return _this.instanceArguments = _.extend(_this.instanceArguments, {
+            jumbleFriendsMessage: $('#message').val(),
+            jumbleSelectedFriends: $('#friends').val()
+          });
+        };
         if (this.instanceArguments['jumbleFriendsMessage']) {
           $('#message').val(this.instanceArguments['jumbleFriendsMessage']);
         }
         $('#friendsLink').click(function() {
-          if (fimo.device.getAgent() === "browser") {
+          if (fimo.device.isBrowser()) {
             return _this.populateFriends([
               {
                 name: {
@@ -57,10 +64,8 @@
           return false;
         });
         return $('#back').click(function() {
-          fimo.page.create(fimo.views.jumbleObject(_.extend(_this.instanceArguments, {
-            jumbleFriendsMessage: $('#message').val(),
-            jumbleSelectedFriends: $('#friends').val()
-          })));
+          extendInstanceArguments();
+          fimo.controller['jumbleObject'](_this.instanceArguments);
           return false;
         });
       },
