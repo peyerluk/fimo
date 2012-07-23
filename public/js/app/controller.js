@@ -47,7 +47,7 @@
       jumbles: function() {
         return page.create(views.jumbles(), {
           title: "jumbles nearby",
-          level: 1,
+          level: 2,
           scroll: true
         });
       },
@@ -57,7 +57,7 @@
             images: content.images
           }), {
             title: content.title,
-            level: 2,
+            level: 3,
             scroll: true
           });
         });
@@ -67,7 +67,7 @@
           return page.create(views.image({
             imageUrl: content.url
           }), {
-            level: 3
+            level: 4
           });
         });
       },
@@ -81,7 +81,10 @@
         return page.create(views.jumblePeople(args));
       },
       dashboard: function() {
-        return page.create(views.dashboard());
+        return page.create(views.dashboard(), {
+          title: "Dashboard",
+          level: 1
+        });
       },
       profile: function() {
         var userId;
