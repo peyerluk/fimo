@@ -19,8 +19,8 @@ Object = new Schema({
     type: [String]
   },
   jumble: {
-    type: String,
-    "default": "Philipps Veloliebhaber-Ecke"
+    type: Schema.ObjectId,
+    ref: "Jumble"
   },
   coords: {
     lon: Number,

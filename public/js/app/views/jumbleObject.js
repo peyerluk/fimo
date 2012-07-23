@@ -37,11 +37,13 @@
           this.instanceArguments['primaryObject'] = {};
         }
         extendInstanceArguments = function() {
+          var primaryObject;
+          primaryObject = _.extend(_this.instanceArguments['primaryObject'], {
+            verbs: $('#verbs').val(),
+            tags: $('#tags').val()
+          });
           return _this.instanceArguments = _.extend(_this.instanceArguments, {
-            primaryObject: {
-              verbs: $('#verbs').val(),
-              tags: $('#tags').val()
-            }
+            primaryObject: primaryObject
           });
         };
         if (this.instanceArguments['primaryObject']['verbs']) {
