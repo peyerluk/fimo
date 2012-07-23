@@ -2,7 +2,6 @@
   
   template: _.template(
     """
-    <a href="" id="back">back</a>
     <p>What's the first thing you want to post in your jumble?</p>
     <form id="jumbleObjectForm">
       <label>Take a picture</label>
@@ -57,6 +56,10 @@
     false  
   
   loaded: ->
+    
+    extendInstanceArguments = =>
+      @instanceArguments = _.extend(@instanceArguments, { jumbleObjectVerbs: $('#verbs').val(), jumbleObjectTags: $('#tags').val()  })
+    
     if @instanceArguments['jumbleObjectVerbs']
       $('#verbs').val(@instanceArguments['jumbleObjectVerbs'])
     if @instanceArguments['jumbleObjectTags']
@@ -79,11 +82,15 @@
         false        
     
     $('#jumbleObjectForm').submit =>
-      fimo.page.create(fimo.views.jumblePeople( _.extend(@instanceArguments, { jumbleObjectVerbs: $('#verbs').val(), jumbleObjectTags: $('#tags').val()  }) )) 
+      extendInstanceArguments()
+      fimo.page.create( fimo.views.jumblePeople( @instanceArguments ) ) 
+      #fimo.controller['jumblePeople']( @instanceArguments )
       false
       
     $('#back').click =>
-      fimo.page.create( fimo.views.newJumble( _.extend(@instanceArguments, { jumbleObjectVerbs: $('#verbs').val(), jumbleObjectTags: $('#tags').val() }) ) )
+      extendInstanceArguments()
+      fimo.controller['newJumble']( @instanceArguments )
+      #fimo.page.create( fimo.views.newJumble( @instanceArguments ) )
       false
       
   destroy: ->

@@ -14,9 +14,9 @@
   fimo.events.on "pageLoaded", ->
     current = next
     next = undefined
-    current.loaded() if current
     fimo.events.fire("afterPageLoaded", current?.name)
-  
+    current.loaded() if current
+    
   # add a view programmatically
   moveBack: () ->
     if history.length

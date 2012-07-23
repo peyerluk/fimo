@@ -14,13 +14,19 @@
   )
   
   loaded: ->    
+    
+    extendInstanceArguments = =>
+      @instanceArguments = _.extend(@instanceArguments, { jumbleName: $('#name').val(), jumbleTags: $('#tags').val()  })
+    
     if ( @instanceArguments['jumbleName'] )
       $('input#name').val(@instanceArguments['jumbleName'])
     if ( @instanceArguments['jumbleTags'] )
       $('input#tags').val(@instanceArguments['jumbleTags'])
         
     $('#newJumbleForm').submit =>
-      fimo.page.create(fimo.views.jumbleObject( _.extend(@instanceArguments, {jumbleName: $('input#name').val(), jumbleTags: $('input#tags').val() })))
+      extendInstanceArguments()
+      fimo.controller['jumbleObject']( @instanceArguments )
+      #fimo.page.create(fimo.views.jumbleObject( @instanceArguments ) )
       false
     
       

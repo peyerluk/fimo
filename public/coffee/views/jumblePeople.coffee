@@ -2,7 +2,6 @@
   
   template: _.template(
     """
-    <a href="" id="back">back</a>
     <p>Who would like this jumble? Invite at least 5 friends to get started, because jumblin alone ain't no fun.</p>
     <form id="jumblePeopleForm">
       <label>Invite your friends</label>
@@ -33,11 +32,15 @@
       $('#friends').show()
   
   loaded: ->
+    
+    extendInstanceArguments = =>
+      @instanceArguments = _.extend(@instanceArguments, { jumbleFriendsMessage: $('#message').val(), jumbleSelectedFriends: $('#friends').val() })
+    
     if @instanceArguments['jumbleFriendsMessage']
       $('#message').val(@instanceArguments['jumbleFriendsMessage'])
     
     $('#friendsLink').click =>
-      if fimo.device.getAgent() == "browser"
+      if fimo.device.isBrowser() #fimo.device.getAgent() == "browser"
         @populateFriends([{ name: { givenName: "Lukas", familyName: "Peyer" } }, { name: { givenName: "Gabriel", familyName: "Hase" } }])
       else
         fimo.device.ready =>    
@@ -54,7 +57,9 @@
       false
       
     $('#back').click =>
-      fimo.page.create(fimo.views.jumbleObject(_.extend(@instanceArguments, { jumbleFriendsMessage: $('#message').val(), jumbleSelectedFriends: $('#friends').val() })))  
+      extendInstanceArguments()
+      fimo.controller['jumbleObject']( @instanceArguments )
+      #fimo.page.create( fimo.views.jumbleObject( @instanceArguments ) )  
       false
       
   destroy: ->

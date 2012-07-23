@@ -2,7 +2,7 @@
 
   this.fimo.views.add("jumbleObject", function() {
     return {
-      template: _.template("<a href=\"\" id=\"back\">back</a>\n<p>What's the first thing you want to post in your jumble?</p>\n<form id=\"jumbleObjectForm\">\n  <label>Take a picture</label>\n  <img src=\"\" id=\"previewImage\" style=\"display:none;\"/><br/>\n  <a href=\"\" id=\"imageLink\">Take an image</a><br/>\n  <label>Why do you want to post this?</label>\n  <br/>\n  <select name=\"verbs\" multiple size=\"6\" id=\"verbs\">\n  	<option selected=\"true\">Give</option>\n  	<option>Swap</option>\n  	<option>Sell</option>\n  	<option>Like</option>\n  	<option>Want</option>\n  </select>\n  <br/>\n  <label>What is it? (optional)</label>\n  <br/>\n  <input type=\"text\" class=\"span3\" name=\"tags\" placeholder=\"Add #tag\" id=\"tags\" />\n  <br/>\n  <button type=\"submit\" class=\"btn\">next step</button>\n</form>"),
+      template: _.template("<p>What's the first thing you want to post in your jumble?</p>\n<form id=\"jumbleObjectForm\">\n  <label>Take a picture</label>\n  <img src=\"\" id=\"previewImage\" style=\"display:none;\"/><br/>\n  <a href=\"\" id=\"imageLink\">Take an image</a><br/>\n  <label>Why do you want to post this?</label>\n  <br/>\n  <select name=\"verbs\" multiple size=\"6\" id=\"verbs\">\n  	<option selected=\"true\">Give</option>\n  	<option>Swap</option>\n  	<option>Sell</option>\n  	<option>Like</option>\n  	<option>Want</option>\n  </select>\n  <br/>\n  <label>What is it? (optional)</label>\n  <br/>\n  <input type=\"text\" class=\"span3\" name=\"tags\" placeholder=\"Add #tag\" id=\"tags\" />\n  <br/>\n  <button type=\"submit\" class=\"btn\">next step</button>\n</form>"),
       onPhotoUploadFail: function(error) {
         return alert("got an upload error: " + error.code);
       },
@@ -31,7 +31,14 @@
         return false;
       },
       loaded: function() {
-        var _this = this;
+        var extendInstanceArguments,
+          _this = this;
+        extendInstanceArguments = function() {
+          return _this.instanceArguments = _.extend(_this.instanceArguments, {
+            jumbleObjectVerbs: $('#verbs').val(),
+            jumbleObjectTags: $('#tags').val()
+          });
+        };
         if (this.instanceArguments['jumbleObjectVerbs']) {
           $('#verbs').val(this.instanceArguments['jumbleObjectVerbs']);
         }
@@ -65,17 +72,13 @@
           }
         });
         $('#jumbleObjectForm').submit(function() {
-          fimo.page.create(fimo.views.jumblePeople(_.extend(_this.instanceArguments, {
-            jumbleObjectVerbs: $('#verbs').val(),
-            jumbleObjectTags: $('#tags').val()
-          })));
+          extendInstanceArguments();
+          fimo.page.create(fimo.views.jumblePeople(_this.instanceArguments));
           return false;
         });
         return $('#back').click(function() {
-          fimo.page.create(fimo.views.newJumble(_.extend(_this.instanceArguments, {
-            jumbleObjectVerbs: $('#verbs').val(),
-            jumbleObjectTags: $('#tags').val()
-          })));
+          extendInstanceArguments();
+          fimo.controller['newJumble'](_this.instanceArguments);
           return false;
         });
       },

@@ -37,8 +37,8 @@
       isReady: function() {
         return _ready;
       },
-      isRunning: function() {
-        return window.cordova;
+      isBrowser: function() {
+        return _agent === "browser";
       }
     };
   })();
