@@ -45,7 +45,7 @@
   jumbles: ->
     page.create(views.jumbles(),
       title: "jumbles nearby"
-      level: 1
+      level: 2
       scroll: true
     )
     
@@ -53,14 +53,14 @@
     fimo.data.load "wall", (content) ->
       page.create(views.wall({ images : content.images }), 
         title: content.title
-        level: 2
+        level: 3
         scroll: true
       )
   
   image: (id) ->
     fimo.data.load "image?id=#{ id }", (content) ->
       page.create(views.image({ imageUrl : content.url }),
-        level: 3
+        level: 4
       )
       
   newJumble: (args) ->
@@ -75,7 +75,10 @@
   # USER
   
   dashboard: ->
-    page.create( views.dashboard() )
+    page.create( views.dashboard(),
+      title: "Dashboard"
+      level: 1
+    )
   
   profile: ->
     userId = fimo.user.getId()

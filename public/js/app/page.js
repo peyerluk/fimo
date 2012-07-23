@@ -6,7 +6,7 @@
       $second: $("#second-page"),
       $navbar: $("#navbar"),
       $title: $("#navbar-title"),
-      currentLevel: 1,
+      currentLevel: 2,
       create: function(content, _arg) {
         var level, scroll, slideDirection, title, _ref, _ref1;
         _ref = _arg != null ? _arg : {}, scroll = _ref.scroll, title = _ref.title, level = _ref.level;
@@ -46,7 +46,7 @@
           });
         }
         if (slideDirection) {
-          return this.slideIn(slideDirection);
+          return this.slideIn(slideDirection, bezier);
         } else {
           this.$page.show();
           return setTimeout(function() {
@@ -57,14 +57,15 @@
           }, 0);
         }
       },
-      slideIn: function(slideDirection) {
+      slideIn: function(slideDirection, bezier) {
         var element, startX,
           _this = this;
+        bezier = bezier || "-webkit-transform 400ms cubic-bezier(0.33, 0.66, 0.66, 1)";
         startX = slideDirection === "right" ? 320 : -320;
         element = this.$page[0];
         element.style.webkitTransform = "translate3d(" + startX + "px, 0, 0)";
         this.$page.show();
-        element.style.webkitTransition = "-webkit-transform 400ms cubic-bezier(0.33, 0.66, 0.66, 1)";
+        element.style.webkitTransition = bezier;
         element.style.webkitTransform = "translate3d(" + 0. + "px, 0, 0)";
         this.swapPageContainers();
         return setTimeout(function() {
