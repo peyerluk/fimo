@@ -8,8 +8,8 @@
       $title: $("#navbar-title"),
       currentLevel: 1,
       create: function(content, _arg) {
-        var level, navbar, scroll, slideDirection, title, _ref, _ref1;
-        _ref = _arg != null ? _arg : {}, scroll = _ref.scroll, navbar = _ref.navbar, title = _ref.title, level = _ref.level;
+        var level, scroll, slideDirection, title, _ref, _ref1;
+        _ref = _arg != null ? _arg : {}, scroll = _ref.scroll, title = _ref.title, level = _ref.level;
         fimo.events.fire("newPage");
         slideDirection = void 0;
         if (scroll == null) {
@@ -21,9 +21,6 @@
         if (level == null) {
           level = void 0;
         }
-        if (navbar == null) {
-          navbar = true;
-        }
         if (level) {
           if (level > this.currentLevel) {
             slideDirection = "right";
@@ -31,11 +28,6 @@
             slideDirection = "left";
           }
           this.currentLevel = level;
-        }
-        if (navbar) {
-          this.$navbar.show();
-        } else {
-          this.$navbar.hide();
         }
         this.$title = $("#navbar-title");
         if (title) {

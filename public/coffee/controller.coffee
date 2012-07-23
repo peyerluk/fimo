@@ -68,12 +68,19 @@
   
   # USER
   
+  dashboard: ->
+    page.create( views.dashboard() )
+  
   profile: ->
     fimo.data.load "users/profile", (content) ->
       page.create(views.profile({ username : content.username }))
       
   login: ->
     page.create( views.login() )
+  
+  logout: ->
+    fimo.user.logout()
+    page.create( views.welcome() )
     
   register: ->
     page.create( views.register() )

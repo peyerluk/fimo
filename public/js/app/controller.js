@@ -74,6 +74,9 @@
       addJumble: function() {
         return page.create(views.newJumble());
       },
+      dashboard: function() {
+        return page.create(views.dashboard());
+      },
       profile: function() {
         return fimo.data.load("users/profile", function(content) {
           return page.create(views.profile({
@@ -83,6 +86,10 @@
       },
       login: function() {
         return page.create(views.login());
+      },
+      logout: function() {
+        fimo.user.logout();
+        return page.create(views.welcome());
       },
       register: function() {
         return page.create(views.register());

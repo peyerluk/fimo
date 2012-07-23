@@ -38,8 +38,7 @@
           return view.template.apply(void 0, arguments);
         };
       },
-      welcome: _.template("<div class=\"welcome\">\n  <h1>Jumbler</h1>\n  <h3>more than a market</h3>\n</div>\n\n<a href=\"\" class=\"btn btn-primary btn-large\">Signup with Facebook</a>\n<a href=\"\" class=\"btn btn-twitter btn-large\">Signup with Twitter</a>\n\n<div class=\"separator\"><span>or</span></div>\n\n<a href=\"register\" class=\"btn btn-large\">\n  <i class=\"icon-user\"></i>\n  Signup with email\n</a>\n\n<div class=\"footnote\">\n  <a href=\"login\">Already have a Jumbler Account?</a>\n</div>"),
-      profile: _.template("<div>\n  <h1><%= username %></h1>\n</div>")
+      welcome: _.template("<div class=\"welcome\">\n  <h1>Jumbler</h1>\n  <h3>more than a market</h3>\n</div>\n\n<a href=\"\" class=\"btn btn-primary btn-large\">Signup with Facebook</a>\n<a href=\"\" class=\"btn btn-twitter btn-large\">Signup with Twitter</a>\n\n<div class=\"separator\"><span>or</span></div>\n\n<a href=\"register\" class=\"btn btn-large\">\n  <i class=\"icon-user\"></i>\n  Signup with email\n</a>\n\n<div class=\"footnote\">\n  <a href=\"login\">Already have a Jumbler Account?</a>\n</div>")
     };
   })();
 

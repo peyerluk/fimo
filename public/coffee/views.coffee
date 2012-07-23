@@ -57,11 +57,3 @@
     </div>
     """
   )
-  
-  profile: _.template(
-    """
-    <div>
-      <h1><%= username %></h1>
-    </div>
-    """
-  )

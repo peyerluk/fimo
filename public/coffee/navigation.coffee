@@ -5,7 +5,7 @@
   jumbles = _.template(
     """
     <ul class="navbar-items">
-      <li><a href="jumbles" class="btn btn-navbar"><i class="icon-align-justify"></i></a></li>
+      <li><a href="dashboard" class="btn btn-navbar"><i class="icon-align-justify"></i></a></li>
       <li><div id="navbar-title"><%= title %></div></li>
       <li class="navbar-right"><a href="addJumble" class="btn btn-navbar"><i class="icon-plus"></i></a></li>
     </ul>
@@ -36,14 +36,16 @@
     
     switch viewName
       when "jumbles"
-        $nav.html(jumbles({ title: title }))
+        $nav.html(jumbles({ title: title })).show()
       when "wall"
-        $nav.html(wall({ title: title, back: "jumbles" }))
+        $nav.html(wall({ title: title, back: "jumbles" })).show()
       when "image"
-        $nav.html(back({ title: title, back: "wall" }))
+        $nav.html(back({ title: title, back: "wall" })).show()
       when "login", "register"
-        $nav.html(back({ title: title, back: "welcome" }))
+        $nav.html(back({ title: title, back: "welcome" })).show()
+      when "welcome"
+        $nav.hide()
       else
-        $nav.html(back({ title: title, back: "back" }))
+        $nav.html(back({ title: title, back: "back" })).show()
     
     

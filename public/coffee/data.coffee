@@ -15,7 +15,8 @@
           # console.log(data)
           
           # cache for x minutes
-          cache.set(page, data, { secondsToLive: 10 * 60 })
+          if page != "users/profile"
+            cache.set(page, data, { secondsToLive: 10 * 60 })
           
           callback(data)
         error: (jqXHR, error) ->

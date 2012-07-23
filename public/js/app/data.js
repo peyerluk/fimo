@@ -14,9 +14,11 @@
             url: "" + server + "/" + page,
             dataType: "json",
             success: function(data) {
-              cache.set(page, data, {
-                 secondsToLive: 10 * 60
-              });
+              if (page !== "users/profile") {
+                cache.set(page, data, {
+                   secondsToLive: 10 * 60
+                });
+              }
               return callback(data);
             },
             error: function(jqXHR, error) {

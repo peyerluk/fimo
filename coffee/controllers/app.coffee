@@ -15,7 +15,6 @@ app.get '/upload', before.login, (req, res) ->
     title: 'Image upload'
   })
 
-
 app.post '/webUpload', (req, res) ->
   console.log "about to upload..."
   console.log("upload: #{ req.user }")

@@ -95,7 +95,8 @@ User.plugin(mongooseAuth, {
           if (res.req.header('accept') === 'application/json') {
             console.log("..from xhr");
             return res.json({
-              success: true
+              success: true,
+              userId: user._id
             }, 200);
           } else {
             console.log("..from http");

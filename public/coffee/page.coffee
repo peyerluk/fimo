@@ -6,14 +6,13 @@
   $title: $("#navbar-title")
   currentLevel: 1
   
-  create: (content, { scroll, navbar, title, level } = {}) ->
+  create: (content, { scroll, title, level } = {}) ->
     fimo.events.fire("newPage")
     
     slideDirection = undefined
     scroll ?= false
     @scrollable ?= undefined
     level ?= undefined
-    navbar ?= true
     
     if level
       if level > @currentLevel
@@ -22,11 +21,6 @@
         slideDirection = "left"
         
       @currentLevel = level
-        
-    if navbar
-      @$navbar.show()
-    else
-      @$navbar.hide()
     
     @$title = $("#navbar-title")
     if title 

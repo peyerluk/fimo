@@ -19,6 +19,9 @@
             return window.localStorage.removeItem('user');
           });
         }
+      },
+      logout: function() {
+        return window.localStorage.removeItem('user');
       }
     };
   })();

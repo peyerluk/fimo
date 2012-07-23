@@ -1916,6 +1916,27 @@ btn-form-large {
 .btn-twitter.active {
   background-color: #1781a1 \9;
 }
+/* DASHBOARD */
+.dashboard {
+  list-style: none;
+  margin-top: 10px;
+}
+.dashboard li {
+  display: block;
+  padding: 10px 10px;
+  /*    border-bottom: 1px solid #666;*/
+
+  margin-bottom: 2px;
+  background: rgba(255, 255, 255, 0.8);
+}
+.dashboard li.dashboard-title {
+  font-size: 18px;
+  font-family: 'Berkshire Swash', cursive;
+  /*    background: rgba(0,0,0,0.6); */
+
+  background: #ffffff;
+  color: #222222;
+}
 .box {
   padding: 10px 5px;
   margin-bottom: 5px;

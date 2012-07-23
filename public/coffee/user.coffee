@@ -31,5 +31,8 @@
       #console.log('about to create user')
       #create_user()
   
+  logout: ->
+    window.localStorage.removeItem('user')
+  
   
 
