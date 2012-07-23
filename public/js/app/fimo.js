@@ -28,7 +28,7 @@
       } else if (path !== "" && path !== "#") {
         alert("" + path + " not implemented");
       }
-      return void 0;
+      return false;
     });
     $(document).on("click", function(event) {
       fimo.events.fire("click", event);

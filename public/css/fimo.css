@@ -831,7 +831,7 @@ body {
   background-position: -96px 0;
 }
 .icon-star {
-  background-position: -120px 0;
+  background-position: -120px 2px;
 }
 .icon-star-empty {
   background-position: -144px 0;
@@ -1850,6 +1850,32 @@ input[type="submit"].btn {
   bottom: 8px;
   left: 8px;
 }
+.object-verbs {
+  clear: both;
+  margin-bottom: 5px;
+}
+.object-verbs span {
+  display: block;
+  float: left;
+  padding: 4px 10px 0 0;
+  text-align: right;
+  color: #333333;
+  width: 80px;
+}
+.object-verbs a {
+  display: block;
+  float: left;
+  width: 55px;
+}
+.object-verbs i {
+  margin-right: 3px;
+}
+.object-verbs .btn {
+  padding: 4px 8px 4px 3px;
+}
+.object-verbs .btn-verb-large {
+  width: 89px;
+}
 .portrait {
   border: 2px solid #ffffff;
 }
@@ -1919,11 +1945,11 @@ btn-form-large {
 /* DASHBOARD */
 .dashboard {
   list-style: none;
-  margin-top: 10px;
+  margin: 10px 0 0;
 }
 .dashboard li {
   display: block;
-  padding: 10px 10px;
+  padding: 14px 10px;
   /*    border-bottom: 1px solid #666;*/
 
   margin-bottom: 2px;
@@ -1931,6 +1957,7 @@ btn-form-large {
 }
 .dashboard li.dashboard-title {
   font-size: 18px;
+  padding: 10px 10px;
   font-family: 'Berkshire Swash', cursive;
   /*    background: rgba(0,0,0,0.6); */
 

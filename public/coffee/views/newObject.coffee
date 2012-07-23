@@ -9,13 +9,18 @@
       <br/>
       
       <div class="separator separator-4"><em>Why do you want to post this?</em></div>
-      <select name="verbs" multiple size="6" id="verbs">
-      	<option selected="true">Give</option>
-      	<option>Swap</option>
-      	<option>Sell</option>
-      	<option>Like</option>
-      	<option>Want</option>
-      </select>
+        
+      <div class="object-verbs clearfix" style="margin-top:15px;">
+        <span>Pass it on</span>
+        <a href="" class="btn"><i class="icon icon-star"></i>Give</a>
+        <a href="" class="btn"><i class="icon icon-star"></i>Swap</a>
+        <a href="" class="btn"><i class="icon icon-star"></i>Sell</a>
+      </div>
+      <div class="object-verbs clearfix">
+        <span>Show it</span>
+        <a href="" class="btn btn-verb-large"><i class="icon icon-star"></i>Like</a>
+        <a href="" class="btn btn-verb-large"><i class="icon icon-star"></i>Want</a>
+      </div>
       <br/>
       
       <div class="separator separator-2"><em>What is it? (optional)</em></div>

@@ -22,7 +22,7 @@ fimo.init = ->
     else if path != "" && path != "#"
       alert("#{ path } not implemented")
   
-    undefined
+    false
   
   # capture all clicks an send them to fimo.events
   $(document).on "click", (event) ->   
