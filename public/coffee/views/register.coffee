@@ -24,10 +24,13 @@
   
   loaded: ->
     $('#registerForm').submit ->
+      username = $('input#name').val()
+      email = $('input#email').val()
+      password = $('input#password').val()
       console.log "registering in on login form..."
-      fimo.data.post 'register', { email: $('input#email').val(), username: $('input#name').val(), password: $('input#password').val() }, ->
+      fimo.data.post 'register', { email: email, username: username, password: password }, (res) ->
         # store user to local store
-        window.localStorage.setItem('user', JSON.stringify({ email: $('input#email').val(), password: $('input#password').val() }))
+        window.localStorage.setItem('user', JSON.stringify({ email: email, password: password, userId: res.userId }))
         fimo.controller.jumbles()
       , ->
         $('.alert-error').show()

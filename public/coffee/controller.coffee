@@ -78,8 +78,12 @@
     page.create( views.dashboard() )
   
   profile: ->
-    fimo.data.load "users/profile", (content) ->
-      page.create(views.profile({ username : content.username }))
+    userId = fimo.user.getId()
+    fimo.data.load "users/profile?userId=#{ userId }", (content) ->
+      if content.status == 200
+        page.create(views.profile({ title: content.title, user : content.user }))
+      else
+        page.create(views.message({ message: content.message }))
       
   login: ->
     page.create( views.login() )

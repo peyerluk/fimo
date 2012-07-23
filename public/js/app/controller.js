@@ -84,10 +84,19 @@
         return page.create(views.dashboard());
       },
       profile: function() {
-        return fimo.data.load("users/profile", function(content) {
-          return page.create(views.profile({
-            username: content.username
-          }));
+        var userId;
+        userId = fimo.user.getId();
+        return fimo.data.load("users/profile?userId=" + userId, function(content) {
+          if (content.status === 200) {
+            return page.create(views.profile({
+              title: content.title,
+              user: content.user
+            }));
+          } else {
+            return page.create(views.message({
+              message: content.message
+            }));
+          }
         });
       },
       login: function() {

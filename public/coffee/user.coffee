@@ -14,9 +14,12 @@
     
   ### PUBLIC ###
   
+  loadUser = ->
+    JSON.parse(window.localStorage.getItem('user'))
+    
   init: ->
     #user = store.get('user')
-    user = JSON.parse(window.localStorage.getItem('user'))
+    user = loadUser()
     if user
       # login user
       #console.log('logging in existing user: ' + user.email + ' ' + user.password)
@@ -31,6 +34,10 @@
       #console.log('about to create user')
       #create_user()
   
+  getId: ->
+    user = loadUser()
+    user.userId
+    
   logout: ->
     window.localStorage.removeItem('user')
   
