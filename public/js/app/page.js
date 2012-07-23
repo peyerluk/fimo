@@ -46,7 +46,7 @@
           });
         }
         if (slideDirection) {
-          return this.slideIn(slideDirection, bezier);
+          return this.slideIn(slideDirection);
         } else {
           this.$page.show();
           return setTimeout(function() {

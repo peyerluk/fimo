@@ -38,7 +38,7 @@
     @scrollable = new iScroll(@$page[0], { hScrollbar: false, vScrollbar: false }) if scroll
     
     if slideDirection
-      @slideIn(slideDirection, bezier)
+      @slideIn(slideDirection)
     else
       # element = @$page[0]
       # element.style.webkitTransform = "translate3d(0px, 0, 0)"
