@@ -4,7 +4,7 @@ Schema = mongoose.Schema
 
 User = new Schema({
   username: { type: String },
-  name: { prename: String, surname: String },
+  picture: { type: Schema.ObjectId, ref: 'Image' },
   coords: { lon: Number, lat: Number },
   location: { 
     country: String, 
@@ -23,6 +23,9 @@ User.plugin(mongooseAuth, {
         
   password:
     loginWith: 'email',
+    extraParams: {
+      username: String
+    },
     everyauth:
       getLoginPath: '/login'
       postLoginPath: '/login'

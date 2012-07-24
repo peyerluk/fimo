@@ -15,19 +15,13 @@ app.get '/upload', before.login, (req, res) ->
     title: 'Image upload'
   })
 
-app.post '/webUpload', (req, res) ->
-  console.log "about to upload..."
-  console.log("upload: #{ req.user }")
-  fs.readFile req.files.displayImage.path, (err, data) ->
-    Image.create data, req.user, (err, img) ->
-      res.redirect('back')
 
 app.post '/upload', (req, res) ->      
   if ( req.loggedIn == false )
-    console.log "not allowed"
+    #console.log "not allowed"
     res.send { status: 403, message: "Not Logged in" }, 403
   else
-    console.log "uploading..."
+    #console.log "uploading..."
     fs.readFile req.files.displayImage.path, (err, data) ->
       if err
         console.log(err)

@@ -25,6 +25,28 @@ Image = new Schema({
   }
 });
 
+Image.statics.createProfilePicture = function(uploadedImage, user, callback) {
+  var img;
+  img = new ImageModel({
+    user: user.id
+  });
+  return fs.writeFile(img.tmpPath(), uploadedImage, function(err) {
+    return img.crop("48x48", function() {
+      return img.crop("100x100", function() {
+        return img.save(function(err) {
+          if (err) {
+            return callback(err, img);
+          } else {
+            return img.uploadS3(function() {
+              return callback(void 0, img);
+            });
+          }
+        });
+      });
+    });
+  });
+};
+
 Image.statics.create = function(uploadedImage, user, callback) {
   var img;
   img = new ImageModel({
@@ -66,7 +88,7 @@ Image.methods.crop = function(size, callback) {
   var output;
   output = this.tmpPath(size);
   this.thumbnails.push(size);
-  return im.convert([this.tmpPath(), '-resize', '100x100^', '-gravity', 'center', '-crop', "" + size + "+0+0", output], function() {
+  return im.convert([this.tmpPath(), '-resize', size + '^', '-gravity', 'center', '-crop', "" + size + "+0+0", output], function() {
     return callback();
   });
 };
@@ -99,10 +121,14 @@ Image.methods.s3Path = function(suffix) {
 };
 
 Image.methods.url = function(suffix) {
+  return Image.url(this.id, suffix);
+};
+
+Image.statics.url = function(id, suffix) {
   if (suffix) {
-    return "http://fimo.s3.amazonaws.com/images/" + this.id + "_" + suffix + ".jpg";
+    return "http://fimo.s3.amazonaws.com/images/" + id + "_" + suffix + ".jpg";
   } else {
-    return "http://fimo.s3.amazonaws.com/images/" + this.id + ".jpg";
+    return "http://fimo.s3.amazonaws.com/images/" + id + ".jpg";
   }
 };
 

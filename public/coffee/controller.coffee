@@ -90,7 +90,7 @@
     userId = fimo.user.getId()
     fimo.data.load "users/profile?userId=#{ userId }", (content) ->
       if content.status == 200
-        page.create(views.profile({ title: content.title, user : content.user }))
+        page.create(views.profile({ title: content.title, user : content.user, imageUrl : content.imageUrl }))
       else
         page.create(views.message({ message: content.message }))
       
