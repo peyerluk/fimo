@@ -17,7 +17,7 @@
     <ul class="navbar-items">
       <li><a href="<%= back %>" class="btn btn-navbar">back</a></li>
       <li><div id="navbar-title" class="navbar-title-back"><%= title %></div></li>
-      <li class="navbar-right"><a href="add" class="btn btn-navbar"><i class="icon-plus"></i></a></li>
+      <li class="navbar-right"><a href="add?jumbleId=<%=jumbleId%>" class="btn btn-navbar"><i class="icon-plus"></i></a></li>
     </ul>
     """
   );
@@ -40,14 +40,14 @@
     """
   )
   
-  fimo.events.on "afterPageLoaded", (viewName) ->
+  fimo.events.on "afterPageLoaded", (viewName, viewArguments) ->
     title = $("#navbar-title").html()
     
     switch viewName
       when "jumbles"
         $nav.html(jumbles({ title: title })).show()
       when "wall"
-        $nav.html(wall({ title: title, back: "jumbles" })).show()
+        $nav.html(wall({ title: title, back: "jumbles", jumbleId: viewArguments['jumbleId'] })).show()
       when "image"
         $nav.html(back({ title: title, back: "wall" })).show()
       when "login", "register"

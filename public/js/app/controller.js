@@ -54,7 +54,8 @@
       wall: function(jumbleId) {
         return fimo.data.load("wall", function(content) {
           return page.create(views.wall({
-            objects: content.objects
+            objects: content.objects,
+            jumbleId: jumbleId
           }), {
             title: content.title,
             level: 3,
@@ -62,8 +63,8 @@
           });
         });
       },
-      object: function(id) {
-        return fimo.data.load("objects/" + id + "/show", function(content) {
+      object: function(params) {
+        return fimo.data.load("objects/" + params['objectId'] + "/show", function(content) {
           return page.create(views.object({
             content: content
           }), {
@@ -113,12 +114,14 @@
       register: function() {
         return page.create(views.register());
       },
-      add: function() {
+      add: function(params) {
+        console.log("params is " + params['jumbleId']);
         if (fimo.device.isBrowser()) {
           return page.create(views.newObject({
             url: "" + hostname + "/objects/create",
             imageUrl: "http://fimo.s3.amazonaws.com/images/4fff0a2e0df2a02233000007_100x100.jpg",
-            imageId: "4fff0a2e0df2a02233000007"
+            imageId: "4fff0a2e0df2a02233000007",
+            jumbleId: params['jumbleId']
           }));
         } else {
           return fimo.device.ready(function() {

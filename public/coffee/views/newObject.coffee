@@ -52,7 +52,7 @@
         $.trim(tag)
       
       fimo.cache.remove("wall")
-      fimo.data.post 'objects/create', { imageId: @instanceArguments['imageId'], verbs: verbs, tags: tags }, =>
+      fimo.data.post 'objects/create', { imageId: @instanceArguments['imageId'], jumbleId: @instanceArguments['jumbleId'], verbs: verbs, tags: tags }, =>
         # TODO: route to object view
         fimo.controller.jumbles()
       , ->

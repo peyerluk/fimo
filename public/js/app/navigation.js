@@ -4,10 +4,10 @@
     var $nav, back, customBack, jumbles, wall;
     $nav = $("#navbar");
     jumbles = _.template("<ul class=\"navbar-items\">\n  <li><a href=\"dashboard\" class=\"btn btn-navbar\"><i class=\"icon-align-justify\"></i></a></li>\n  <li><div id=\"navbar-title\"><%= title %></div></li>\n  <li class=\"navbar-right\"><a href=\"newJumble\" class=\"btn btn-navbar\"><i class=\"icon-plus\"></i></a></li>\n</ul>");
-    wall = _.template("<ul class=\"navbar-items\">\n  <li><a href=\"<%= back %>\" class=\"btn btn-navbar\">back</a></li>\n  <li><div id=\"navbar-title\" class=\"navbar-title-back\"><%= title %></div></li>\n  <li class=\"navbar-right\"><a href=\"add\" class=\"btn btn-navbar\"><i class=\"icon-plus\"></i></a></li>\n</ul>");
+    wall = _.template("<ul class=\"navbar-items\">\n  <li><a href=\"<%= back %>\" class=\"btn btn-navbar\">back</a></li>\n  <li><div id=\"navbar-title\" class=\"navbar-title-back\"><%= title %></div></li>\n  <li class=\"navbar-right\"><a href=\"add?jumbleId=<%=jumbleId%>\" class=\"btn btn-navbar\"><i class=\"icon-plus\"></i></a></li>\n</ul>");
     back = _.template("<ul class=\"navbar-items\">\n  <li><a href=\"<%= back %>\" class=\"btn btn-navbar\" id=\"back\">back</a></li>\n  <li><div id=\"navbar-title\" class=\"navbar-title-back\"><%= title %></div></li>\n</ul>");
     customBack = _.template("<ul class=\"navbar-items\">\n  <li><a href=\"\" class=\"btn btn-navbar\" id=\"back\">back</a></li>\n  <li><div id=\"navbar-title\" class=\"navbar-title-back\"><%= title %></div></li>\n</ul>");
-    return fimo.events.on("afterPageLoaded", function(viewName) {
+    return fimo.events.on("afterPageLoaded", function(viewName, viewArguments) {
       var title;
       title = $("#navbar-title").html();
       switch (viewName) {
@@ -18,7 +18,8 @@
         case "wall":
           return $nav.html(wall({
             title: title,
-            back: "jumbles"
+            back: "jumbles",
+            jumbleId: viewArguments['jumbleId']
           })).show();
         case "image":
           return $nav.html(back({

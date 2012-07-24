@@ -121,7 +121,7 @@ Image.methods.s3Path = function(suffix) {
 };
 
 Image.methods.url = function(suffix) {
-  return Image.url(this.id, suffix);
+  return ImageModel.url(this.id, suffix);
 };
 
 Image.statics.url = function(id, suffix) {

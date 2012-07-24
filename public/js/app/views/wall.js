@@ -4,19 +4,12 @@
     var imageIdRegex;
     imageIdRegex = /\w*(?=_\w*\.(?=jpg|png))/i;
     return {
-      template: _.template("<ul id=\"wall\" class=\"clearfix\">\n<% _.each(objects, function(object) { %>\n  <li><img src='<%= object.url %>' data-object=\"<%= object.objectId %>\" width=\"100\" height=\"100\"></li> \n<% }); %>\n</ul>"),
-      click: function(event) {
-        var objectId;
-        objectId = event.target.getAttribute("data-object");
-        if (objectId) {
-          return fimo.controller.object(objectId);
-        }
-      },
+      template: _.template("<ul id=\"wall\" class=\"clearfix\">\n<% _.each(objects, function(object) { %>\n  <li><a href=\"object?objectId=<%=object.objectId%>\"><img src='<%= object.url %>' width=\"100\" height=\"100\"></a></li> \n<% }); %>\n</ul>"),
       loaded: function() {
-        return fimo.events.on("click", this.click);
+        return false;
       },
       destroy: function() {
-        return fimo.events.off("click", this.click);
+        return false;
       }
     };
   });

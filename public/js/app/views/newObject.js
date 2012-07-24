@@ -34,6 +34,7 @@
           fimo.cache.remove("wall");
           fimo.data.post('objects/create', {
             imageId: _this.instanceArguments['imageId'],
+            jumbleId: _this.instanceArguments['jumbleId'],
             verbs: verbs,
             tags: tags
           }, function() {

@@ -3,6 +3,8 @@
   history = []
   current = undefined
   next = undefined
+  nextViewArguments = undefined
+  currentViewArguments = undefined
     
   fimo.events.on "newPage", ->
     if current
@@ -13,8 +15,10 @@
     
   fimo.events.on "pageLoaded", ->
     current = next
+    currentViewArguments = nextViewArguments
+    nextViewArguments = undefined # NOTE: this step is not necessary, but should clarify the code
     next = undefined
-    fimo.events.fire("afterPageLoaded", current?.name)
+    fimo.events.fire("afterPageLoaded", current?.name, currentViewArguments)
     current.loaded() if current
     
   # add a view programmatically
@@ -29,9 +33,9 @@
     view.name = name
     this[name] = ->
       next = view
-      #console.log("setting instanceArguments to: " + arguments[0]);
-      #console.log(arguments[0])
       view['instanceArguments'] = arguments[0] || {}
+      #console.log "got instance arguments " + _.keys(view['instanceArguments'])
+      nextViewArguments = view['instanceArguments']
       view.template.apply(undefined, arguments)
       
   
