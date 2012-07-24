@@ -6,7 +6,16 @@ Image = require("../models/image")
 Jumble = require("../models/jumble")
 _ = require('underscore')._
 
-
+app.get '/jumbles', (req, res) ->
+  Jumble.where().desc("created").limit(10).populate('primaryObject').run (err, jumbles) ->
+    
+    jumbleData = for jumble in jumbles
+      { imageUrl: Image.url(jumble.primaryObject.image, "300x"), name: jumble.name, tags: jumble.tags, id: jumble._id }
+    
+    res.send
+      title: 'Jumbles nearby',
+      jumbles: jumbleData,
+      status: 200
 
 app.post '/jumbles/create', (req, res) ->
   #console.log(req.body)

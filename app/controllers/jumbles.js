@@ -14,6 +14,31 @@ Jumble = require("../models/jumble");
 
 _ = require('underscore')._;
 
+app.get('/jumbles', function(req, res) {
+  return Jumble.where().desc("created").limit(10).populate('primaryObject').run(function(err, jumbles) {
+    var jumble, jumbleData;
+    jumbleData = (function() {
+      var _i, _len, _results;
+      _results = [];
+      for (_i = 0, _len = jumbles.length; _i < _len; _i++) {
+        jumble = jumbles[_i];
+        _results.push({
+          imageUrl: Image.url(jumble.primaryObject.image, "300x"),
+          name: jumble.name,
+          tags: jumble.tags,
+          id: jumble._id
+        });
+      }
+      return _results;
+    })();
+    return res.send({
+      title: 'Jumbles nearby',
+      jumbles: jumbleData,
+      status: 200
+    });
+  });
+});
+
 app.post('/jumbles/create', function(req, res) {
   if (req.loggedIn === false) {
     return res.send({

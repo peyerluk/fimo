@@ -43,15 +43,16 @@
   # Jumbles
     
   jumbles: ->
-    page.create(views.jumbles(),
-      title: "jumbles nearby"
-      level: 2
-      scroll: true
-    )
+    fimo.data.load "jumbles", (content) ->
+      page.create(views.jumbles( { jumbles : content.jumbles } ),
+        title: content.title
+        level: 2
+        scroll: true
+      )
     
-  wall: (jumbleId) ->
+  wall: (params) ->
     fimo.data.load "wall", (content) ->
-      page.create(views.wall({ objects : content.objects, jumbleId: jumbleId }), 
+      page.create(views.wall({ objects : content.objects, jumbleId: params['jumbleId'] }), 
         title: content.title
         level: 3
         scroll: true

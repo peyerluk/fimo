@@ -45,17 +45,22 @@
         });
       },
       jumbles: function() {
-        return page.create(views.jumbles(), {
-          title: "jumbles nearby",
-          level: 2,
-          scroll: true
+        return fimo.data.load("jumbles", function(content) {
+          console.log(content);
+          return page.create(views.jumbles({
+            jumbles: content.jumbles
+          }), {
+            title: content.title,
+            level: 2,
+            scroll: true
+          });
         });
       },
-      wall: function(jumbleId) {
+      wall: function(params) {
         return fimo.data.load("wall", function(content) {
           return page.create(views.wall({
             objects: content.objects,
-            jumbleId: jumbleId
+            jumbleId: params['jumbleId']
           }), {
             title: content.title,
             level: 3,
@@ -115,7 +120,6 @@
         return page.create(views.register());
       },
       add: function(params) {
-        console.log("params is " + params['jumbleId']);
         if (fimo.device.isBrowser()) {
           return page.create(views.newObject({
             url: "" + hostname + "/objects/create",
