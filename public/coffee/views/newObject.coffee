@@ -10,13 +10,13 @@
       
       <div class="separator separator-4"><em>Why do you want to post this?</em></div>
         
-      <div class="object-verbs clearfix" style="margin-top:15px;">
+      <div class="newObject-verbs clearfix" style="margin-top:15px;">
         <span>Pass it on</span>
         <a href="" class="btn" data-verb="give"><i class="icon icon-star"></i>Give</a>
         <a href="" class="btn" data-verb="swap"><i class="icon icon-star"></i>Swap</a>
         <a href="" class="btn" data-verb="sell"><i class="icon icon-star"></i>Sell</a>
       </div>
-      <div class="object-verbs clearfix">
+      <div class="newObject-verbs clearfix">
         <span>Show it</span>
         <a href="" class="btn btn-verb-large" data-verb="like"><i class="icon icon-star"></i>Like</a>
         <a href="" class="btn btn-verb-large" data-verb="want"><i class="icon icon-star"></i>Want</a>
@@ -35,7 +35,7 @@
   
   loaded: ->
     verbs = {}
-    $(".object-verbs").on "click", "a", (event) ->
+    $(".newObject-verbs").on "click", "a", (event) ->
       $this = $(this)
       $this.toggleClass("btn-info")
       $this.find("i").toggleClass("icon-white")

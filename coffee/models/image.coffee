@@ -84,7 +84,7 @@ Image.methods.s3Path = (suffix) ->
     "/images/#{ this.id }.jpg"
 
 Image.methods.url = (suffix) ->
-  Image.url(this.id, suffix)
+  ImageModel.url(this.id, suffix)
 
 Image.statics.url = (id, suffix) ->
   if suffix
