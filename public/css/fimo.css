@@ -1850,6 +1850,12 @@ input[type="submit"].btn {
   bottom: 8px;
   left: 8px;
 }
+.object-user {
+  margin: 3px 8px 0;
+  padding: 2px 5px;
+  background: #ffffff;
+}
+/* NEW OBJECT */
 .object-verbs {
   clear: both;
   margin-bottom: 5px;
