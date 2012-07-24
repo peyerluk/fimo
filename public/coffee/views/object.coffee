@@ -3,6 +3,10 @@
   template: _.template(
     """
     <div>
+      <div class="object-user">
+        <img src="img/profile-small.png">
+        <span><%= content.user.email %></span>
+      </div>
       <div class="object-image">
         <img src='<%= content.imageUrl %>' class="portrait" width="300">
         <ul class="tags">
@@ -11,7 +15,6 @@
           <% }); %>
         </ul>
       </div>
-      <div><%= content.user.email %></div>
       <div><%= content.verbs %></div>
     </div>
     """

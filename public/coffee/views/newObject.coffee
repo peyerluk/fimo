@@ -24,7 +24,7 @@
       <br/>
       
       <div class="separator separator-2"><em>What is it? (optional)</em></div>
-      <input type="text" class="input-large" name="tags" placeholder="Add #tag" id="tags" />
+      <input type="text" class="input-large" name="tags" placeholder="tag, second tag, another tag" id="tags" />
       <br/>
       
       <button type="submit" class="btn btn-primary btn-form-large">jumble it</button>

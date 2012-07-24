@@ -56,12 +56,6 @@
         level: 3
         scroll: true
       )
-  
-  # image: (id) ->
-  #   fimo.data.load "image?id=#{ id }", (content) ->
-  #     page.create(views.image({ imageUrl : content.url }),
-  #       level: 4
-  #     )
       
   object: (params) ->
     fimo.data.load "objects/#{ params['objectId'] }/show", (content) ->
