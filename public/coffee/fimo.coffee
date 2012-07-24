@@ -16,9 +16,18 @@ fimo.init = ->
     event.preventDefault()
     
     path = this.getAttribute("href")
+    elements = path.split("?")
+    path = elements[0]
+    params = undefined
+    if elements.length > 1
+      params = {}
+      _.each(elements[1].split("&"), (param) ->
+        nameValuePair = param.split("=")
+        params[nameValuePair[0]] = nameValuePair[1])
+  
     action = controller[path]
     if action
-      action()
+      action(params)
     else if path != "" && path != "#"
       alert("#{ path } not implemented")
   

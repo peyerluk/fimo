@@ -43,22 +43,23 @@
   # Jumbles
     
   jumbles: ->
-    page.create(views.jumbles(),
-      title: "jumbles nearby"
-      level: 2
-      scroll: true
-    )
+    fimo.data.load "jumbles", (content) ->
+      page.create(views.jumbles( { jumbles : content.jumbles } ),
+        title: content.title
+        level: 2
+        scroll: true
+      )
     
-  wall: (jumbleId) ->
+  wall: (params) ->
     fimo.data.load "wall", (content) ->
-      page.create(views.wall({ objects : content.objects }), 
+      page.create(views.wall({ objects : content.objects, jumbleId: params['jumbleId'] }), 
         title: content.title
         level: 3
         scroll: true
       )
       
-  object: (id) ->
-    fimo.data.load "objects/#{ id }/show", (content) ->
+  object: (params) ->
+    fimo.data.load "objects/#{ params['objectId'] }/show", (content) ->
       page.create(views.object({ content : content }),
         level: 4
       )
@@ -101,13 +102,15 @@
         
   # IMAGE HANDLING
   
-  add: ->
+  add: (params) ->
+    #console.log "params is " + params['jumbleId']
     # hack for browser views
     if fimo.device.isBrowser() # && fimo.device.getAgent() == "browser"
       page.create(views.newObject(
         url: "" + hostname + "/objects/create"
         imageUrl: "http://fimo.s3.amazonaws.com/images/4fff0a2e0df2a02233000007_100x100.jpg"
-        imageId: "4fff0a2e0df2a02233000007"
+        imageId: "4fff0a2e0df2a02233000007",
+        jumbleId: params['jumbleId']
       ))
       
     else  

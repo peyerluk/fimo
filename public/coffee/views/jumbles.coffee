@@ -22,42 +22,35 @@
         by clicking the plus.
       </div>
       
-      <div class="jumble">
-        <h2>Rearrange your home</h2>
-        <div class="jumble-image">
-          <img src="http://fimo.s3.amazonaws.com/images/4fff0a570df2a02233000017_300x.jpg" width="300">
-          <ul class="tags">
-            <li><a href="">decoration</a></li>
-            <li><a href="">modern</a></li>
-          </ul>
+      <% _.each(jumbles, function(jumble) { %>
+        <div class="jumble">
+          <h2><%=jumble['name']%></h2>
+          <div class="jumble-image">
+            <a href="wall?jumbleId=<%=jumble['id']%>"><img src="<%=jumble['imageUrl']%>" width="300"></a>
+            <ul class="tags">
+            <% _.each(jumble['tags'], function(tag) { %>
+              <li><a href=""><%= tag %></a></li>
+            <% }); %>
+            </ul>
+          </div>
         </div>
-        <div class="description">Zürich</div>
-      </div>
-      <div class="jumble">
-        <h2>Wooden Furniture</h2>
-        <div class="jumble-image">
-          <img src="http://fimo.s3.amazonaws.com/images/4fff0a2e0df2a02233000007_300x.jpg" width="300">
-          <ul class="tags">
-            <li><a href="">wood</a></li>
-            <li><a href="">vintage</a></li>
-            <li><a href="">furniture</a></li>
-          </ul>
-        </div>
-        <div class="description">Zürich</div>
-      </div>
+      <% }); %>
+      
     </div>
     """
   )
   
-  click: (event) ->
-    jumble = $(event.target).parents(".jumble")
-    if jumble.length
-      fimo.controller.wall( "500d748aa52aa5516c000004" )
-    
+  # click: (event) ->
+  #     jumble = $(event.target).parents(".jumble")
+  #     if jumble.length
+  #       fimo.controller.wall( "500d748aa52aa5516c000004" )
+  #     
   loaded: ->
-    fimo.events.on "click", this.click
+    false
+    #fimo.events.on "click", this.click
   
   destroy: ->
-    fimo.events.off "click", this.click
+    false
+    #fimo.events.off "click", this.click
     
     
