@@ -46,7 +46,6 @@
       },
       jumbles: function() {
         return fimo.data.load("jumbles", function(content) {
-          console.log(content);
           return page.create(views.jumbles({
             jumbles: content.jumbles
           }), {
