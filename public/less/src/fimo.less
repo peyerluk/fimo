@@ -56,23 +56,77 @@
 
 /* OBJECT */
 .object-image {
-  margin:3px 8px;
+  margin: 0 10px;
   position: relative;
+  
+  img {
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+/*    .border-radius(5px);*/
+  }
   .tags {
     position: absolute;
-    bottom: 8px;
+    top: 8px;
     left: 8px;
+  }
+  
+  .verbs {
+    position: absolute;
+    bottom: 8px;
+    right: 8px;
+    
+    div {
+      float: left;
+      margin-right: 2px;
+      padding: 3px 12px 5px 6px;
+    }
   }
 }
 
+.portrait { border: 2px solid @white; }
+
 .object-user {
-  margin: 3px 8px 0;
+  margin: 3px 10px 0;
   padding: 2px 5px;
   background: @white;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+    
+  img, div { float: left; }
+  img { padding: 0 8px 0 2px; }
+  div { padding: 2px 0 0; }
+  em { display: block; }
+  .object-jumble { color: @gray; }
+}
+
+.object-verbs {
+  background: @white;
+  padding: 2px;
+  margin: 3px 10px 0;
+  text-align: right;
+}
+
+.object-comments {
+  margin: 3px 10px 20px;
+  background: @white;
+  padding: 4px 2px;
+  .border-radius(5px);
+  
+  input { width: 206px; }
+  form { margin-bottom: 0; }
+  .btn {
+    padding: 7px 6px 7px 9px;
+    margin-top: 1px;
+    vertical-align: top;
+  }
+  .no-comments {
+    padding: 5px 5px 10px;
+    color: @gray;
+  }
 }
 
 /* NEW OBJECT */
-.object-verbs {
+.newObject-verbs {
   clear: both;
   margin-bottom: 5px;
   
@@ -101,10 +155,6 @@
   .btn-verb-large {
     width: 89px;
   }
-}
-
-.portrait {
-  border: 2px solid @white;
 }
 
 .preview {
