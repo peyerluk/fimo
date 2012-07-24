@@ -54,7 +54,7 @@
       wall: function(jumbleId) {
         return fimo.data.load("wall", function(content) {
           return page.create(views.wall({
-            images: content.images
+            objects: content.objects
           }), {
             title: content.title,
             level: 3,
@@ -62,10 +62,10 @@
           });
         });
       },
-      image: function(id) {
-        return fimo.data.load("image?id=" + id, function(content) {
-          return page.create(views.image({
-            imageUrl: content.url
+      object: function(id) {
+        return fimo.data.load("objects/" + id + "/show", function(content) {
+          return page.create(views.object({
+            content: content
           }), {
             level: 4
           });

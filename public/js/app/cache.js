@@ -33,13 +33,13 @@
         entry.data = data;
         return store.set(key, entry);
       },
-      "delete": function(key) {
-        return storedEntries -= 1;
+      remove: function(key) {
+        return store.remove(key);
       },
       clean: function() {
         var entry, everything, key, now;
-        everything = store.getAll();
         now = Date.now();
+        everything = store.getAll();
         for (key in everything) {
           entry = everything[key];
           if (/cache:/.exec(key)) {
@@ -51,6 +51,18 @@
         }
         console.log("cache cleaned in " + (Date.now() - now) + "ms");
         return void 0;
+      },
+      wipe: function() {
+        var entry, everything, key, now;
+        now = Date.now();
+        everything = store.getAll();
+        for (key in everything) {
+          entry = everything[key];
+          if (/cache:/.exec(key)) {
+            store.remove(key);
+          }
+        }
+        return console.log("cache wiped in " + (Date.now() - now) + "ms");
       }
     };
   })();

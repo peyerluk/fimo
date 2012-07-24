@@ -35,6 +35,10 @@ Jumble = new Schema({
   coords: {
     lon: Number,
     lat: Number
+  },
+  created: {
+    type: Date,
+    "default": Date.now
   }
 });
 

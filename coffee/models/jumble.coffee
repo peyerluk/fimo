@@ -11,6 +11,8 @@ Jumble = new Schema({
   objects:          { type: [Object] },
   participants:     { type: [User] },
   coords:           { lon: Number, lat: Number }
+  created:          { type: Date, default: Date.now }
+  
 })
 
 # INDEXES

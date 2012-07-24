@@ -51,15 +51,21 @@
     
   wall: (jumbleId) ->
     fimo.data.load "wall", (content) ->
-      page.create(views.wall({ images : content.images }), 
+      page.create(views.wall({ objects : content.objects }), 
         title: content.title
         level: 3
         scroll: true
       )
   
-  image: (id) ->
-    fimo.data.load "image?id=#{ id }", (content) ->
-      page.create(views.image({ imageUrl : content.url }),
+  # image: (id) ->
+  #   fimo.data.load "image?id=#{ id }", (content) ->
+  #     page.create(views.image({ imageUrl : content.url }),
+  #       level: 4
+  #     )
+      
+  object: (id) ->
+    fimo.data.load "objects/#{ id }/show", (content) ->
+      page.create(views.object({ content : content }),
         level: 4
       )
       

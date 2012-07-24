@@ -9,6 +9,8 @@ Object = new Schema({
   jumble:     { type: Schema.ObjectId, ref: "Jumble" },
   coords:     { lon: Number, lat: Number },
   verbs:      { type: [String] }
+  created:    { type: Date, default: Date.now }
+  
 })
 
 # INDEXES

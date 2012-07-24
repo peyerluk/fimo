@@ -1,15 +1,18 @@
-@fimo.views.add "image", ->
+@fimo.views.add "object", ->
   
   template: _.template(
     """
     <div>
       <div class="object-image">
-        <img src='<%= imageUrl %>' class="portrait" width="300">
+        <img src='<%= content.imageUrl %>' class="portrait" width="300">
         <ul class="tags">
-          <li><a href="">vintage</a></li>
-          <li><a href="">decoration</a></li>
+          <% _.each(content.tags, function(tag) { %>
+            <li><a href=""><%= tag %></a></li>
+          <% }); %>
         </ul>
       </div>
+      <div><%= content.user.email %></div>
+      <div><%= content.verbs %></div>
     </div>
     """
   )

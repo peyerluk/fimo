@@ -38,12 +38,13 @@ fimo.cache = do ->
     
     store.set(key, entry)
   
-  delete: (key) ->
-    storedEntries -= 1
-    
+  remove: (key) ->
+    store.remove(key)
+  
+  # remove expired cache entries
   clean: ->
-    everything = store.getAll()
     now = Date.now()
+    everything = store.getAll()
     for key, entry of everything
       if /cache:/.exec(key)
         if entry.expires < now
@@ -52,6 +53,16 @@ fimo.cache = do ->
         
     console.log("cache cleaned in #{ Date.now() - now }ms")
     undefined
+  
+  # remove all cache entries
+  wipe: ->
+    now = Date.now()
+    everything = store.getAll()
+    for key, entry of everything
+      if /cache:/.exec(key)
+        store.remove(key)
+        
+    console.log("cache wiped in #{ Date.now() - now }ms")
   
   
       

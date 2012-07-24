@@ -4,20 +4,16 @@
   template: _.template(
     """
     <ul id="wall" class="clearfix">
-    <% _.each(images, function(image) { %>
-      <li><img src='<%= image %>' width="100" height="100"></li> 
+    <% _.each(objects, function(object) { %>
+      <li><img src='<%= object.url %>' data-object="<%= object.objectId %>" width="100" height="100"></li> 
     <% }); %>
     </ul>
     """
   )
   
   click: (event) ->
-    imageSrc = event.target.getAttribute("src")
-    if imageSrc
-      result = imageIdRegex.exec(imageSrc)
-      if result
-        fimo.controller.image(result[0])
-    
+    objectId = event.target.getAttribute("data-object")
+    fimo.controller.object(objectId) if objectId
     
   loaded: ->
     fimo.events.on "click", this.click

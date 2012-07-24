@@ -5,18 +5,35 @@ Object = require("../models/object")
 Image = require("../models/image")
 _ = require('underscore')._
 
+
+app.get '/wall', (req, res) ->
+  Object.where().desc("created").limit(100).populate('image').run (err, objects) ->
+    
+    objectData = for object in objects
+      { url: object.image.url("100x100"), objectId: object._id }
+    
+    res.send
+      title: 'Jumble',
+      objects: objectData,
+      status: 200
+      
 app.get '/objects/:id/show', (req, res) ->
-  Object.findById(req.params.id).populate('image').exec (err, object) ->
+  Object.findById(req.params.id).populate('image').populate('owner').exec (err, object) ->
     if err
       res.send { status: 500, error: err } 
     else
-      res.render 'objects/show.jade', { status: 200, title: "Object Detail", object: object, imageUrl: object.image.url("300x") } 
+      res.send
+        title: ""
+        verbs: object.verbs
+        tags: object.tags
+        user: object.owner
+        imageUrl: object.image.url("300x")
 
 app.get '/objects/new', (req, res) ->
-  res.send({
+  res.send(
     title: 'New Object',
     status: 200
-  })
+  )
   
 app.post '/objects/create', (req, res) ->
   console.log(req.body)

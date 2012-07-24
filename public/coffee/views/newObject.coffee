@@ -12,14 +12,14 @@
         
       <div class="object-verbs clearfix" style="margin-top:15px;">
         <span>Pass it on</span>
-        <a href="" class="btn"><i class="icon icon-star"></i>Give</a>
-        <a href="" class="btn"><i class="icon icon-star"></i>Swap</a>
-        <a href="" class="btn"><i class="icon icon-star"></i>Sell</a>
+        <a href="" class="btn" data-verb="give"><i class="icon icon-star"></i>Give</a>
+        <a href="" class="btn" data-verb="swap"><i class="icon icon-star"></i>Swap</a>
+        <a href="" class="btn" data-verb="sell"><i class="icon icon-star"></i>Sell</a>
       </div>
       <div class="object-verbs clearfix">
         <span>Show it</span>
-        <a href="" class="btn btn-verb-large"><i class="icon icon-star"></i>Like</a>
-        <a href="" class="btn btn-verb-large"><i class="icon icon-star"></i>Want</a>
+        <a href="" class="btn btn-verb-large" data-verb="like"><i class="icon icon-star"></i>Like</a>
+        <a href="" class="btn btn-verb-large" data-verb="want"><i class="icon icon-star"></i>Want</a>
       </div>
       <br/>
       
@@ -34,10 +34,25 @@
   )
   
   loaded: ->
+    verbs = {}
+    $(".object-verbs").on "click", "a", (event) ->
+      $this = $(this)
+      $this.toggleClass("btn-info")
+      $this.find("i").toggleClass("icon-white")
+      verbs[$this.data("verb")] = !verbs[$this.data("verb")]
+      
+      
     $('#newObjectForm').submit =>
       console.log "creating object..."
-      tags = $('#tags').val().split(",")
-      fimo.data.post 'objects/create', { imageId: @instanceArguments['imageId'], verbs: $('#verbs').val(), tags: tags }, =>
+      
+      verbs = for key, value of verbs when value == true
+        key
+        
+      tags = _.map $('#tags').val().split(","), (tag) ->
+        $.trim(tag)
+      
+      fimo.cache.remove("wall")
+      fimo.data.post 'objects/create', { imageId: @instanceArguments['imageId'], verbs: verbs, tags: tags }, =>
         # TODO: route to object view
         fimo.controller.jumbles()
       , ->

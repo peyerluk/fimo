@@ -15,7 +15,6 @@ Jumble = require("../models/jumble");
 _ = require('underscore')._;
 
 app.post('/jumbles/create', function(req, res) {
-  console.log(req.body);
   if (req.loggedIn === false) {
     return res.send({
       status: 403
@@ -40,9 +39,7 @@ app.post('/jumbles/create', function(req, res) {
         _.extend(options['primaryObject'], {
           owner: req.user._id
         });
-        console.log(options['primaryObject']);
         primaryObject = new Object(req.body['primaryObject']);
-        console.log(options);
         options['primaryObject'] = primaryObject._id;
         jumble = new Jumble(options);
         return jumble.save(function(err) {

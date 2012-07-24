@@ -74,7 +74,6 @@
             return $.trim(tag);
           });
           fimo.data.post('jumbles/create', _this.instanceArguments, function() {
-            alert("reroute");
             return fimo.controller.jumbles();
           }, function() {
             return alert("error");
