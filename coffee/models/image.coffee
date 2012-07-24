@@ -12,6 +12,21 @@ Image = new Schema({
   created: { type: Date, default: Date.now }
 })
 
+Image.statics.createProfilePicture = (uploadedImage, user, callback) ->
+  img = new ImageModel({
+    user: user.id
+  })
+  
+  fs.writeFile img.tmpPath(), uploadedImage, (err) ->
+    img.crop "48x48", ->
+      img.crop "100x100", ->
+        img.save (err) ->
+          if err
+            callback(err, img)
+          else
+            img.uploadS3 ->
+              callback(undefined, img)
+
 Image.statics.create = (uploadedImage, user, callback) ->
   img = new ImageModel({
     user: user.id
@@ -44,7 +59,7 @@ Image.methods.crop = (size, callback) ->
   output = this.tmpPath(size)
   this.thumbnails.push(size)
   
-  im.convert [this.tmpPath(), '-resize', '100x100^', '-gravity', 'center', '-crop', "#{ size }+0+0", output], ->
+  im.convert [this.tmpPath(), '-resize', size+'^', '-gravity', 'center', '-crop', "#{ size }+0+0", output], ->
     callback()
     
 Image.methods.resize = (size, callback) ->
@@ -69,12 +84,13 @@ Image.methods.s3Path = (suffix) ->
     "/images/#{ this.id }.jpg"
 
 Image.methods.url = (suffix) ->
+  Image.url(this.id, suffix)
+
+Image.statics.url = (id, suffix) ->
   if suffix
-    "http://fimo.s3.amazonaws.com/images/#{ this.id }_#{ suffix }.jpg"
+    "http://fimo.s3.amazonaws.com/images/#{ id }_#{ suffix }.jpg"
   else
-    "http://fimo.s3.amazonaws.com/images/#{ this.id }.jpg"
-
-
+    "http://fimo.s3.amazonaws.com/images/#{ id }.jpg"
 
 # INDEXES
 Image.index( { user: 1 } )
