@@ -39,6 +39,29 @@ app.get('/jumbles', function(req, res) {
   });
 });
 
+app.get('/jumbles/:id/wall', function(req, res) {
+  return Object.where('jumble', req.params.id).desc("created").limit(100).populate('image').run(function(err, objects) {
+    var object, objectData;
+    objectData = (function() {
+      var _i, _len, _results;
+      _results = [];
+      for (_i = 0, _len = objects.length; _i < _len; _i++) {
+        object = objects[_i];
+        _results.push({
+          url: object.image.url("100x100"),
+          objectId: object._id
+        });
+      }
+      return _results;
+    })();
+    return res.send({
+      title: 'Jumble',
+      objects: objectData,
+      status: 200
+    });
+  });
+});
+
 app.post('/jumbles/create', function(req, res) {
   if (req.loggedIn === false) {
     return res.send({

@@ -12,29 +12,6 @@ Image = require("../models/image");
 
 _ = require('underscore')._;
 
-app.get('/wall', function(req, res) {
-  return Object.where().desc("created").limit(100).populate('image').run(function(err, objects) {
-    var object, objectData;
-    objectData = (function() {
-      var _i, _len, _results;
-      _results = [];
-      for (_i = 0, _len = objects.length; _i < _len; _i++) {
-        object = objects[_i];
-        _results.push({
-          url: object.image.url("100x100"),
-          objectId: object._id
-        });
-      }
-      return _results;
-    })();
-    return res.send({
-      title: 'Jumble',
-      objects: objectData,
-      status: 200
-    });
-  });
-});
-
 app.get('/objects/:id/show', function(req, res) {
   return Object.findById(req.params.id).populate('image').populate('owner').exec(function(err, object) {
     if (err) {

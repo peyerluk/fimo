@@ -16,6 +16,17 @@ app.get '/jumbles', (req, res) ->
       title: 'Jumbles nearby',
       jumbles: jumbleData,
       status: 200
+      
+
+app.get '/jumbles/:id/wall', (req, res) ->
+  Object.where('jumble', req.params.id ).desc("created").limit(100).populate('image').run (err, objects) ->
+    objectData = for object in objects
+      { url: object.image.url("100x100"), objectId: object._id }
+
+    res.send
+      title: 'Jumble',
+      objects: objectData,
+      status: 200
 
 app.post '/jumbles/create', (req, res) ->
   #console.log(req.body)
