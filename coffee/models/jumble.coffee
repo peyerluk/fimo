@@ -1,14 +1,14 @@
 mongoose = require("../config/mongodb")
 Schema = mongoose.Schema
 User = require("./user")
-Object = require("./object")
+Item = require("./object")
 
 Jumble = new Schema({
   owner:            { type: Schema.ObjectId, ref: 'User', required: true },
-  primaryObject:    { type: Schema.ObjectId, ref: 'Object', required: true },
+  primaryObject:    { type: Schema.ObjectId, ref: 'Item', required: true },
   name:             { type: String, required: true },
   tags:             { type: [String] },
-  objects:          { type: [Object] },
+  objects:          { type: [Item] },
   participants:     { type: [User] },
   coords:           { lon: Number, lat: Number }
   created:          { type: Date, default: Date.now }

@@ -1,4 +1,4 @@
-var Jumble, JumbleModel, Object, Schema, User, mongoose;
+var Item, Jumble, JumbleModel, Schema, User, mongoose;
 
 mongoose = require("../config/mongodb");
 
@@ -6,7 +6,7 @@ Schema = mongoose.Schema;
 
 User = require("./user");
 
-Object = require("./object");
+Item = require("./object");
 
 Jumble = new Schema({
   owner: {
@@ -16,7 +16,7 @@ Jumble = new Schema({
   },
   primaryObject: {
     type: Schema.ObjectId,
-    ref: 'Object',
+    ref: 'Item',
     required: true
   },
   name: {
@@ -27,7 +27,7 @@ Jumble = new Schema({
     type: [String]
   },
   objects: {
-    type: [Object]
+    type: [Item]
   },
   participants: {
     type: [User]
