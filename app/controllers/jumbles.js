@@ -23,7 +23,7 @@ app.get('/jumbles', function(req, res) {
       for (_i = 0, _len = jumbles.length; _i < _len; _i++) {
         jumble = jumbles[_i];
         _results.push({
-          imageUrl: Image.url(jumble.primaryObject.image, "300x"),
+          imageUrl: Image.url(jumble.primaryObject.image, "300x300"),
           name: jumble.name,
           tags: jumble.tags,
           id: jumble._id
@@ -34,6 +34,29 @@ app.get('/jumbles', function(req, res) {
     return res.send({
       title: 'Jumbles nearby',
       jumbles: jumbleData,
+      status: 200
+    });
+  });
+});
+
+app.get('/jumbles/:id/wall', function(req, res) {
+  return Object.where('jumble', req.params.id).desc("created").limit(100).populate('image').run(function(err, objects) {
+    var object, objectData;
+    objectData = (function() {
+      var _i, _len, _results;
+      _results = [];
+      for (_i = 0, _len = objects.length; _i < _len; _i++) {
+        object = objects[_i];
+        _results.push({
+          url: object.image.url("100x100"),
+          objectId: object._id
+        });
+      }
+      return _results;
+    })();
+    return res.send({
+      title: 'Jumble',
+      objects: objectData,
       status: 200
     });
   });

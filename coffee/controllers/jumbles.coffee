@@ -10,11 +10,22 @@ app.get '/jumbles', (req, res) ->
   Jumble.where().desc("created").limit(10).populate('primaryObject').run (err, jumbles) ->
     
     jumbleData = for jumble in jumbles
-      { imageUrl: Image.url(jumble.primaryObject.image, "300x"), name: jumble.name, tags: jumble.tags, id: jumble._id }
+      { imageUrl: Image.url(jumble.primaryObject.image, "300x300"), name: jumble.name, tags: jumble.tags, id: jumble._id }
     
     res.send
       title: 'Jumbles nearby',
       jumbles: jumbleData,
+      status: 200
+      
+
+app.get '/jumbles/:id/wall', (req, res) ->
+  Object.where('jumble', req.params.id ).desc("created").limit(100).populate('image').run (err, objects) ->
+    objectData = for object in objects
+      { url: object.image.url("100x100"), objectId: object._id }
+
+    res.send
+      title: 'Jumble',
+      objects: objectData,
       status: 200
 
 app.post '/jumbles/create', (req, res) ->

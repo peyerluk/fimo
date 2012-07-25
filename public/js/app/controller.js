@@ -56,7 +56,7 @@
         });
       },
       wall: function(params) {
-        return fimo.data.load("wall?jumble=" + params['jumbleId'], function(content) {
+        return fimo.data.load("jumbles/" + params['jumbleId'] + "/wall", function(content) {
           return page.create(views.wall({
             objects: content.objects,
             jumbleId: params['jumbleId']
@@ -70,7 +70,8 @@
       object: function(params) {
         return fimo.data.load("objects/" + params['objectId'] + "/show", function(content) {
           return page.create(views.object({
-            content: content
+            content: content,
+            jumbleId: params['jumbleId']
           }), {
             level: 4
           });
