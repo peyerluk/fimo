@@ -19,13 +19,30 @@ app.get '/jumbles', (req, res) ->
       
 
 app.get '/jumbles/:id/wall', (req, res) ->
-  Object.where('jumble', req.params.id ).desc("created").limit(100).populate('image').run (err, objects) ->
+  Object.where('jumble', req.params.id ).desc("created").limit(100).run (err, objects) ->
     objectData = for object in objects
-      { url: object.image.url("100x100"), objectId: object._id }
+      { url: Image.url(object.image, "100x100"), objectId: object._id }
 
     res.send
       title: 'Jumble',
       objects: objectData,
+      status: 200
+      
+app.get '/jumbles/:id/by-users', (req, res) ->
+  Object.where('jumble', req.params.id ).desc("created").limit(100).populate("owner").run (err, objects) ->
+    
+    objectsByUsers = {}
+    for object in objects
+      byOwners[object.owner.id] ?= { user: object.owner, objects: [] }
+      byOwners[object.owner.id].objects.push { 
+        url: Image.url(object.image, "100x100")
+        objectId: object._id
+        user: owner 
+      }
+
+    res.send
+      title: 'Jumble',
+      objects: objectsByUsers,
       status: 200
 
 app.post '/jumbles/create', (req, res) ->

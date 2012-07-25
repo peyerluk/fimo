@@ -40,7 +40,7 @@ app.get('/jumbles', function(req, res) {
 });
 
 app.get('/jumbles/:id/wall', function(req, res) {
-  return Object.where('jumble', req.params.id).desc("created").limit(100).populate('image').run(function(err, objects) {
+  return Object.where('jumble', req.params.id).desc("created").limit(100).run(function(err, objects) {
     var object, objectData;
     objectData = (function() {
       var _i, _len, _results;
@@ -48,7 +48,7 @@ app.get('/jumbles/:id/wall', function(req, res) {
       for (_i = 0, _len = objects.length; _i < _len; _i++) {
         object = objects[_i];
         _results.push({
-          url: object.image.url("100x100"),
+          url: Image.url(object.image, "100x100"),
           objectId: object._id
         });
       }
@@ -57,6 +57,32 @@ app.get('/jumbles/:id/wall', function(req, res) {
     return res.send({
       title: 'Jumble',
       objects: objectData,
+      status: 200
+    });
+  });
+});
+
+app.get('/jumbles/:id/by-users', function(req, res) {
+  return Object.where('jumble', req.params.id).desc("created").limit(100).populate("owner").run(function(err, objects) {
+    var object, objectsByUsers, _i, _len, _name, _ref;
+    objectsByUsers = {};
+    for (_i = 0, _len = objects.length; _i < _len; _i++) {
+      object = objects[_i];
+      if ((_ref = byOwners[_name = object.owner.id]) == null) {
+        byOwners[_name] = {
+          user: object.owner,
+          objects: []
+        };
+      }
+      byOwners[object.owner.id].objects.push({
+        url: Image.url(object.image, "100x100"),
+        objectId: object._id,
+        user: owner
+      });
+    }
+    return res.send({
+      title: 'Jumble',
+      objects: objectsByUsers,
       status: 200
     });
   });
