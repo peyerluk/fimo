@@ -26,11 +26,6 @@ a, a:hover {
     border-bottom: 1px solid darken(@white, 5%);
   }
   .jumble-image {
-    height:200px;
-    overflow:hidden;
-    img { 
-      margin-top:-20px;
-    }
     position: relative;
     .tags {
       position: absolute;
@@ -100,9 +95,13 @@ a, a:hover {
   border-top-right-radius: 5px;
     
   img, div { float: left; }
-  img { padding: 0 8px 0 2px; }
-  div { padding: 2px 0 0; }
+  img {
+    border-radius: 30px;
+    margin: 5px 8px 0 2px; 
+  }
+  div { padding: 8px 0 0; }
   em { display: block; }
+  .name { font-size: 16px; line-height: 20px; }
   .object-jumble { color: @gray; }
 }
 
@@ -119,6 +118,11 @@ a, a:hover {
   padding: 4px 2px;
   .border-radius(5px);
   
+  .tags {
+    display: block;
+    margin: 0 2px 10px;
+  }
+  
   input { width: 205px; }
   form { margin-bottom: 0; }
   .btn {
@@ -126,10 +130,22 @@ a, a:hover {
     margin-top: 1px;
     vertical-align: top;
   }
-  .no-comments {
-    padding: 5px 5px 10px;
-    color: @gray;
+}
+
+.comment {
+  padding: 0 0 10px;
+  div {
+    margin: 0 5px 0 42px; 
   }
+  img {
+    float: left;
+    width: 30;
+    margin-left: 2px;
+  }
+}
+
+.no-comments {
+  color: @gray;
 }
 
 /* NEW OBJECT */

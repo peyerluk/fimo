@@ -26,7 +26,7 @@
         <div class="jumble">
           <h2><%=jumble['name']%></h2>
           <div class="jumble-image">
-            <a href="wall?jumbleId=<%=jumble['id']%>"><img src="<%=jumble['imageUrl']%>" width="300"></a>
+            <a href="wall?jumbleId=<%=jumble['id']%>"><img src="<%=jumble['imageUrl']%>" width="300" height="300"></a>
             <ul class="tags">
             <% 
               var i = 0;

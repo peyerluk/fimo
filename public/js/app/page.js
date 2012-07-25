@@ -8,7 +8,8 @@
       $title: $("#navbar-title"),
       currentLevel: 2,
       create: function(content, _arg) {
-        var level, scroll, slideDirection, title, _ref, _ref1;
+        var level, scroll, slideDirection, title, _ref, _ref1,
+          _this = this;
         _ref = _arg != null ? _arg : {}, scroll = _ref.scroll, title = _ref.title, level = _ref.level;
         fimo.events.fire("newPage");
         slideDirection = void 0;
@@ -51,8 +52,8 @@
           this.$page.show();
           return setTimeout(function() {
             fimo.events.fire("pageLoaded");
-            if (this.scrollable) {
-              return this.scrollable.refresh();
+            if (_this.scrollable) {
+              return _this.scrollable.refresh();
             }
           }, 0);
         }

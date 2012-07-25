@@ -13,7 +13,7 @@ Image = require("../models/image");
 _ = require('underscore')._;
 
 app.get('/objects/:id/show', function(req, res) {
-  return Object.findById(req.params.id).populate('image').populate('owner').exec(function(err, object) {
+  return Object.findById(req.params.id).populate('owner').populate('jumble').exec(function(err, object) {
     if (err) {
       return res.send({
         status: 500,
@@ -25,7 +25,9 @@ app.get('/objects/:id/show', function(req, res) {
         verbs: object.verbs,
         tags: object.tags,
         user: object.owner,
-        imageUrl: object.image.url("300x300")
+        userImage: Image.url(object.owner.picture, "45x45"),
+        jumbleName: object.jumble.name,
+        imageUrl: Image.url(object.image, "300x300")
       });
     }
   });

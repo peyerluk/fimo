@@ -5,7 +5,7 @@
     <div class="page" style="min-height:0px;">
     <form id="newObjectForm"s>
       <div class="separator separator-1"><em>Your object</em></div>
-      <img src="<%=imageUrl%>" class="preview" width="100" height="100" alt="preview">
+      <img src="<%= imageUrl %>" class="preview" width="100" height="100" alt="preview">
       <br/>
       
       <div class="separator separator-4"><em>Why do you want to post this?</em></div>
@@ -56,7 +56,6 @@
         fimo.controller.object({ objectId: data.objectId, jumbleId: data.jumbleId })
       , ->
         false
-        #$('.alert-error').show()
         
       false
       

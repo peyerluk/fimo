@@ -6,7 +6,7 @@ Image = require("../models/image")
 _ = require('underscore')._
       
 app.get '/objects/:id/show', (req, res) ->
-  Object.findById(req.params.id).populate('image').populate('owner').exec (err, object) ->
+  Object.findById(req.params.id).populate('owner').populate('jumble').exec (err, object) ->
     if err
       res.send { status: 500, error: err } 
     else
@@ -15,7 +15,9 @@ app.get '/objects/:id/show', (req, res) ->
         verbs: object.verbs
         tags: object.tags
         user: object.owner
-        imageUrl: object.image.url("300x300")
+        userImage: Image.url(object.owner.picture, "45x45")
+        jumbleName: object.jumble.name
+        imageUrl: Image.url(object.image, "300x300")
 
 app.get '/objects/new', (req, res) ->
   res.send(
