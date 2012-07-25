@@ -22,6 +22,7 @@
             jumbleId: viewArguments['jumbleId']
           })).show();
         case "object":
+        case "newObject":
           return $nav.html(back({
             title: title,
             back: "wall?jumbleId=" + viewArguments['jumbleId']

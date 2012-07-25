@@ -48,7 +48,7 @@
         $nav.html(jumbles({ title: title })).show()
       when "wall"
         $nav.html(wall({ title: title, back: "jumbles", jumbleId: viewArguments['jumbleId'] })).show()
-      when "object"
+      when "object", "newObject"
         $nav.html(back({ title: title, back: "wall?jumbleId=#{viewArguments['jumbleId']}" })).show()
       when "login", "register"
         $nav.html(back({ title: title, back: "welcome" })).show()

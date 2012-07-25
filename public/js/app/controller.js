@@ -123,8 +123,8 @@
         if (fimo.device.isBrowser()) {
           return page.create(views.newObject({
             url: "" + hostname + "/objects/create",
-            imageUrl: "http://fimo.s3.amazonaws.com/images/4fff0a2e0df2a02233000007_100x100.jpg",
-            imageId: "4fff0a2e0df2a02233000007",
+            imageUrl: "http://fimo.s3.amazonaws.com/images/501013f4ecae80d737000020_100x100.jpg",
+            imageId: "501013f4ecae80d737000020",
             jumbleId: params['jumbleId']
           }));
         } else {

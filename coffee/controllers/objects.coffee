@@ -24,12 +24,13 @@ app.get '/objects/new', (req, res) ->
   )
   
 app.post '/objects/create', (req, res) ->
-  console.log(req.body)
+  #console.log(req.body)
   if ( req.loggedIn == false )
     res.send { status: 403 }
   else
     Image.findById req.body['imageId'], (err, image) ->
       if err
+        console.log err
         return res.send { status: 500, error: err }
       else 
         options = {}
@@ -39,11 +40,11 @@ app.post '/objects/create', (req, res) ->
         object = new Object( options )
         object.save (err) ->
           if err
+            console.log err
             return res.send { status: 500, error: err }
           else
             return res.send {
-              jumbleId: req.body.jumbleId
+              jumbleId: object.jumble
               objectId: object._id
-            }
-            
+            }          
             
