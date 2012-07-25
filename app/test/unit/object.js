@@ -1,4 +1,4 @@
-var Image, Object, User, appDir, assert, helper, test, vows, _;
+var Comment, Image, Item, User, appDir, assert, helper, test, vows, _;
 
 test = require("../setup");
 
@@ -12,7 +12,9 @@ appDir = __dirname + "/../../..";
 
 User = require("../../models/user");
 
-Object = require("../../models/object");
+Item = require("../../models/object");
+
+Comment = require("../../models/comment");
 
 Image = require("../../models/image");
 
@@ -48,9 +50,9 @@ vows.describe("object model").addBatch({
       },
       "--> create an object": {
         topic: function(user, img) {
-          var cb, object;
+          var cb, item;
           cb = this.callback;
-          object = new Object({
+          item = new Item({
             owner: user,
             image: img,
             tags: ["velo", "blau"],
@@ -60,27 +62,54 @@ vows.describe("object model").addBatch({
               lat: 47.383333
             }
           });
-          return object.save(function(err) {
-            return cb(err, object, user, img);
+          return item.save(function(err) {
+            return cb(err, item, user, img);
           });
         },
-        "should have created the object for the correct owner and the correct image": function(error, object, user, img) {
+        "should have created the item for the correct owner and the correct image": function(error, item, user, img) {
           assert.isNull(error);
-          assert.equal(object.owner, user._id);
-          return assert.equal(object.image, img._id);
+          item.comments.push({
+            text: "A great sample comment"
+          });
+          console.log("assertion: " + item);
+          assert.equal(item.owner, user._id);
+          return assert.equal(item.image, img._id);
         },
-        "---> search from a close location": {
-          topic: test.async(function() {
-            return Object.find({
-              coords: {
-                $near: [8.7, 47],
-                $maxDistance: 0.5
-              }
-            }, this.callback);
-          }),
-          "should find our object": function(error, objects) {
+        "---> write a comment": {
+          topic: function(item, user, img) {
+            var cb;
+            cb = this.callback;
+            console.log("zero " + item);
+            item.comments[0] = {
+              text: "A great sample comment"
+            };
+            console.log("first " + item);
+            item.save(function(err) {
+              console.log("third " + err);
+              return cb(err, item, user, img);
+            });
+            return void 0;
+          },
+          "should have a comment on the item": function(error, item, user, img) {
+            console.log("HEEERREEE");
+            console.log("second " + item);
             assert.isNull(error);
-            return assert.equal(objects.length, 1);
+            return {
+              "----> search from a close location": {
+                topic: test.async(function() {
+                  return Item.find({
+                    coords: {
+                      $near: [8.7, 47],
+                      $maxDistance: 0.5
+                    }
+                  }, this.callback);
+                }),
+                "should find our item": function(error, items) {
+                  assert.isNull(error);
+                  return assert.equal(items.length, 1);
+                }
+              }
+            };
           }
         }
       }

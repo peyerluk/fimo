@@ -1,11 +1,12 @@
 mongoose = require("../config/mongodb")
 Schema = mongoose.Schema
+Comment = require("./comment")
 
-Object = new Schema({
+Item = new Schema({
   owner:      { type: Schema.ObjectId, ref: 'User', required: true },
   image:      { type: Schema.ObjectId, ref: 'Image', required: true },
   tags:       { type: [String] },
-  # comments: ,
+  comments:   { type: [Comment] },
   jumble:     { type: Schema.ObjectId, ref: "Jumble" },
   coords:     { lon: Number, lat: Number },
   verbs:      { type: [String] }
@@ -14,8 +15,8 @@ Object = new Schema({
 })
 
 # INDEXES
-Object.index( { coords: "2d" } )
+Item.index( { coords: "2d" } )
 
 # EXPORT
-ObjectModel = mongoose.model('Object', Object)
-module.exports = ObjectModel
+ItemModel = mongoose.model('Item', Item)
+module.exports = ItemModel

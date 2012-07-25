@@ -1,10 +1,12 @@
-var Object, ObjectModel, Schema, mongoose;
+var Comment, Item, ItemModel, Schema, mongoose;
 
 mongoose = require("../config/mongodb");
 
 Schema = mongoose.Schema;
 
-Object = new Schema({
+Comment = require("./comment");
+
+Item = new Schema({
   owner: {
     type: Schema.ObjectId,
     ref: 'User',
@@ -17,6 +19,9 @@ Object = new Schema({
   },
   tags: {
     type: [String]
+  },
+  comments: {
+    type: [Comment]
   },
   jumble: {
     type: Schema.ObjectId,
@@ -35,10 +40,10 @@ Object = new Schema({
   }
 });
 
-Object.index({
+Item.index({
   coords: "2d"
 });
 
-ObjectModel = mongoose.model('Object', Object);
+ItemModel = mongoose.model('Item', Item);
 
-module.exports = ObjectModel;
+module.exports = ItemModel;
