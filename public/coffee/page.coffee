@@ -45,7 +45,7 @@
       @$page.show()
       
       # wait for a cycle before firing "pageLoaded" to avoid artefact events
-      setTimeout ->
+      setTimeout =>
         fimo.events.fire("pageLoaded")
         @scrollable.refresh() if @scrollable
       , 0

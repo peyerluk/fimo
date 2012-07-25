@@ -4,29 +4,35 @@
     """
     <div>
       <div class="object-user clearfix">
-        <img src="img/profile-small.png">
+        <img src="<%= content.userImage %>" width="45" height="45">
         <div>
-          <em><%= content.user.email %></em>
-          <em class="object-jumble">Traceys Jumble</em>
+          <em class="name"><%= content.user.username %></em>
+          <em class="object-jumble"><%= content.jumbleName %></em>
         </div>
       </div>
       <div class="object-image">
-        <img src='<%= content.imageUrl %>' class="" width="300">
-        <ul class="tags">
-          <% _.each(content.tags, function(tag) { %>
-            <li><a href=""><%= tag %></a></li>
-          <% }); %>
-        </ul>
+        <img src='<%= content.imageUrl %>' class="" width="300" height="300">
         <div class="verbs">
           <% _.each(content.verbs, function(verb) { %>
             <div class="badge badge-info"><i class="icon icon-white icon-star"></i><%= verb %></div>
           <% }); %>
         </div>
       </div>
+      
       <div class="object-comments">
-        <div class="no-comments">
-          no comments yet, dare say something?
+        <ul class="tags clearfix">
+          <% _.each(content.tags, function(tag) { %>
+            <li><a href=""><%= tag %></a></li>
+          <% }); %>
+        </ul>
+        
+        <div class="comment no-comments">
+          <img src="img/profile-30x30.png" width="30" height="30">
+          <div>
+            no comments yet, dare say something?
+          </div>
         </div>
+        
         <form>
           <div class="btn btn-primary"><i class="icon icon-camera icon-white"></i>&nbsp;</div>
           <input type=text placeholder="comment (#tag)">

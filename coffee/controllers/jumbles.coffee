@@ -59,9 +59,7 @@ app.post '/jumbles/create', (req, res) ->
         _.extend options, { owner: req.user._id }
         _.extend options['primaryObject'], { image: image }
         _.extend options['primaryObject'], { owner: req.user._id }
-        #console.log(options['primaryObject'])
         primaryObject = new Object( req.body['primaryObject'] )
-        #console.log(options)
         options['primaryObject'] = primaryObject._id
         jumble = new Jumble( options )
         jumble.save (err) ->

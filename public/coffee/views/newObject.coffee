@@ -5,7 +5,7 @@
     <div class="page" style="min-height:0px;">
     <form id="newObjectForm"s>
       <div class="separator separator-1"><em>Your object</em></div>
-      <img src="<%=imageUrl%>" class="preview" width="100" height="100" alt="preview">
+      <img src="<%= imageUrl %>" class="preview" width="100" height="100" alt="preview">
       <br/>
       
       <div class="separator separator-4"><em>Why do you want to post this?</em></div>
@@ -50,6 +50,7 @@
         
       tags = _.map $('#tags').val().split(","), (tag) ->
         $.trim(tag).toLowerCase()
+        
       jumbleId = @instanceArguments['jumbleId']
       fimo.data.post 'objects/create', { imageId: @instanceArguments['imageId'], jumbleId: jumbleId, verbs: verbs, tags: tags }, (data) =>
         fimo.cache.remove("jumbles/#{ jumbleId }/wall")

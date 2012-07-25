@@ -32,7 +32,7 @@ Image.statics.createProfilePicture = function(uploadedImage, user, callback) {
   });
   return fs.writeFile(img.tmpPath(), uploadedImage, function(err) {
     return img.crop("30x30", function() {
-      return img.crop("48x48", function() {
+      return img.crop("45x45", function() {
         return img.crop("100x100", function() {
           return img.save(function(err) {
             if (err) {
@@ -55,17 +55,19 @@ Image.statics.create = function(uploadedImage, user, callback) {
     user: user.id
   });
   return fs.writeFile(img.tmpPath(), uploadedImage, function(err) {
-    return img.crop("48x48", function() {
-      return img.crop("100x100", function() {
-        return img.crop("300x300", function() {
-          return img.save(function(err) {
-            if (err) {
-              return callback(err, img);
-            } else {
-              return img.uploadS3(function() {
-                return callback(void 0, img);
-              });
-            }
+    return img.crop("45x45", function() {
+      return img.crop("55x55", function() {
+        return img.crop("100x100", function() {
+          return img.crop("300x300", function() {
+            return img.save(function(err) {
+              if (err) {
+                return callback(err, img);
+              } else {
+                return img.uploadS3(function() {
+                  return callback(void 0, img);
+                });
+              }
+            });
           });
         });
       });
@@ -129,10 +131,18 @@ Image.methods.url = function(suffix) {
 };
 
 Image.statics.url = function(id, suffix) {
-  if (suffix) {
-    return "http://fimo.s3.amazonaws.com/images/" + id + "_" + suffix + ".jpg";
+  if (id) {
+    if (suffix) {
+      return "http://fimo.s3.amazonaws.com/images/" + id + "_" + suffix + ".jpg";
+    } else {
+      return "http://fimo.s3.amazonaws.com/images/" + id + ".jpg";
+    }
   } else {
-    return "http://fimo.s3.amazonaws.com/images/" + id + ".jpg";
+    if (suffix) {
+      return "img/profile-" + suffix + ".png";
+    } else {
+      return "";
+    }
   }
 };
 

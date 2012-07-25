@@ -18,14 +18,15 @@ Image.statics.createProfilePicture = (uploadedImage, user, callback) ->
   })
   
   fs.writeFile img.tmpPath(), uploadedImage, (err) ->
-    img.crop "48x48", ->
-      img.crop "100x100", ->
-        img.save (err) ->
-          if err
-            callback(err, img)
-          else
-            img.uploadS3 ->
-              callback(undefined, img)
+    img.crop "30x30", ->
+      img.crop "45x45", ->
+        img.crop "100x100", ->
+          img.save (err) ->
+            if err
+              callback(err, img)
+            else
+              img.uploadS3 ->
+                callback(undefined, img)
 
 Image.statics.create = (uploadedImage, user, callback) ->
   img = new ImageModel({
@@ -33,14 +34,16 @@ Image.statics.create = (uploadedImage, user, callback) ->
   })
   
   fs.writeFile img.tmpPath(), uploadedImage, (err) ->
-    img.crop "100x100", ->
-      img.crop "300x300", ->
-        img.save (err) ->
-          if err
-            callback(err, img)
-          else
-            img.uploadS3 ->
-              callback(undefined, img)
+    img.crop "45x45", ->
+      img.crop "55x55", ->
+        img.crop "100x100", ->
+          img.crop "300x300", ->
+            img.save (err) ->
+              if err
+                callback(err, img)
+              else
+                img.uploadS3 ->
+                  callback(undefined, img)
 
 
 
@@ -87,11 +90,17 @@ Image.methods.url = (suffix) ->
   ImageModel.url(this.id, suffix)
 
 Image.statics.url = (id, suffix) ->
-  if suffix
-    "http://fimo.s3.amazonaws.com/images/#{ id }_#{ suffix }.jpg"
+  if id
+    if suffix
+      "http://fimo.s3.amazonaws.com/images/#{ id }_#{ suffix }.jpg"
+    else
+      "http://fimo.s3.amazonaws.com/images/#{ id }.jpg"
   else
-    "http://fimo.s3.amazonaws.com/images/#{ id }.jpg"
-
+    if suffix
+      "img/profile-#{ suffix }.png"
+    else
+      ""
+    
 # INDEXES
 Image.index( { user: 1 } )
 Image.index( { coords: "2d" } )
