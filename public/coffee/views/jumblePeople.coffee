@@ -68,7 +68,6 @@
         return $.trim(tag).toLowerCase()
       @instanceArguments['primaryObject']['tags'] = _.map @instanceArguments['primaryObject']['tags'].split(","), (tag) -> 
         return $.trim(tag).toLowerCase()
-      
       fimo.data.post 'jumbles/create', @instanceArguments, =>
         fimo.cache.remove("jumbles")
         fimo.controller.jumbles()

@@ -11,18 +11,19 @@
     alert("got error code on photo upload #{error.code}")
     
   onPhotoUploadSuccess = (res) ->
-    #alert res.response
+    # CAREFUL: this is the params object from the add controller
     jsonResponse = JSON.parse(unescape(res.response))
-    page.create(views.newObject({ url: "" + hostname + "/objects/create", imageUrl: jsonResponse.imageUrl, imageId: jsonResponse.imageId }))
+    page.create(views.newObject({ url: "" + hostname + "/objects/create", imageUrl: jsonResponse.imageUrl, imageId: jsonResponse.imageId, jumbleId: @jumbleId }))
     
   onPhotoDataSuccess = (imageURI) ->
+    # CAREFUL: this is the params object from the add controller
     options = new FileUploadOptions()
     options.fileKey = "displayImage"
     options.fileName = imageURI.substr(imageURI.lastIndexOf('/')+1)
     options.mimeType = "image/jpeg"
     ft = new FileTransfer
     
-    ft.upload(imageURI,  "#{hostname}/upload", onPhotoUploadSuccess, onPhotoUploadFail, options)
+    ft.upload(imageURI,  "#{hostname}/upload", _.bind(onPhotoUploadSuccess, @), _.bind(onPhotoUploadFail, @), options)
     undefined
   
   # BACK
@@ -108,8 +109,8 @@
     if fimo.device.isBrowser() # && fimo.device.getAgent() == "browser"
       page.create(views.newObject(
         url: "" + hostname + "/objects/create"
-        imageUrl: "http://fimo.s3.amazonaws.com/images/4fff0a2e0df2a02233000007_100x100.jpg"
-        imageId: "4fff0a2e0df2a02233000007",
+        imageUrl: "http://fimo.s3.amazonaws.com/images/501013f4ecae80d737000020_100x100.jpg"
+        imageId: "501013f4ecae80d737000020",
         jumbleId: params['jumbleId']
       ))
       
@@ -118,7 +119,7 @@
         pictureSource = Camera.PictureSourceType['PHOTOLIBRARY']
         #pictureSource = Camera.PictureSourceType['CAMERA']
         destinationType = Camera.DestinationType.FILE_URI
-        navigator.camera.getPicture onPhotoDataSuccess, onPhotoDataFail,
+        navigator.camera.getPicture _.bind(onPhotoDataSuccess, params), _.bind(onPhotoDataFail, params),
           quality: 50, 
           allowEdit: true,
           destinationType: destinationType,

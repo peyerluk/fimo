@@ -15,7 +15,7 @@
           return verbs[$this.data("verb")] = !verbs[$this.data("verb")];
         });
         return $('#newObjectForm').submit(function() {
-          var jumbleId, key, tags, value;
+          var key, tags, value;
           console.log("creating object...");
           verbs = (function() {
             var _results;
@@ -31,20 +31,19 @@
           tags = _.map($('#tags').val().split(","), function(tag) {
             return $.trim(tag).toLowerCase();
           });
-          jumbleId = _this.instanceArguments['jumbleId'];
           fimo.data.post('objects/create', {
             imageId: _this.instanceArguments['imageId'],
-            jumbleId: jumbleId,
+            jumble: _this.instanceArguments['jumbleId'],
             verbs: verbs,
             tags: tags
           }, function(data) {
-            fimo.cache.remove("jumbles/" + jumbleId + "/wall");
+            fimo.cache.remove("jumbles/" + data.jumbleId + "/wall");
             return fimo.controller.object({
               objectId: data.objectId,
-              jumbleId: jumbleId
+              jumbleId: data.jumbleId
             });
           }, function() {
-            return $('.alert-error').show();
+            return false;
           });
           return false;
         });

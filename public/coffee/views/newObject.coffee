@@ -51,12 +51,11 @@
       tags = _.map $('#tags').val().split(","), (tag) ->
         $.trim(tag).toLowerCase()
         
-      jumbleId = @instanceArguments['jumbleId']
-      fimo.data.post 'objects/create', { imageId: @instanceArguments['imageId'], jumbleId: jumbleId, verbs: verbs, tags: tags }, (data) =>
-        fimo.cache.remove("jumbles/#{ jumbleId }/wall")
-        fimo.controller.object({ objectId: data.objectId, jumbleId: jumbleId })
+      fimo.data.post 'objects/create', { imageId: @instanceArguments['imageId'], jumble: @instanceArguments['jumbleId'], verbs: verbs, tags: tags }, (data) =>
+        fimo.cache.remove("jumbles/#{ data.jumbleId }/wall")
+        fimo.controller.object({ objectId: data.objectId, jumbleId: data.jumbleId })
       , ->
-        $('.alert-error').show()
+        false
         
       false
       

@@ -46,4 +46,5 @@ fimo.init = ->
   # controller.jumbles()
   
   # clean calche (easiest to do at startup, performance penalty should be negligible)
-  fimo.cache.clean()
+  #fimo.cache.clean()
+  fimo.cache.wipe()

@@ -18,7 +18,8 @@
       return page.create(views.newObject({
         url: "" + hostname + "/objects/create",
         imageUrl: jsonResponse.imageUrl,
-        imageId: jsonResponse.imageId
+        imageId: jsonResponse.imageId,
+        jumbleId: this.jumbleId
       }));
     };
     onPhotoDataSuccess = function(imageURI) {
@@ -28,7 +29,7 @@
       options.fileName = imageURI.substr(imageURI.lastIndexOf('/') + 1);
       options.mimeType = "image/jpeg";
       ft = new FileTransfer;
-      ft.upload(imageURI, "" + hostname + "/upload", onPhotoUploadSuccess, onPhotoUploadFail, options);
+      ft.upload(imageURI, "" + hostname + "/upload", _.bind(onPhotoUploadSuccess, this), _.bind(onPhotoUploadFail, this), options);
       return void 0;
     };
     return {
@@ -123,8 +124,8 @@
         if (fimo.device.isBrowser()) {
           return page.create(views.newObject({
             url: "" + hostname + "/objects/create",
-            imageUrl: "http://fimo.s3.amazonaws.com/images/4fff0a2e0df2a02233000007_100x100.jpg",
-            imageId: "4fff0a2e0df2a02233000007",
+            imageUrl: "http://fimo.s3.amazonaws.com/images/501013f4ecae80d737000020_100x100.jpg",
+            imageId: "501013f4ecae80d737000020",
             jumbleId: params['jumbleId']
           }));
         } else {
@@ -132,7 +133,7 @@
             var destinationType, pictureSource;
             pictureSource = Camera.PictureSourceType['PHOTOLIBRARY'];
             destinationType = Camera.DestinationType.FILE_URI;
-            return navigator.camera.getPicture(onPhotoDataSuccess, onPhotoDataFail, {
+            return navigator.camera.getPicture(_.bind(onPhotoDataSuccess, params), _.bind(onPhotoDataFail, params), {
               quality: 50,
               allowEdit: true,
               destinationType: destinationType,
