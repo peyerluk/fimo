@@ -7,8 +7,8 @@
       <div class="handwriting">
         What's the first thing you want to post in your jumble?
       </div>
-      <img src="" id="previewImage" style="display:none;"/><br/>
-      <a href="" id="imageLink">Take an image</a><br/>
+      <br/>
+      <a href="" id="imageLink"><img src="img/camera-plus.png" alt="take image" style="margin-left:80px" id="previewImage" /></a><br/>
       
       <div class="separator separator-4"><em>Why do you want to post this?</em></div>
         
