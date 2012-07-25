@@ -47,7 +47,7 @@ app.post('/objects/create', function(req, res) {
     return Image.findById(req.body['imageId'], function(err, image) {
       var object, options;
       if (err) {
-        console.log(err);
+        console.log("image error " + err);
         return res.send({
           status: 500,
           error: err
@@ -64,7 +64,7 @@ app.post('/objects/create', function(req, res) {
         object = new Object(options);
         return object.save(function(err) {
           if (err) {
-            console.log(err);
+            console.log("object error " + err);
             return res.send({
               status: 500,
               error: err

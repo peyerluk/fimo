@@ -18,7 +18,8 @@
       return page.create(views.newObject({
         url: "" + hostname + "/objects/create",
         imageUrl: jsonResponse.imageUrl,
-        imageId: jsonResponse.imageId
+        imageId: jsonResponse.imageId,
+        jumbleId: this.jumbleId
       }));
     };
     onPhotoDataSuccess = function(imageURI) {
@@ -28,7 +29,7 @@
       options.fileName = imageURI.substr(imageURI.lastIndexOf('/') + 1);
       options.mimeType = "image/jpeg";
       ft = new FileTransfer;
-      ft.upload(imageURI, "" + hostname + "/upload", onPhotoUploadSuccess, onPhotoUploadFail, options);
+      ft.upload(imageURI, "" + hostname + "/upload", _.bind(onPhotoUploadSuccess, this), _.bind(onPhotoUploadFail, this), options);
       return void 0;
     };
     return {
@@ -132,7 +133,7 @@
             var destinationType, pictureSource;
             pictureSource = Camera.PictureSourceType['PHOTOLIBRARY'];
             destinationType = Camera.DestinationType.FILE_URI;
-            return navigator.camera.getPicture(onPhotoDataSuccess, onPhotoDataFail, {
+            return navigator.camera.getPicture(_.bind(onPhotoDataSuccess, params), _.bind(onPhotoDataFail, params), {
               quality: 50,
               allowEdit: true,
               destinationType: destinationType,

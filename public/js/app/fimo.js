@@ -45,7 +45,7 @@
       fimo.events.fire("click", event);
       return void 0;
     });
-    return fimo.cache.clean();
+    return fimo.cache.wipe();
   };
 
 }).call(this);

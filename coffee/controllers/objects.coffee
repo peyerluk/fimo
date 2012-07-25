@@ -30,7 +30,7 @@ app.post '/objects/create', (req, res) ->
   else
     Image.findById req.body['imageId'], (err, image) ->
       if err
-        console.log err
+        console.log "image error " + err
         return res.send { status: 500, error: err }
       else 
         options = {}
@@ -40,7 +40,7 @@ app.post '/objects/create', (req, res) ->
         object = new Object( options )
         object.save (err) ->
           if err
-            console.log err
+            console.log "object error " + err
             return res.send { status: 500, error: err }
           else
             return res.send {
