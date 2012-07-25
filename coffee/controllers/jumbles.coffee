@@ -6,6 +6,7 @@ Image = require("../models/image")
 Jumble = require("../models/jumble")
 _ = require('underscore')._
 
+  
 app.get '/jumbles', (req, res) ->
   Jumble.where().desc("created").limit(10).populate('primaryObject').run (err, jumbles) ->
     
@@ -35,7 +36,7 @@ app.get '/jumbles/:id/by-users', (req, res) ->
     for item in items
       byOwners[item.owner.id] ?= { user: item.owner, items: [] }
       byOwners[item.owner.id].items.push { 
-        url: Image.url(item.image, "100x100")
+        url: Image.url(item.image, "45x45")
         itemId: item._id
         user: owner 
       }
@@ -45,6 +46,33 @@ app.get '/jumbles/:id/by-users', (req, res) ->
       items: itemsByUsers,
       status: 200
 
+# to create jumble activity entries
+app.get '/jumbles/activity', (req, res) ->
+  Jumble.where().desc("created").limit(10).run (err, jumbles) ->
+    
+    for jumble in jumbles
+      Item.where('jumble', jumble.id ).desc("created").limit(100).run (err, items) ->
+        for item in items
+          console.log(item)
+          random = Math.random()
+          
+          item.lastActivity = 
+            if random > 0.85
+              "comment"
+            else if random > 0.6
+              "like"
+            else if random > 0.55
+              "star"
+            else 
+              ""
+            
+          item.save()
+    
+
+  res.send
+    title: 'Activity created',
+    status: 200
+          
 app.post '/jumbles/create', (req, res) ->
   #console.log(req.body)
   if ( req.loggedIn == false )

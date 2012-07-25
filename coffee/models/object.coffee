@@ -9,7 +9,8 @@ Item = new Schema({
   comments:   { type: [Comment.schema] },
   jumble:     { type: Schema.ObjectId, ref: "Jumble" },
   coords:     { lon: Number, lat: Number },
-  verbs:      { type: [String] }
+  verbs:      { type: [String] },
+  lastActivity: { type: String },
   created:    { type: Date, default: Date.now }
   
 })

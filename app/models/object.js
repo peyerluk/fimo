@@ -34,6 +34,9 @@ Item = new Schema({
   verbs: {
     type: [String]
   },
+  lastActivity: {
+    type: String
+  },
   created: {
     type: Date,
     "default": Date.now

@@ -75,7 +75,7 @@ app.get('/jumbles/:id/by-users', function(req, res) {
         };
       }
       byOwners[item.owner.id].items.push({
-        url: Image.url(item.image, "100x100"),
+        url: Image.url(item.image, "45x45"),
         itemId: item._id,
         user: owner
       });
@@ -85,6 +85,33 @@ app.get('/jumbles/:id/by-users', function(req, res) {
       items: itemsByUsers,
       status: 200
     });
+  });
+});
+
+app.get('/jumbles/activity', function(req, res) {
+  Jumble.where().desc("created").limit(10).run(function(err, jumbles) {
+    var jumble, _i, _len, _results;
+    _results = [];
+    for (_i = 0, _len = jumbles.length; _i < _len; _i++) {
+      jumble = jumbles[_i];
+      _results.push(Item.where('jumble', jumble.id).desc("created").limit(100).run(function(err, items) {
+        var item, random, _j, _len1, _results1;
+        _results1 = [];
+        for (_j = 0, _len1 = items.length; _j < _len1; _j++) {
+          item = items[_j];
+          console.log(item);
+          random = Math.random();
+          item.lastActivity = random > 0.85 ? "comment" : random > 0.6 ? "like" : random > 0.55 ? "star" : "";
+          _results1.push(item.save());
+        }
+        return _results1;
+      }));
+    }
+    return _results;
+  });
+  return res.send({
+    title: 'Activity created',
+    status: 200
   });
 });
 
