@@ -53,7 +53,7 @@ vows.describe("jumble model").addBatch({
   teardown: ->
     test.db.clearCollection "users"
     test.db.clearCollection "images"
-    test.db.clearCollection "objects"
+    test.db.clearCollection "items"
     test.db.clearCollection "jumbles"
   
   

@@ -40,45 +40,36 @@ vows.describe("object model").addBatch({
             
         "should have created the item for the correct owner and the correct image": (error, item, user, img) ->
           assert.isNull error
-          item.comments.push { text: "A great sample comment" }
-          console.log "assertion: #{ item }"
           assert.equal item.owner, user._id
           assert.equal item.image, img._id
         
         "---> write a comment": {
-          topic: (item, user, img) ->
+          topic: test.async (item, user, img) ->
             cb = @callback
-            console.log "zero " + item
-            item.comments[0] = { text: "A great sample comment" }
-            
-            console.log "first " + item
+            item.comments.push { text: "A great sample comment" }
             
             item.save (err) ->
-              console.log "third " + err
               cb err, item, user, img
-              
-            undefined
         
-        "should have a comment on the item": (error, item, user, img) ->
-          console.log "HEEERREEE"
-          console.log "second " + item
-          assert.isNull error
-          #assert.equal item.comments.length, 1
+          "should have a comment on the item": (error, item, user, img) ->
+            assert.isNull error
+            assert.equal item.comments.length, 1
+            assert.isNotNull item.comments[0].created
         
           "----> search from a close location": {
-                     # TODO: a function item does not work here to pass on params 
-                     # topic: (item, user, img) ->
-                     #             test.async ->
-                     #               Item.find { coords : { $near : [8.7, 47], $maxDistance : 0.5 } }, helper.curry @callback, user
-                     topic: test.async ->
-                       Item.find { coords : { $near : [8.7, 47], $maxDistance : 0.5 } }, @callback
-                   
-                     
-                     "should find our item": (error, items) ->
-                       #console.log user
-                       #console.log objects
-                       assert.isNull error 
-                       assert.equal items.length, 1 
+            # TODO: a function item does not work here to pass on params 
+            # topic: (item, user, img) ->
+            #             test.async ->
+            #               Item.find { coords : { $near : [8.7, 47], $maxDistance : 0.5 } }, helper.curry @callback, user
+            topic: test.async ->
+             Item.find { coords : { $near : [8.7, 47], $maxDistance : 0.5 } }, @callback
+
+
+            "should find our item": (error, items) ->
+             #console.log user
+             #console.log objects
+             assert.isNull error 
+             assert.equal items.length, 1 
                    
           }
         }
@@ -89,6 +80,6 @@ vows.describe("object model").addBatch({
   teardown: ->
     test.db.clearCollection "users"
     test.db.clearCollection "images"
-    test.db.clearCollection "objects"
+    test.db.clearCollection "items"
   
 }).export(module)

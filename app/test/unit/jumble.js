@@ -97,7 +97,7 @@ vows.describe("jumble model").addBatch({
   teardown: function() {
     test.db.clearCollection("users");
     test.db.clearCollection("images");
-    test.db.clearCollection("objects");
+    test.db.clearCollection("items");
     return test.db.clearCollection("jumbles");
   }
 })["export"](module);

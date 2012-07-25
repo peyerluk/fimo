@@ -21,7 +21,7 @@ Item = new Schema({
     type: [String]
   },
   comments: {
-    type: [Comment]
+    type: [Comment.schema]
   },
   jumble: {
     type: Schema.ObjectId,

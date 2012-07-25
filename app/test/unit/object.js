@@ -68,48 +68,38 @@ vows.describe("object model").addBatch({
         },
         "should have created the item for the correct owner and the correct image": function(error, item, user, img) {
           assert.isNull(error);
-          item.comments.push({
-            text: "A great sample comment"
-          });
-          console.log("assertion: " + item);
           assert.equal(item.owner, user._id);
           return assert.equal(item.image, img._id);
         },
         "---> write a comment": {
-          topic: function(item, user, img) {
+          topic: test.async(function(item, user, img) {
             var cb;
             cb = this.callback;
-            console.log("zero " + item);
-            item.comments[0] = {
+            item.comments.push({
               text: "A great sample comment"
-            };
-            console.log("first " + item);
-            item.save(function(err) {
-              console.log("third " + err);
+            });
+            return item.save(function(err) {
               return cb(err, item, user, img);
             });
-            return void 0;
-          },
+          }),
           "should have a comment on the item": function(error, item, user, img) {
-            console.log("HEEERREEE");
-            console.log("second " + item);
             assert.isNull(error);
-            return {
-              "----> search from a close location": {
-                topic: test.async(function() {
-                  return Item.find({
-                    coords: {
-                      $near: [8.7, 47],
-                      $maxDistance: 0.5
-                    }
-                  }, this.callback);
-                }),
-                "should find our item": function(error, items) {
-                  assert.isNull(error);
-                  return assert.equal(items.length, 1);
+            assert.equal(item.comments.length, 1);
+            return assert.isNotNull(item.comments[0].created);
+          },
+          "----> search from a close location": {
+            topic: test.async(function() {
+              return Item.find({
+                coords: {
+                  $near: [8.7, 47],
+                  $maxDistance: 0.5
                 }
-              }
-            };
+              }, this.callback);
+            }),
+            "should find our item": function(error, items) {
+              assert.isNull(error);
+              return assert.equal(items.length, 1);
+            }
           }
         }
       }
@@ -118,6 +108,6 @@ vows.describe("object model").addBatch({
   teardown: function() {
     test.db.clearCollection("users");
     test.db.clearCollection("images");
-    return test.db.clearCollection("objects");
+    return test.db.clearCollection("items");
   }
 })["export"](module);
