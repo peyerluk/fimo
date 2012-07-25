@@ -62,12 +62,12 @@
       console.log "creating jumble..."
       # pre-conditioning
       @instanceArguments['tags'] = _.map @instanceArguments['tags'].split(","), (tag) ->
-        return $.trim(tag)
+        return $.trim(tag).toLowerCase()
       @instanceArguments['primaryObject']['tags'] = _.map @instanceArguments['primaryObject']['tags'].split(","), (tag) -> 
-        return $.trim(tag)
+        return $.trim(tag).toLowerCase()
       
       fimo.data.post 'jumbles/create', @instanceArguments, =>
-        # TODO: route to jumble view
+        fimo.cache.remove("jumbles")
         fimo.controller.jumbles()
       , ->
         alert("error")

@@ -34,6 +34,7 @@
         return store.set(key, entry);
       },
       remove: function(key) {
+        key = "cache:" + key;
         return store.remove(key);
       },
       clean: function() {

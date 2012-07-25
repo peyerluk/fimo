@@ -28,9 +28,14 @@
           <div class="jumble-image">
             <a href="wall?jumbleId=<%=jumble['id']%>"><img src="<%=jumble['imageUrl']%>" width="300"></a>
             <ul class="tags">
-            <% _.each(jumble['tags'], function(tag) { %>
+            <% 
+              var i = 0;
+              _.each(jumble['tags'], function(tag) { 
+              i += 1;
+              if (i < 4) { 
+            %>
               <li><a href=""><%= tag %></a></li>
-            <% }); %>
+            <% }}); %>
             </ul>
           </div>
         </div>

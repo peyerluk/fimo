@@ -27,7 +27,6 @@ app.post '/users/profilePicture', (req, res) ->
 
 app.get '/users/profile', (req, res) ->
     if req.user
-      
       res.send({
         title: 'Profile',
         status: 200,

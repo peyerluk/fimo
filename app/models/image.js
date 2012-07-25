@@ -54,7 +54,7 @@ Image.statics.create = function(uploadedImage, user, callback) {
   });
   return fs.writeFile(img.tmpPath(), uploadedImage, function(err) {
     return img.crop("100x100", function() {
-      return img.resize("300x", function() {
+      return img.crop("300x300", function() {
         return img.save(function(err) {
           if (err) {
             return callback(err, img);

@@ -27,7 +27,7 @@ app.get '/objects/:id/show', (req, res) ->
         verbs: object.verbs
         tags: object.tags
         user: object.owner
-        imageUrl: object.image.url("300x")
+        imageUrl: object.image.url("300x300")
 
 app.get '/objects/new', (req, res) ->
   res.send(
@@ -53,4 +53,9 @@ app.post '/objects/create', (req, res) ->
           if err
             return res.send { status: 500, error: err }
           else
-            return res.redirect('/objects/' + object._id + '/show')
+            return res.send {
+              jumbleId: req.body.jumbleId
+              objectId: object._id
+            }
+            
+            

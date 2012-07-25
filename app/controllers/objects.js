@@ -48,7 +48,7 @@ app.get('/objects/:id/show', function(req, res) {
         verbs: object.verbs,
         tags: object.tags,
         user: object.owner,
-        imageUrl: object.image.url("300x")
+        imageUrl: object.image.url("300x300")
       });
     }
   });
@@ -92,7 +92,10 @@ app.post('/objects/create', function(req, res) {
               error: err
             });
           } else {
-            return res.redirect('/objects/' + object._id + '/show');
+            return res.send({
+              jumbleId: req.body.jumbleId,
+              objectId: object._id
+            });
           }
         });
       }

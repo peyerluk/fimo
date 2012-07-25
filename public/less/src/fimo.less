@@ -1,4 +1,9 @@
 
+a, a:hover {
+  text-decoration: none;
+  color: @grayDarker;
+}
+
 .page { 
   margin: 0 10px;
 }
@@ -8,7 +13,7 @@
 .jumble {
   border-right: 1px solid darken(@white, 35%);
   border-bottom: 1px solid darken(@white, 35%);
-  margin: 5px 9px 0;
+  margin: 5px 9px 0 10px;
   background: darken(@white, 2%);
   .border-radius(5px);
   cursor: pointer;
@@ -23,7 +28,9 @@
   .jumble-image {
     height:200px;
     overflow:hidden;
-    img { margin-top:-20px;}
+    img { 
+      margin-top:-20px;
+    }
     position: relative;
     .tags {
       position: absolute;
@@ -112,7 +119,7 @@
   padding: 4px 2px;
   .border-radius(5px);
   
-  input { width: 206px; }
+  input { width: 205px; }
   form { margin-bottom: 0; }
   .btn {
     padding: 7px 6px 7px 9px;
@@ -142,7 +149,8 @@
   a {
     display: block;
     float: left;
-    width: 55px;
+    width: 57px;
+    text-decoration: none;
   }
   
   i {
@@ -153,7 +161,7 @@
   }
   
   .btn-verb-large {
-    width: 89px;
+    width: 92px;
   }
 }
 

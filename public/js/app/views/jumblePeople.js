@@ -68,12 +68,13 @@
           event.preventDefault();
           console.log("creating jumble...");
           _this.instanceArguments['tags'] = _.map(_this.instanceArguments['tags'].split(","), function(tag) {
-            return $.trim(tag);
+            return $.trim(tag).toLowerCase();
           });
           _this.instanceArguments['primaryObject']['tags'] = _.map(_this.instanceArguments['primaryObject']['tags'].split(","), function(tag) {
-            return $.trim(tag);
+            return $.trim(tag).toLowerCase();
           });
           fimo.data.post('jumbles/create', _this.instanceArguments, function() {
+            fimo.cache.remove("jumbles");
             return fimo.controller.jumbles();
           }, function() {
             return alert("error");

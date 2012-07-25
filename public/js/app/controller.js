@@ -56,7 +56,7 @@
         });
       },
       wall: function(params) {
-        return fimo.data.load("wall", function(content) {
+        return fimo.data.load("wall?jumble=" + params['jumbleId'], function(content) {
           return page.create(views.wall({
             objects: content.objects,
             jumbleId: params['jumbleId']

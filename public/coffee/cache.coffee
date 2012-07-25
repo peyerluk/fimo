@@ -39,6 +39,7 @@ fimo.cache = do ->
     store.set(key, entry)
   
   remove: (key) ->
+    key = "cache:#{ key }"
     store.remove(key)
   
   # remove expired cache entries

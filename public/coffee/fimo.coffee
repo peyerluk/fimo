@@ -37,6 +37,9 @@ fimo.init = ->
   $(document).on "click", (event) ->   
     fimo.events.fire("click", event)
     undefined
+  
+  # todo: touch support
+  # $(document).on "touchend"
       
   # render the welcome page
   # controller.welcome()

@@ -34,7 +34,7 @@ Image.statics.create = (uploadedImage, user, callback) ->
   
   fs.writeFile img.tmpPath(), uploadedImage, (err) ->
     img.crop "100x100", ->
-      img.resize "300x", ->
+      img.crop "300x300", ->
         img.save (err) ->
           if err
             callback(err, img)

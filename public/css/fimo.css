@@ -1883,6 +1883,11 @@ input[type="submit"].btn {
   background-position: top left;
   margin-left: 0px;
 }
+a,
+a:hover {
+  text-decoration: none;
+  color: #222222;
+}
 .page {
   margin: 0 10px;
 }
@@ -1893,7 +1898,7 @@ input[type="submit"].btn {
 .jumble {
   border-right: 1px solid #a6a6a6;
   border-bottom: 1px solid #a6a6a6;
-  margin: 5px 9px 0;
+  margin: 5px 9px 0 10px;
   background: #fafafa;
   -webkit-border-radius: 5px;
   -moz-border-radius: 5px;
@@ -2005,7 +2010,7 @@ input[type="submit"].btn {
   border-radius: 5px;
 }
 .object-comments input {
-  width: 206px;
+  width: 205px;
 }
 .object-comments form {
   margin-bottom: 0;
@@ -2035,7 +2040,8 @@ input[type="submit"].btn {
 .newObject-verbs a {
   display: block;
   float: left;
-  width: 55px;
+  width: 57px;
+  text-decoration: none;
 }
 .newObject-verbs i {
   margin-right: 3px;
@@ -2044,7 +2050,7 @@ input[type="submit"].btn {
   padding: 4px 8px 4px 3px;
 }
 .newObject-verbs .btn-verb-large {
-  width: 89px;
+  width: 92px;
 }
 .preview {
   padding: 0 0 0 100px;

@@ -51,7 +51,7 @@
       )
     
   wall: (params) ->
-    fimo.data.load "wall", (content) ->
+    fimo.data.load "wall?jumble=#{ params['jumbleId'] }", (content) ->
       page.create(views.wall({ objects : content.objects, jumbleId: params['jumbleId'] }), 
         title: content.title
         level: 3
