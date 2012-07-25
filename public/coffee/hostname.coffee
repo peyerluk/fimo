@@ -1,1 +1,1 @@
-@fimo.hostname = 'http://172.21.21.87:5000'
+@fimo.hostname = 'http://fimo.herokuapp.com'
