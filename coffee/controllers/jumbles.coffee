@@ -1,7 +1,7 @@
 app = require("../config/express")
 appDir = "#{ __dirname }/../.."
 before = require("./middleware")
-Object = require("../models/object")
+Item = require("../models/object")
 Image = require("../models/image")
 Jumble = require("../models/jumble")
 _ = require('underscore')._
@@ -19,30 +19,30 @@ app.get '/jumbles', (req, res) ->
       
 
 app.get '/jumbles/:id/wall', (req, res) ->
-  Object.where('jumble', req.params.id ).desc("created").limit(100).run (err, objects) ->
-    objectData = for object in objects
-      { url: Image.url(object.image, "100x100"), objectId: object._id }
+  Item.where('jumble', req.params.id ).desc("created").limit(100).run (err, items) ->
+    wall = for item in items
+      { url: Image.url(item.image, "100x100"), objectId: item._id }
 
     res.send
       title: 'Jumble',
-      objects: objectData,
+      objects: wall,
       status: 200
       
 app.get '/jumbles/:id/by-users', (req, res) ->
-  Object.where('jumble', req.params.id ).desc("created").limit(100).populate("owner").run (err, objects) ->
+  Item.where('jumble', req.params.id ).desc("created").limit(100).populate("owner").run (err, items) ->
     
-    objectsByUsers = {}
-    for object in objects
-      byOwners[object.owner.id] ?= { user: object.owner, objects: [] }
-      byOwners[object.owner.id].objects.push { 
-        url: Image.url(object.image, "100x100")
-        objectId: object._id
+    itemsByUsers = {}
+    for item in items
+      byOwners[item.owner.id] ?= { user: item.owner, items: [] }
+      byOwners[item.owner.id].items.push { 
+        url: Image.url(item.image, "100x100")
+        itemId: item._id
         user: owner 
       }
 
     res.send
       title: 'Jumble',
-      objects: objectsByUsers,
+      items: itemsByUsers,
       status: 200
 
 app.post '/jumbles/create', (req, res) ->
@@ -59,7 +59,7 @@ app.post '/jumbles/create', (req, res) ->
         _.extend options, { owner: req.user._id }
         _.extend options['primaryObject'], { image: image }
         _.extend options['primaryObject'], { owner: req.user._id }
-        primaryObject = new Object( req.body['primaryObject'] )
+        primaryObject = new Item( req.body['primaryObject'] )
         options['primaryObject'] = primaryObject._id
         jumble = new Jumble( options )
         jumble.save (err) ->
