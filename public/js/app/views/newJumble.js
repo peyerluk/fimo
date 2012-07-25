@@ -2,7 +2,7 @@
 
   this.fimo.views.add("newJumble", function() {
     return {
-      template: _.template("<form id=\"newJumbleForm\">\n  <label>Your jumble</label>\n  <input type=\"text\" name=\"name\" placeholder=\"Name your jumble\" id=\"name\" />\n  <legend>What's it about? (optional)</legend>\n  <input type=\"text\" name=\"tags\" placeholder=\"Add #tag\" id=\"tags\" />\n  <br/>\n  <button type=\"submit\" class=\"btn\">next step</button>\n</form>"),
+      template: _.template("<div class=\"page\" style=\"min-height:0px;\">\n  <form id=\"newJumbleForm\">\n    <div class=\"separator separator-1\"><em>Your Jumble</em></div>\n    <input type=\"text\" class=\"input-large\" name=\"name\" placeholder=\"Name your jumble\" id=\"name\" />\n    <div class=\"separator separator-2\"><em>What's it about?</em></div>\n    <input type=\"text\" class=\"input-large\" name=\"tags\" placeholder=\"first tag, second tag, etc.\" id=\"tags\" />\n    <br/>\n    <button type=\"submit\" class=\"btn btn-primary btn-right\">next step&nbsp;»</button>\n  </form>\n</div>"),
       loaded: function() {
         var extendInstanceArguments,
           _this = this;

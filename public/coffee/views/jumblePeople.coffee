@@ -2,18 +2,21 @@
   
   template: _.template(
     """
-    <p>Who would like this jumble? Invite at least 5 friends to get started, because jumblin alone ain't no fun.</p>
+    <div class="page" style="min-height:0px;">
     <form id="jumblePeopleForm">
-      <label>Invite your friends</label>
+      <div class="handwriting">
+        Who would like this jumble? Invite at least 5 friends to get started, because jumblin alone ain't no fun.
+      </div>
+      <div class="separator separator-3"><em>Invite your friends</em></div>
       <a href="" id="friendsLink">Select from your contacts</a><br/>
       <select name="friends" multiple size="6" id="friends" style="display:none;">
       </select>
-      <label>Add a personal message (optional)</label>
-      <br/>
-      <input type="text" name="message" id="message" placeholder="Hi! I just started a new jumble. Have a look. http://jum.bl/<%=name%>" />
-      <br/>
-      <button type="submit" class="btn">submit</button>
+      <div class="separator separator-4"><em>Add a personal message (optional)</em></div>
+      <textarea name="message" class="input-large" id="message" placeholder="Hi! I just started a new jumble. Have a look. http://jum.bl/<%=name%>">
+      </textarea>
+      <button type="submit" class="btn btn-primary btn-form-large">publish your jumble</button>
     </form>
+    </div>
     """
   )
   
