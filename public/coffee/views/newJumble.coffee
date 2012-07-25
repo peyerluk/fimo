@@ -2,14 +2,16 @@
   
   template: _.template(
     """
-    <form id="newJumbleForm">
-      <label>Your jumble</label>
-      <input type="text" name="name" placeholder="Name your jumble" id="name" />
-      <legend>What's it about? (optional)</legend>
-      <input type="text" name="tags" placeholder="Add #tag" id="tags" />
-      <br/>
-      <button type="submit" class="btn">next step</button>
-    </form>
+    <div class="page" style="min-height:0px;">
+      <form id="newJumbleForm">
+        <div class="separator separator-1"><em>Your Jumble</em></div>
+        <input type="text" class="input-large" name="name" placeholder="Name your jumble" id="name" />
+        <div class="separator separator-2"><em>What's it about?</em></div>
+        <input type="text" class="input-large" name="tags" placeholder="first tag, second tag, etc." id="tags" />
+        <br/>
+        <button type="submit" class="btn btn-primary btn-right">next step&nbsp;»</button>
+      </form>
+    </div>
     """
   )
   

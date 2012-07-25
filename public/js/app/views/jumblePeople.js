@@ -2,7 +2,7 @@
 
   this.fimo.views.add("jumblePeople", function() {
     return {
-      template: _.template("<p>Who would like this jumble? Invite at least 5 friends to get started, because jumblin alone ain't no fun.</p>\n<form id=\"jumblePeopleForm\">\n  <label>Invite your friends</label>\n  <a href=\"\" id=\"friendsLink\">Select from your contacts</a><br/>\n  <select name=\"friends\" multiple size=\"6\" id=\"friends\" style=\"display:none;\">\n  </select>\n  <label>Add a personal message (optional)</label>\n  <br/>\n  <input type=\"text\" name=\"message\" id=\"message\" placeholder=\"Hi! I just started a new jumble. Have a look. http://jum.bl/<%=name%>\" />\n  <br/>\n  <button type=\"submit\" class=\"btn\">submit</button>\n</form>"),
+      template: _.template("<div class=\"page\" style=\"min-height:0px;\">\n<form id=\"jumblePeopleForm\">\n  <div class=\"handwriting\">\n    Who would like this jumble? Invite at least 5 friends to get started, because jumblin alone ain't no fun.\n  </div>\n  <div class=\"separator separator-3\"><em>Invite your friends</em></div>\n  <a href=\"\" id=\"friendsLink\">Select from your contacts</a><br/>\n  <select name=\"friends\" multiple size=\"6\" id=\"friends\" style=\"display:none;\">\n  </select>\n  <div class=\"separator separator-4\"><em>Add a personal message (optional)</em></div>\n  <textarea name=\"message\" class=\"input-large\" id=\"message\" placeholder=\"Hi! I just started a new jumble. Have a look. http://jum.bl/<%=name%>\">\n  </textarea>\n  <button type=\"submit\" class=\"btn btn-primary btn-form-large\">publish your jumble</button>\n</form>\n</div>"),
       onContactsSuccess: function(contacts) {
         return this.populateFriends(contacts);
       },

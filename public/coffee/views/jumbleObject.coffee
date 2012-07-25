@@ -2,27 +2,32 @@
   
   template: _.template(
     """
-    <p>What's the first thing you want to post in your jumble?</p>
+    <div class="page" style="min-height:0px;">
     <form id="jumbleObjectForm">
-      <label>Take a picture</label>
-      <img src="" id="previewImage" style="display:none;"/><br/>
-      <a href="" id="imageLink">Take an image</a><br/>
-      <label>Why do you want to post this?</label>
+      <div class="handwriting">
+        What's the first thing you want to post in your jumble?
+      </div>
       <br/>
-      <select name="verbs" multiple size="6" id="verbs">
-      	<option selected="true">Give</option>
-      	<option>Swap</option>
-      	<option>Sell</option>
-      	<option>Like</option>
-      	<option>Want</option>
-      </select>
-      <br/>
-      <label>What is it? (optional)</label>
-      <br/>
-      <input type="text" class="span3" name="tags" placeholder="Add #tag" id="tags" />
-      <br/>
-      <button type="submit" class="btn">next step</button>
+      <a href="" id="imageLink"><img src="img/camera-plus.png" alt="take image" style="margin-left:80px" id="previewImage" /></a><br/>
+      
+      <div class="separator separator-4"><em>Why do you want to post this?</em></div>
+        
+      <div class="newObject-verbs clearfix" style="margin-top:15px;">
+        <span>Pass it on</span>
+        <a href="" class="btn" data-verb="give"><i class="icon icon-star"></i>Give</a>
+        <a href="" class="btn" data-verb="swap"><i class="icon icon-star"></i>Swap</a>
+        <a href="" class="btn" data-verb="sell"><i class="icon icon-star"></i>Sell</a>
+      </div>
+      <div class="newObject-verbs clearfix">
+        <span>Show it</span>
+        <a href="" class="btn btn-verb-large" data-verb="like"><i class="icon icon-star"></i>Like</a>
+        <a href="" class="btn btn-verb-large" data-verb="want"><i class="icon icon-star"></i>Want</a>
+      </div>
+      <div class="separator separator-2"><em>What is it?</em></div>
+      <input type="text" class="input-large" name="tags" placeholder="first tag, second tag, etc." id="tags" />
+      <button type="submit" class="btn btn-primary btn-right">next step&nbsp;»</button>
     </form>
+    </div>
     """
   )
   
@@ -37,12 +42,9 @@
       return jsonResponse.imageUrl
     $('#previewImage').show()
     # set the vars in the views attributes
-    #alert(_.keys(@instanceArguments))
     @instanceArguments['primaryObject']['imageUrl'] = jsonResponse.imageUrl
     @instanceArguments['primaryObject']['imageId'] = jsonResponse.imageId
     
-    
-  
   onPhotoDataSuccess: (imageURI) ->
     options = new FileUploadOptions()
     options.fileKey = "displayImage"
@@ -57,23 +59,52 @@
     false  
   
   loaded: ->
-    
+  
     # init empty
+    
     if !@instanceArguments['primaryObject']
       @instanceArguments['primaryObject'] = {}
+    if !@instanceArguments['primaryObject']['verbs']
+      @instanceArguments['primaryObject']['verbs'] = []
     
+    console.log @instanceArguments['primaryObject']['verbs']
+    
+    # Helper functions
+    
+    readVerbs = ($elem) =>
+      $elem.toggleClass("btn-info")
+      $elem.find("i").toggleClass("icon-white")
+      if _.find( @instanceArguments['primaryObject']['verbs'], (verb) ->
+        $elem.data("verb") == verb )
+        #console.log "remove " + $elem.data("verb")
+        @instanceArguments['primaryObject']['verbs'] = _.without( @instanceArguments['primaryObject']['verbs'], $elem.data("verb") )
+      else
+        # add
+        @instanceArguments['primaryObject']['verbs'].push($elem.data("verb")) 
+      false
+        
     extendInstanceArguments = =>
-      primaryObject = _.extend(@instanceArguments['primaryObject'], { verbs: $('#verbs').val(), tags: $('#tags').val() } )
-      @instanceArguments = _.extend(@instanceArguments, { primaryObject: primaryObject })
+      #primaryObject = _.extend(@instanceArguments['primaryObject'], { verbs: $('#verbs').val(), tags: $('#tags').val() } )
+      #@instanceArguments = _.extend(@instanceArguments, { primaryObject: primaryObject })
+      @instanceArguments['primaryObject']['tags'] = $("#tags").val()
+      false
     
-    if @instanceArguments['primaryObject']['verbs']
-      $('#verbs').val(@instanceArguments['primaryObject']['verbs'])
     if @instanceArguments['primaryObject']['tags']
-      $('#tags').val(@instanceArguments['primaryObject']['tags']) 
+      $('#tags').val(@instanceArguments['primaryObject']['tags'])
+    _.each( @instanceArguments['primaryObject']['verbs'], (verb) ->
+      #console.log "init verb " + verb
+      $elem = $("[data-verb=#{verb}]")
+      $elem.toggleClass("btn-info")
+      $elem.find("i").toggleClass("icon-white") )
     if @instanceArguments['primaryObject']['imageUrl']
       $('#previewImage').attr 'src', => 
         @instanceArguments['primaryObject']['imageUrl']
       $('#previewImage').show()
+      
+    # Events
+      
+    $(".newObject-verbs").on "click", "a", (event) ->
+      readVerbs( $(this) )
       
     $('#imageLink').click =>
       if fimo.device.getAgent() == "browser"

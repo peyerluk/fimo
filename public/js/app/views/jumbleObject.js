@@ -2,7 +2,7 @@
 
   this.fimo.views.add("jumbleObject", function() {
     return {
-      template: _.template("<p>What's the first thing you want to post in your jumble?</p>\n<form id=\"jumbleObjectForm\">\n  <label>Take a picture</label>\n  <img src=\"\" id=\"previewImage\" style=\"display:none;\"/><br/>\n  <a href=\"\" id=\"imageLink\">Take an image</a><br/>\n  <label>Why do you want to post this?</label>\n  <br/>\n  <select name=\"verbs\" multiple size=\"6\" id=\"verbs\">\n  	<option selected=\"true\">Give</option>\n  	<option>Swap</option>\n  	<option>Sell</option>\n  	<option>Like</option>\n  	<option>Want</option>\n  </select>\n  <br/>\n  <label>What is it? (optional)</label>\n  <br/>\n  <input type=\"text\" class=\"span3\" name=\"tags\" placeholder=\"Add #tag\" id=\"tags\" />\n  <br/>\n  <button type=\"submit\" class=\"btn\">next step</button>\n</form>"),
+      template: _.template("<div class=\"page\" style=\"min-height:0px;\">\n<form id=\"jumbleObjectForm\">\n  <div class=\"handwriting\">\n    What's the first thing you want to post in your jumble?\n  </div>\n  <br/>\n  <a href=\"\" id=\"imageLink\"><img src=\"img/camera-plus.png\" alt=\"take image\" style=\"margin-left:80px\" id=\"previewImage\" /></a><br/>\n  \n  <div class=\"separator separator-4\"><em>Why do you want to post this?</em></div>\n    \n  <div class=\"newObject-verbs clearfix\" style=\"margin-top:15px;\">\n    <span>Pass it on</span>\n    <a href=\"\" class=\"btn\" data-verb=\"give\"><i class=\"icon icon-star\"></i>Give</a>\n    <a href=\"\" class=\"btn\" data-verb=\"swap\"><i class=\"icon icon-star\"></i>Swap</a>\n    <a href=\"\" class=\"btn\" data-verb=\"sell\"><i class=\"icon icon-star\"></i>Sell</a>\n  </div>\n  <div class=\"newObject-verbs clearfix\">\n    <span>Show it</span>\n    <a href=\"\" class=\"btn btn-verb-large\" data-verb=\"like\"><i class=\"icon icon-star\"></i>Like</a>\n    <a href=\"\" class=\"btn btn-verb-large\" data-verb=\"want\"><i class=\"icon icon-star\"></i>Want</a>\n  </div>\n  <div class=\"separator separator-2\"><em>What is it?</em></div>\n  <input type=\"text\" class=\"input-large\" name=\"tags\" placeholder=\"first tag, second tag, etc.\" id=\"tags\" />\n  <button type=\"submit\" class=\"btn btn-primary btn-right\">next step&nbsp;»</button>\n</form>\n</div>"),
       onPhotoUploadFail: function(error) {
         return alert("got an upload error: " + error.code);
       },
@@ -31,33 +31,49 @@
         return false;
       },
       loaded: function() {
-        var extendInstanceArguments,
+        var extendInstanceArguments, readVerbs,
           _this = this;
         if (!this.instanceArguments['primaryObject']) {
           this.instanceArguments['primaryObject'] = {};
         }
-        extendInstanceArguments = function() {
-          var primaryObject;
-          primaryObject = _.extend(_this.instanceArguments['primaryObject'], {
-            verbs: $('#verbs').val(),
-            tags: $('#tags').val()
-          });
-          return _this.instanceArguments = _.extend(_this.instanceArguments, {
-            primaryObject: primaryObject
-          });
-        };
-        if (this.instanceArguments['primaryObject']['verbs']) {
-          $('#verbs').val(this.instanceArguments['primaryObject']['verbs']);
+        if (!this.instanceArguments['primaryObject']['verbs']) {
+          this.instanceArguments['primaryObject']['verbs'] = [];
         }
+        console.log(this.instanceArguments['primaryObject']['verbs']);
+        readVerbs = function($elem) {
+          $elem.toggleClass("btn-info");
+          $elem.find("i").toggleClass("icon-white");
+          if (_.find(_this.instanceArguments['primaryObject']['verbs'], function(verb) {
+            return $elem.data("verb") === verb;
+          })) {
+            _this.instanceArguments['primaryObject']['verbs'] = _.without(_this.instanceArguments['primaryObject']['verbs'], $elem.data("verb"));
+          } else {
+            _this.instanceArguments['primaryObject']['verbs'].push($elem.data("verb"));
+          }
+          return false;
+        };
+        extendInstanceArguments = function() {
+          _this.instanceArguments['primaryObject']['tags'] = $("#tags").val();
+          return false;
+        };
         if (this.instanceArguments['primaryObject']['tags']) {
           $('#tags').val(this.instanceArguments['primaryObject']['tags']);
         }
+        _.each(this.instanceArguments['primaryObject']['verbs'], function(verb) {
+          var $elem;
+          $elem = $("[data-verb=" + verb + "]");
+          $elem.toggleClass("btn-info");
+          return $elem.find("i").toggleClass("icon-white");
+        });
         if (this.instanceArguments['primaryObject']['imageUrl']) {
           $('#previewImage').attr('src', function() {
             return _this.instanceArguments['primaryObject']['imageUrl'];
           });
           $('#previewImage').show();
         }
+        $(".newObject-verbs").on("click", "a", function(event) {
+          return readVerbs($(this));
+        });
         $('#imageLink').click(function() {
           if (fimo.device.getAgent() === "browser") {
             return _this.onPhotoUploadSuccess({
