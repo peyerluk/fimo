@@ -21,10 +21,10 @@
             back: "jumbles",
             jumbleId: viewArguments['jumbleId']
           })).show();
-        case "image":
+        case "object":
           return $nav.html(back({
             title: title,
-            back: "wall"
+            back: "wall?jumbleId=" + viewArguments['jumbleId']
           })).show();
         case "login":
         case "register":
