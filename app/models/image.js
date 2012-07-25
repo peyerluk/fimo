@@ -31,16 +31,18 @@ Image.statics.createProfilePicture = function(uploadedImage, user, callback) {
     user: user.id
   });
   return fs.writeFile(img.tmpPath(), uploadedImage, function(err) {
-    return img.crop("48x48", function() {
-      return img.crop("100x100", function() {
-        return img.save(function(err) {
-          if (err) {
-            return callback(err, img);
-          } else {
-            return img.uploadS3(function() {
-              return callback(void 0, img);
-            });
-          }
+    return img.crop("30x30", function() {
+      return img.crop("48x48", function() {
+        return img.crop("100x100", function() {
+          return img.save(function(err) {
+            if (err) {
+              return callback(err, img);
+            } else {
+              return img.uploadS3(function() {
+                return callback(void 0, img);
+              });
+            }
+          });
         });
       });
     });
@@ -53,16 +55,18 @@ Image.statics.create = function(uploadedImage, user, callback) {
     user: user.id
   });
   return fs.writeFile(img.tmpPath(), uploadedImage, function(err) {
-    return img.crop("100x100", function() {
-      return img.crop("300x300", function() {
-        return img.save(function(err) {
-          if (err) {
-            return callback(err, img);
-          } else {
-            return img.uploadS3(function() {
-              return callback(void 0, img);
-            });
-          }
+    return img.crop("48x48", function() {
+      return img.crop("100x100", function() {
+        return img.crop("300x300", function() {
+          return img.save(function(err) {
+            if (err) {
+              return callback(err, img);
+            } else {
+              return img.uploadS3(function() {
+                return callback(void 0, img);
+              });
+            }
+          });
         });
       });
     });
