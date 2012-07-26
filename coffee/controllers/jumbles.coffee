@@ -11,7 +11,13 @@ app.get '/jumbles', (req, res) ->
   Jumble.where().desc("created").limit(10).populate('primaryObject').run (err, jumbles) ->
     
     jumbleData = for jumble in jumbles
-      { imageUrl: Image.url(jumble.primaryObject.image, "300x300"), name: jumble.name, tags: jumble.tags, id: jumble._id }
+      { 
+        imageUrl: Image.url(jumble.primaryObject.image, "300x300")
+        name: jumble.name
+        tags: jumble.tags
+        activities: jumble.activities
+        id: jumble._id 
+      }
     
     res.send
       title: 'Jumbles nearby',
@@ -46,35 +52,38 @@ app.get '/jumbles/:id/by-users', (req, res) ->
       items: itemsByUsers,
       status: 200
 
-# to create jumble activity entries
-app.get '/jumbles/activity', (req, res) ->
+
+app.get '/jumbles/activity/clear', (req, res) ->
   Jumble.where().desc("created").limit(10).run (err, jumbles) ->
     
     for jumble in jumbles
-      Item.where('jumble', jumble.id ).desc("created").limit(100).run (err, items) ->
-        for item in items
-          console.log(item)
-          random = Math.random()
-          
-          item.lastActivity = 
-            if random > 0.85
-              "comment"
-            else if random > 0.6
-              "like"
-            else if random > 0.55
-              "star"
-            else 
-              ""
-            
-          item.save()
+      jumble.clearActivities()
+      jumble.save()
+      
+    res.send
+      title: 'Activity cleared'
+      status: 200
+        
     
+# to create jumble activity entries
+app.get '/jumbles/activity', (req, res) ->
+  Jumble.find().desc("created").limit(10).run (err, jumbles) ->
+    
+    for jumble in jumbles
+      
+      # clear activities
+      jumble.clearActivities()
+      
+      # create activities on items and populate jumble.activities
+      jumble.fakeActivity()
+        
 
   res.send
     title: 'Activity created',
     status: 200
           
 app.post '/jumbles/create', (req, res) ->
-  #console.log(req.body)
+  
   if ( req.loggedIn == false )
     res.send { status: 403 }
   else

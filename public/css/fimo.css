@@ -1916,17 +1916,68 @@ a:hover {
   line-height: 25px;
   border-bottom: 1px solid #f2f2f2;
 }
-.jumble .jumble-image {
+.jumble .description {
+  padding: 5px 5px;
+  border-top: 1px solid #f2f2f2;
+}
+.jumble-image {
   position: relative;
 }
-.jumble .jumble-image .tags {
+.jumble-image .tags {
   position: absolute;
   bottom: 8px;
   left: 8px;
 }
-.jumble .description {
-  padding: 5px 5px;
-  border-top: 1px solid #f2f2f2;
+.jumble-activity-indicator {
+  position: absolute;
+  top: -13px;
+  left: 10px;
+  color: #999999;
+  font-size: 14px;
+}
+.jumble-activity {
+  position: relative;
+  height: 77px;
+  margin: 18px 0 0 -3px;
+}
+.jumble-activity a {
+  position: relative;
+  display: block;
+  float: left;
+  width: 55px;
+  width: 55px;
+  border: 1px solid #f2f2f2;
+  border-radius: 5px;
+  margin: 15px 9px 5px;
+}
+.jumble-activity img {
+  border-radius: 5px;
+}
+.jumble-activity .action-icon {
+  position: absolute;
+  top: -10px;
+  right: -10px;
+}
+.action-icon {
+  display: inline-block;
+  width: 25px;
+  height: 25px;
+  *margin-right: .3em;
+  line-height: 25px;
+  vertical-align: text-top;
+  background-repeat: no-repeat;
+}
+.action-icon:last-child {
+  *margin-left: 0;
+}
+.action-icon-star {
+  background-image: url(../img/icons/star-25.png);
+}
+.action-icon-like {
+  background-image: url(../img/icons/like-25.png);
+}
+.action-icon-comment {
+  background-image: url(../img/icons/comment-25.png);
 }
 /* JUMBLE WALL */
 #wall {

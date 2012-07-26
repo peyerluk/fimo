@@ -28,15 +28,22 @@
           <div class="jumble-image">
             <a href="wall?jumbleId=<%=jumble['id']%>"><img src="<%=jumble['imageUrl']%>" width="300" height="300"></a>
             <ul class="tags">
-            <% 
-              var i = 0;
-              _.each(jumble['tags'], function(tag) { 
-              i += 1;
-              if (i < 4) { 
-            %>
+            <% _.chain(jumble['tags']).first(3).each(function(tag) { %>
               <li><a href=""><%= tag %></a></li>
-            <% }}); %>
+            <% }); %>
             </ul>
+          </div>
+          <div class="jumble-activity">
+            <% var i = 0 %>
+            <% _.chain(jumble.activities).first(4).each(function(activity) { %>
+            <% i += 1; %>
+              <a href="object?objectId=<%= activity.itemId %>&jumbleId=<%= jumble.id %>">
+                <img src="<%= activity.itemImage %>" width="55" heigth="55">
+                <i class="action-icon action-icon-<%= activity.activity %>"></i>
+                <% activity.activity %>
+              </a>
+            <% }) %>
+            <div class="jumble-activity-indicator"><span class="badge badge-important"><%= i %></span> latest activity</div>
           </div>
         </div>
       <% }); %>
