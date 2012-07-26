@@ -87,6 +87,13 @@ a, a:hover {
 
 .portrait { border: 2px solid @white; }
 
+.round-image(@radius) {
+  img {
+    border-radius: @radius;
+    margin: 5px 8px 0 2px;
+  }
+}
+
 .object-user {
   margin: 3px 10px 0;
   padding: 2px 5px;
@@ -95,15 +102,14 @@ a, a:hover {
   border-top-right-radius: 5px;
     
   img, div { float: left; }
-  img {
-    border-radius: 30px;
-    margin: 5px 8px 0 2px; 
-  }
+  .round-image(30px);
+  
   div { padding: 8px 0 0; }
   em { display: block; }
   .name { font-size: 16px; line-height: 20px; }
   .object-jumble { color: @gray; }
 }
+
 
 .object-verbs {
   background: @white;
@@ -132,16 +138,34 @@ a, a:hover {
   }
 }
 
-.comment {
-  padding: 0 0 10px;
-  div {
-    margin: 0 5px 0 42px; 
-  }
+.comment(@floatside) {
+  width: 200px;
+  margin: 10px 5px 10px 5px;
+  padding: 10px 0 10px;
+  
   img {
-    float: left;
+    float: @floatside;
     width: 30;
     margin-left: 2px;
   }
+  
+  .round-image(20px);
+}
+
+.author-comment {
+  div {
+    margin: 0 42px 0 5px; 
+  }
+  float: right;
+  .comment(right);
+  background-color: #C3F7B3;
+}
+
+.conversation-comment {
+  div {
+    margin: 0 5px 0 42px; 
+  }
+  .comment(left)  
 }
 
 .no-comments {

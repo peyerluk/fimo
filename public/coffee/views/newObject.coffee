@@ -3,7 +3,7 @@
   template: _.template(
     """
     <div class="page" style="min-height:0px;">
-    <form id="newObjectForm"s>
+    <form id="newObjectForm">
       <div class="separator separator-1"><em>Your object</em></div>
       <img src="<%= imageUrl %>" class="preview" width="100" height="100" alt="preview">
       <br/>

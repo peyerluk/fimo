@@ -4,7 +4,7 @@ before = require("./middleware")
 Object = require("../models/object")
 Image = require("../models/image")
 _ = require('underscore')._
-      
+            
 app.get '/objects/:id/show', (req, res) ->
   Object.findById(req.params.id).populate('owner').populate('jumble').exec (err, object) ->
     if err
@@ -18,6 +18,7 @@ app.get '/objects/:id/show', (req, res) ->
         userImage: Image.url(object.owner.picture, "45x45")
         jumbleName: object.jumble.name
         imageUrl: Image.url(object.image, "300x300")
+        comments: object.getComments()
 
 app.get '/objects/new', (req, res) ->
   res.send(
@@ -49,4 +50,27 @@ app.post '/objects/create', (req, res) ->
               jumbleId: object.jumble
               objectId: object._id
             }          
-            
+      
+app.post "/objects/:id/comment", (req, res) ->
+  #console.log "RECEIVING COMMENT..."
+  #console.log req.body
+  if ( req.loggedIn == false )
+    res.send { status: 403 }
+  else
+    Object.findById req.params.id, (err, object) ->
+      if err
+        console.log "object find error " + err
+        return res.send { status : 500, error : err }
+      else if object == null
+        return res.send { status : 500, error: "item not found" }
+      else
+        object.comments.push { jumble : req.body['jumbleId'], user : req.user._id, userImage : req.user.picture, username : req.user.username, text : req.body['text'] }
+        object.save (err) ->
+          if err
+            console.log "obejct save error " + err
+            return res.send { status : 500, error : err }
+          else
+            console.log "created comment"
+            # comments = for comment in object.comments
+            #   { text : comment.text, userImageUrl : Image.url(comment.userImage, "30x30") }
+            return res.send { status : 200, comments: object.getComments }

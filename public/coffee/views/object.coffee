@@ -26,34 +26,67 @@
           <% }); %>
         </ul>
         
-        <div class="comment no-comments">
-          <img src="img/profile-30x30.png" width="30" height="30">
-          <div>
-            no comments yet, dare say something?
+        <div id="comments">
+        <% if ( content.comments && content.comments.length > 0 ) { %>
+          <% _.each( content.comments, function(comment) { %>
+            <% if ( comment.userId == content.user._id ) { %>
+            <div class="well author-comment">
+            <% } else { %>
+            <div class="well conversation-comment">
+            <% } %>  
+              <img src="<%= comment.userImageUrl %>" class="comment-user-image" width="30" height="30">
+              <div>
+                <strong><%= comment.username %></strong>:&nbsp;<%= comment.text %>
+              </div>
+            </div>
+            <div class="clearfix"></div>
+          <% }); %>
+        <% } else { %>
+          <div class="comment no-comments">
+            <img src="img/profile-30x30.png" width="30" height="30">
+            <div>
+              no comments yet, dare say something?
+            </div>
           </div>
+        <% } %>
         </div>
-        
-        <form>
+
+        <form id="commentForm">
           <div class="btn btn-primary"><i class="icon icon-camera icon-white"></i>&nbsp;</div>
-          <input type=text placeholder="comment (#tag)">
+          <input type=text placeholder="comment (#tag)" id="commentText">
           <div class="btn btn-white"><i class="icon icon-lock"></i>&nbsp;</div>
         </form>
-      </div>
-      
+      </div>      
     </div>
     """
   )
   
-  click: (event) ->
-    # todo
-    true
-    
-    
   loaded: ->
-    fimo.events.on "click", this.click
+    # $('#comment-form').addEventListener('touchstart', (e) ->
+    #     e.stopPropagation()
+    # , false)
+    # $('#comment-form').addEventListener('mousedown', (e) ->
+    #     e.stopPropagation()
+    # , false)
+    $("#commentForm").submit (e) =>
+      #alert(@instanceArguments['objectId'])
+      fimo.data.post "objects/#{@instanceArguments['objectId']}/comment", { text : $("#commentText").val(), jumbleId : @instanceArguments['jumbleId'] } , (data) =>
+        commentsHtml = ""
+        _.each(data.comments, (comment) =>
+          commentsHtml = "#{commentsHtml}<div class='well conversation-comment'><img src='#{comment.userImageUrl}' width='30' height='30'><strong>#{comment.username}</strong>:&nbsp;#{comment.text}%></div><div class='clearfix'></div>" )
+        #console.log commentsHtml
+        $("#comments").html(commentsHtml)
+        $("#commentText}").val("")
+        fimo.page.scrollable.refresh()
+        fimo.cache.remove("objects/#{@instanceArguments['objectId']}/show")
+      , (data, error, exception) =>
+        alert(error)
+      false
+    
   
   destroy: ->
-    fimo.events.off "click", this.click
+    false
+    #fimo.events.off "click", this.click
 
 
 

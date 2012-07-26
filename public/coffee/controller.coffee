@@ -61,8 +61,9 @@
       
   object: (params) ->
     fimo.data.load "objects/#{ params['objectId'] }/show", (content) ->
-      page.create(views.object({ content : content, jumbleId: params['jumbleId'] }),
+      page.create(views.object({ content : content, jumbleId: params['jumbleId'], objectId: params['objectId'] }),
         level: 4
+        scroll: true
       )
       
   newJumble: (args) ->

@@ -45,6 +45,16 @@
             hScrollbar: false,
             vScrollbar: false
           });
+          this.scrollable.options.onBeforeScrollStart = function(e) {
+            var target;
+            target = e.target;
+            while (target.nodeType !== 1) {
+              target = target.parentNode;
+            }
+            if (target.tagName !== 'SELECT' && target.tagName !== 'INPUT' && target.tagName !== 'TEXTAREA') {
+              return e.preventDefault();
+            }
+          };
         }
         if (slideDirection) {
           return this.slideIn(slideDirection);

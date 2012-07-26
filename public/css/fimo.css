@@ -1887,6 +1887,36 @@ input[type="submit"].btn {
   background-position: top left;
   margin-left: 0px;
 }
+.well {
+  min-height: 20px;
+  padding: 19px;
+  margin-bottom: 20px;
+  background-color: #f5f5f5;
+  border: 1px solid #eee;
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  border-radius: 4px;
+  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.05);
+  -moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.05);
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.05);
+}
+.well blockquote {
+  border-color: #ddd;
+  border-color: rgba(0, 0, 0, 0.15);
+}
+.well-large {
+  padding: 24px;
+  -webkit-border-radius: 6px;
+  -moz-border-radius: 6px;
+  border-radius: 6px;
+}
+.well-small {
+  padding: 9px;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+}
 a,
 a:hover {
   text-decoration: none;
@@ -2028,16 +2058,41 @@ a:hover {
   margin-top: 1px;
   vertical-align: top;
 }
-.comment {
-  padding: 0 0 10px;
+.author-comment {
+  float: right;
+  width: 200px;
+  margin: 10px 5px 10px 5px;
+  padding: 10px 0 10px;
+  background-color: #C3F7B3;
 }
-.comment div {
+.author-comment div {
+  margin: 0 42px 0 5px;
+}
+.author-comment img {
+  float: right;
+  width: 30;
+  margin-left: 2px;
+}
+.author-comment img {
+  border-radius: 20px;
+  margin: 5px 8px 0 2px;
+}
+.conversation-comment {
+  width: 200px;
+  margin: 10px 5px 10px 5px;
+  padding: 10px 0 10px;
+}
+.conversation-comment div {
   margin: 0 5px 0 42px;
 }
-.comment img {
+.conversation-comment img {
   float: left;
   width: 30;
   margin-left: 2px;
+}
+.conversation-comment img {
+  border-radius: 20px;
+  margin: 5px 8px 0 2px;
 }
 .no-comments {
   color: #999999;

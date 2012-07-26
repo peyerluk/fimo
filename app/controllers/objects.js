@@ -27,7 +27,8 @@ app.get('/objects/:id/show', function(req, res) {
         user: object.owner,
         userImage: Image.url(object.owner.picture, "45x45"),
         jumbleName: object.jumble.name,
-        imageUrl: Image.url(object.image, "300x300")
+        imageUrl: Image.url(object.image, "300x300"),
+        comments: object.getComments()
       });
     }
   });
@@ -75,6 +76,52 @@ app.post('/objects/create', function(req, res) {
             return res.send({
               jumbleId: object.jumble,
               objectId: object._id
+            });
+          }
+        });
+      }
+    });
+  }
+});
+
+app.post("/objects/:id/comment", function(req, res) {
+  if (req.loggedIn === false) {
+    return res.send({
+      status: 403
+    });
+  } else {
+    return Object.findById(req.params.id, function(err, object) {
+      if (err) {
+        console.log("object find error " + err);
+        return res.send({
+          status: 500,
+          error: err
+        });
+      } else if (object === null) {
+        return res.send({
+          status: 500,
+          error: "item not found"
+        });
+      } else {
+        object.comments.push({
+          jumble: req.body['jumbleId'],
+          user: req.user._id,
+          userImage: req.user.picture,
+          username: req.user.username,
+          text: req.body['text']
+        });
+        return object.save(function(err) {
+          if (err) {
+            console.log("obejct save error " + err);
+            return res.send({
+              status: 500,
+              error: err
+            });
+          } else {
+            console.log("created comment");
+            return res.send({
+              status: 200,
+              comments: object.getComments
             });
           }
         });
