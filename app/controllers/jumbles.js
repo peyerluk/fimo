@@ -26,6 +26,7 @@ app.get('/jumbles', function(req, res) {
           imageUrl: Image.url(jumble.primaryObject.image, "300x300"),
           name: jumble.name,
           tags: jumble.tags,
+          activities: jumble.activities,
           id: jumble._id
         });
       }
@@ -88,24 +89,29 @@ app.get('/jumbles/:id/by-users', function(req, res) {
   });
 });
 
+app.get('/jumbles/activity/clear', function(req, res) {
+  return Jumble.where().desc("created").limit(10).run(function(err, jumbles) {
+    var jumble, _i, _len;
+    for (_i = 0, _len = jumbles.length; _i < _len; _i++) {
+      jumble = jumbles[_i];
+      jumble.clearActivities();
+      jumble.save();
+    }
+    return res.send({
+      title: 'Activity cleared',
+      status: 200
+    });
+  });
+});
+
 app.get('/jumbles/activity', function(req, res) {
-  Jumble.where().desc("created").limit(10).run(function(err, jumbles) {
+  Jumble.find().desc("created").limit(10).run(function(err, jumbles) {
     var jumble, _i, _len, _results;
     _results = [];
     for (_i = 0, _len = jumbles.length; _i < _len; _i++) {
       jumble = jumbles[_i];
-      _results.push(Item.where('jumble', jumble.id).desc("created").limit(100).run(function(err, items) {
-        var item, random, _j, _len1, _results1;
-        _results1 = [];
-        for (_j = 0, _len1 = items.length; _j < _len1; _j++) {
-          item = items[_j];
-          console.log(item);
-          random = Math.random();
-          item.lastActivity = random > 0.85 ? "comment" : random > 0.6 ? "like" : random > 0.55 ? "star" : "";
-          _results1.push(item.save());
-        }
-        return _results1;
-      }));
+      jumble.clearActivities();
+      _results.push(jumble.fakeActivity());
     }
     return _results;
   });
