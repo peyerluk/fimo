@@ -50,7 +50,8 @@ app.get('/jumbles/:id/wall', function(req, res) {
         item = items[_i];
         _results.push({
           url: Image.url(item.image, "100x100"),
-          objectId: item._id
+          objectId: item._id,
+          lastActivity: item.lastActivity
         });
       }
       return _results;
