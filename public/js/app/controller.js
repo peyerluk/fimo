@@ -72,9 +72,11 @@
         return fimo.data.load("objects/" + params['objectId'] + "/show", function(content) {
           return page.create(views.object({
             content: content,
-            jumbleId: params['jumbleId']
+            jumbleId: params['jumbleId'],
+            objectId: params['objectId']
           }), {
-            level: 4
+            level: 4,
+            scroll: true
           });
         });
       },

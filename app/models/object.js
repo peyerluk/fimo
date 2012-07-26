@@ -1,10 +1,12 @@
-var Comment, Item, ItemModel, Schema, mongoose;
+var Comment, Image, Item, ItemModel, Schema, mongoose;
 
 mongoose = require("../config/mongodb");
 
 Schema = mongoose.Schema;
 
 Comment = require("./comment");
+
+Image = require("./image");
 
 Item = new Schema({
   owner: {
@@ -42,6 +44,26 @@ Item = new Schema({
     "default": Date.now
   }
 });
+
+Item.methods.getComments = function() {
+  var comment, itemComments;
+  itemComments = (function() {
+    var _i, _len, _ref, _results;
+    _ref = this.comments;
+    _results = [];
+    for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+      comment = _ref[_i];
+      _results.push({
+        text: comment.text,
+        userImageUrl: Image.url(comment.userImage, "30x30"),
+        username: comment.username,
+        userId: comment.user
+      });
+    }
+    return _results;
+  }).call(this);
+  return itemComments;
+};
 
 Item.index({
   coords: "2d"

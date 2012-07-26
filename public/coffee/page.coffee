@@ -35,7 +35,15 @@
     
     @$page.html(content)
     
-    @scrollable = new iScroll(@$page[0], { hScrollbar: false, vScrollbar: false }) if scroll
+    if scroll
+      @scrollable = new iScroll(@$page[0], { hScrollbar: false, vScrollbar: false })
+    
+      # Monkey Patch I scroll for forms
+      @scrollable.options.onBeforeScrollStart = (e) ->                
+         target = e.target
+         target = target.parentNode while target.nodeType != 1
+         if target.tagName != 'SELECT' && target.tagName != 'INPUT' && target.tagName != 'TEXTAREA'
+             e.preventDefault()
     
     if slideDirection
       @slideIn(slideDirection)

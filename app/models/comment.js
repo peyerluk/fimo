@@ -9,6 +9,13 @@ Comment = new Schema({
     type: Schema.ObjectId,
     ref: "User"
   },
+  userImage: {
+    type: Schema.ObjectId,
+    ref: "Image"
+  },
+  username: {
+    type: String
+  },
   jumble: {
     type: Schema.ObjectId,
     ref: "Jumble"

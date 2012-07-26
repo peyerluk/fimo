@@ -3,6 +3,8 @@ Schema = mongoose.Schema
 
 Comment = new Schema({
   user:       { type: Schema.ObjectId, ref: "User" },
+  userImage:  { type: Schema.ObjectId, ref: "Image" },
+  username:   { type: String },
   jumble:     { type: Schema.ObjectId, ref: "Jumble" },
   coords:     { lon: Number, lat: Number },
   text:       { type: String },
