@@ -8,7 +8,7 @@
         Who would like this jumble? Invite at least 5 friends to get started, because jumblin alone ain't no fun.
       </div>
       <div class="separator separator-3"><em>Invite your friends</em></div>
-      <a href="" id="friendsLink">Select from your contacts</a><br/>
+      <a href="" id="friendsLink"><img src="img/add-friends.png" alt="add friends" style="margin-left: 90px;"/></a><br/>
       <select name="friends" multiple size="6" id="friends" style="display:none;">
       </select>
       <div class="separator separator-4"><em>Add a personal message (optional)</em></div>
@@ -31,7 +31,11 @@
       # if @instanceArguments['jumbleSelectedFriends']
       # TODO: see if in selected friends and pre-select if so
       # TODO: don't show pre or surname if it is null
-      $('#friends').append("<option value='name'>#{friend.name.givenName} #{friend.name.familyName}</option>")
+      prename = ""
+      surname = ""
+      prename = friend.name.givenName if friend.name.givenName
+      surname = friend.name.familyName if friend.name.familyName
+      $('#friends').append("<option value='name'>#{prename} #{surname}</option>")
       $('#friends').show()
   
   loaded: ->
@@ -49,7 +53,7 @@
     
     $('#friendsLink').click =>
       if fimo.device.isBrowser() #fimo.device.getAgent() == "browser"
-        @populateFriends([{ name: { givenName: "Lukas", familyName: "Peyer" } }, { name: { givenName: "Gabriel", familyName: "Hase" } }])
+        @populateFriends([{ name: { givenName: "Lukas", familyName: "Peyer" } } , { name: { givenName: "Gabriel" } } ])
       else
         fimo.device.ready =>    
           options = new ContactFindOptions()

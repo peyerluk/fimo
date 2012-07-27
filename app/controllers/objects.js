@@ -1,4 +1,4 @@
-var Image, Object, app, appDir, before, _;
+var Image, Jumble, Object, app, appDir, before, _;
 
 app = require("../config/express");
 
@@ -9,6 +9,8 @@ before = require("./middleware");
 Object = require("../models/object");
 
 Image = require("../models/image");
+
+Jumble = require("../models/jumble");
 
 _ = require('underscore')._;
 
@@ -90,7 +92,7 @@ app.post("/objects/:id/comment", function(req, res) {
       status: 403
     });
   } else {
-    return Object.findById(req.params.id, function(err, object) {
+    return Object.findById(req.params.id).populate('jumble').exec(function(err, object) {
       if (err) {
         console.log("object find error " + err);
         return res.send({
@@ -110,7 +112,9 @@ app.post("/objects/:id/comment", function(req, res) {
           username: req.user.username,
           text: req.body['text']
         });
+        object.lastActivity = "comment";
         return object.save(function(err) {
+          var newActivities, query;
           if (err) {
             console.log("obejct save error " + err);
             return res.send({
@@ -118,10 +122,26 @@ app.post("/objects/:id/comment", function(req, res) {
               error: err
             });
           } else {
-            console.log("created comment");
-            return res.send({
-              status: 200,
-              comments: object.getComments()
+            query = {
+              _id: object.jumble
+            };
+            newActivities = object.jumble.activities;
+            newActivities[0] = {
+              itemId: object._id,
+              itemImage: Image.url(object.image, "100x100"),
+              activity: object.lastActivity
+            };
+            return Jumble.update(query, {
+              activities: newActivities
+            }, void 0, function(err) {
+              if (err) {
+                console.log(err);
+              }
+              console.log("created comment");
+              return res.send({
+                status: 200,
+                comments: object.getComments()
+              });
             });
           }
         });

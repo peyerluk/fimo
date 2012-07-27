@@ -37,7 +37,7 @@
             verbs: verbs,
             tags: tags
           }, function(data) {
-            fimo.cache.remove("jumbles/" + data.jumbleId + "/wall");
+            fimo.cache.remove("jumbles/" + data.jumbleId + "/wall-by-users");
             return fimo.controller.object({
               objectId: data.objectId,
               jumbleId: data.jumbleId

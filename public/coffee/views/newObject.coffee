@@ -52,7 +52,7 @@
         $.trim(tag).toLowerCase()
         
       fimo.data.post 'objects/create', { imageId: @instanceArguments['imageId'], jumble: @instanceArguments['jumbleId'], verbs: verbs, tags: tags }, (data) =>
-        fimo.cache.remove("jumbles/#{ data.jumbleId }/wall")
+        fimo.cache.remove("jumbles/#{ data.jumbleId }/wall-by-users")
         fimo.controller.object({ objectId: data.objectId, jumbleId: data.jumbleId })
       , ->
         false

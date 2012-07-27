@@ -42,8 +42,8 @@
             <div class="clearfix"></div>
           <% }); %>
         <% } else { %>
-          <div class="comment no-comments">
-            <img src="img/profile-30x30.png" width="30" height="30">
+          <div class="no-comments">
+            <img src="img/profile-45x45.png" width="45" height="45">
             <div>
               no comments yet, dare say something?
             </div>
@@ -77,6 +77,8 @@
         $("#commentText}").val("")
         fimo.page.scrollable.refresh()
         fimo.cache.remove("objects/#{@instanceArguments['objectId']}/show")
+        fimo.cache.remove("jumbles/#{@instanceArguments['jumbleId']}/wall-by-users")
+        fimo.cache.remove("jumbles")
       , (data, error, exception) =>
         alert(error)
       false
