@@ -15,7 +15,7 @@
   wall = _.template(
     """
     <ul class="navbar-items">
-      <li><a href="<%= back %>" class="btn btn-navbar">back</a></li>
+      <li><a href="<%= back %>" class="btn-back"><span>back</span></a></li>
       <li><div id="navbar-title" class="navbar-title-back"><%= title %></div></li>
       <li class="navbar-right"><a href="add?jumbleId=<%=jumbleId%>" class="btn btn-navbar"><i class="icon-plus"></i></a></li>
     </ul>
@@ -25,7 +25,7 @@
   back = _.template(
     """
     <ul class="navbar-items">
-      <li><a href="<%= back %>" class="btn btn-navbar" id="back">back</a></li>
+      <li><a href="<%= back %>" class="btn-back"><span>back</span></a></li>
       <li><div id="navbar-title" class="navbar-title-back"><%= title %></div></li>
     </ul>
     """
@@ -34,7 +34,7 @@
   customBack = _.template(
     """
     <ul class="navbar-items">
-      <li><a href="" class="btn btn-navbar" id="back">back</a></li>
+      <li><a href="<%= back %>" class="btn-back"><span>back</span></a></li>
       <li><div id="navbar-title" class="navbar-title-back"><%= title %></div></li>
     </ul>
     """

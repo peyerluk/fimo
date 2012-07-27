@@ -1887,6 +1887,23 @@ input[type="submit"].btn {
   background-position: top left;
   margin-left: 0px;
 }
+.btn-back {
+  margin-top: 4px;
+  background-image: url(../img/background/back-tip.png);
+  background-repeat: no-repeat;
+  height: 30px;
+  padding: 0 5px 0 18px;
+  display: block;
+}
+.btn-back span {
+  display: inline-block;
+  height: 30px;
+  background-image: url(../img/background/back.png);
+  background-repeat: no-repeat;
+  background-position: top right;
+  padding: 0 10px 0 0;
+  line-height: 29px;
+}
 .well {
   min-height: 20px;
   padding: 19px;
