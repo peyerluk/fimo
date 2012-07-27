@@ -16,6 +16,7 @@
             title: title
           })).show();
         case "wall":
+        case "wallByUsers":
           return $nav.html(wall({
             title: title,
             back: "jumbles",

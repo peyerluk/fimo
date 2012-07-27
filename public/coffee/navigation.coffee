@@ -46,7 +46,7 @@
     switch viewName
       when "jumbles"
         $nav.html(jumbles({ title: title })).show()
-      when "wall"
+      when "wall", "wallByUsers"
         $nav.html(wall({ title: title, back: "jumbles", jumbleId: viewArguments['jumbleId'] })).show()
       when "object", "newObject"
         $nav.html(back({ title: title, back: "wall?jumbleId=#{viewArguments['jumbleId']}" })).show()

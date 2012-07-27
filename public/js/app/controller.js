@@ -57,9 +57,23 @@
         });
       },
       wall: function(params) {
+        this.wallByUsers(params);
+        return;
         return fimo.data.load("jumbles/" + params['jumbleId'] + "/wall", function(content) {
           return page.create(views.wall({
-            objects: content.objects,
+            items: content.items,
+            jumbleId: params['jumbleId']
+          }), {
+            title: content.title,
+            level: 3,
+            scroll: true
+          });
+        });
+      },
+      wallByUsers: function(params) {
+        return fimo.data.load("jumbles/" + params['jumbleId'] + "/wall-by-users", function(content) {
+          return page.create(views.wallByUsers({
+            itemsByUsers: content.itemsByUsers,
             jumbleId: params['jumbleId']
           }), {
             title: content.title,
