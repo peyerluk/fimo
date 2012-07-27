@@ -2220,7 +2220,23 @@ a:hover {
   border-radius: 20px;
 }
 .no-comments {
+  width: 220px;
+  margin: 10px 5px 10px 5px;
+  padding: 10px 4px 10px 4px;
   color: #999999;
+}
+.no-comments a {
+  color: #08C;
+}
+.no-comments img {
+  float: left;
+  width: 30;
+}
+.no-comments img {
+  border-radius: 20px;
+}
+.no-comments div {
+  padding-left: 60px;
 }
 /* NEW OBJECT */
 .newObject-verbs {

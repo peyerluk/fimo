@@ -2,7 +2,7 @@
 
   this.fimo.views.add("jumblePeople", function() {
     return {
-      template: _.template("<div class=\"page\" style=\"min-height:0px;\">\n<form id=\"jumblePeopleForm\">\n  <div class=\"handwriting\">\n    Who would like this jumble? Invite at least 5 friends to get started, because jumblin alone ain't no fun.\n  </div>\n  <div class=\"separator separator-3\"><em>Invite your friends</em></div>\n  <a href=\"\" id=\"friendsLink\">Select from your contacts</a><br/>\n  <select name=\"friends\" multiple size=\"6\" id=\"friends\" style=\"display:none;\">\n  </select>\n  <div class=\"separator separator-4\"><em>Add a personal message (optional)</em></div>\n  <textarea name=\"message\" class=\"input-large\" id=\"message\" placeholder=\"Hi! I just started a new jumble. Have a look. http://jum.bl/<%=name%>\">\n  </textarea>\n  <button type=\"submit\" class=\"btn btn-primary btn-form-large\">publish your jumble</button>\n</form>\n</div>"),
+      template: _.template("<div class=\"page\" style=\"min-height:0px;\">\n<form id=\"jumblePeopleForm\">\n  <div class=\"handwriting\">\n    Who would like this jumble? Invite at least 5 friends to get started, because jumblin alone ain't no fun.\n  </div>\n  <div class=\"separator separator-3\"><em>Invite your friends</em></div>\n  <a href=\"\" id=\"friendsLink\"><img src=\"img/add-friends.png\" alt=\"add friends\" style=\"margin-left: 90px;\"/></a><br/>\n  <select name=\"friends\" multiple size=\"6\" id=\"friends\" style=\"display:none;\">\n  </select>\n  <div class=\"separator separator-4\"><em>Add a personal message (optional)</em></div>\n  <textarea name=\"message\" class=\"input-large\" id=\"message\" placeholder=\"Hi! I just started a new jumble. Have a look. http://jum.bl/<%=name%>\">\n  </textarea>\n  <button type=\"submit\" class=\"btn btn-primary btn-form-large\">publish your jumble</button>\n</form>\n</div>"),
       onContactsSuccess: function(contacts) {
         return this.populateFriends(contacts);
       },
@@ -10,11 +10,19 @@
         return alert("error: " + contactError);
       },
       populateFriends: function(friends) {
-        var friend, _i, _len, _results;
+        var friend, prename, surname, _i, _len, _results;
         _results = [];
         for (_i = 0, _len = friends.length; _i < _len; _i++) {
           friend = friends[_i];
-          $('#friends').append("<option value='name'>" + friend.name.givenName + " " + friend.name.familyName + "</option>");
+          prename = "";
+          surname = "";
+          if (friend.name.givenName) {
+            prename = friend.name.givenName;
+          }
+          if (friend.name.familyName) {
+            surname = friend.name.familyName;
+          }
+          $('#friends').append("<option value='name'>" + prename + " " + surname + "</option>");
           _results.push($('#friends').show());
         }
         return _results;
@@ -46,8 +54,7 @@
                 }
               }, {
                 name: {
-                  givenName: "Gabriel",
-                  familyName: "Hase"
+                  givenName: "Gabriel"
                 }
               }
             ]);
