@@ -43,7 +43,7 @@
                 <% activity.activity %>
               </a>
             <% }) %>
-            <div class="jumble-activity-indicator"><span class="badge badge-important"><%= i %></span> latest activity</div>
+            <div class="jumble-activity-indicator"><span class="badge badge-inverse"><%= i %></span> latest activity</div>
           </div>
         </div>
       <% }); %>

@@ -28,7 +28,11 @@ app.get '/jumbles', (req, res) ->
 app.get '/jumbles/:id/wall', (req, res) ->
   Item.where('jumble', req.params.id ).desc("created").limit(100).run (err, items) ->
     wall = for item in items
-      { url: Image.url(item.image, "100x100"), objectId: item._id }
+      { 
+        url: Image.url(item.image, "100x100")
+        objectId: item._id
+        lastActivity: item.lastActivity
+      }
 
     res.send
       title: 'Jumble',
