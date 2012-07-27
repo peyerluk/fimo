@@ -34,9 +34,9 @@
             <% } else { %>
             <div class="well conversation-comment">
             <% } %>  
-              <img src="<%= comment.userImageUrl %>" class="comment-user-image" width="30" height="30">
+              <img src="<%= comment.userImageUrl %>" class="comment-user-image" width="45" height="45">
               <div>
-                <strong><%= comment.username %></strong>:&nbsp;<%= comment.text %>
+                <strong><%= comment.username %></strong>:&nbsp;<%= fimo.formatTagStrings(comment.text) %>
               </div>
             </div>
             <div class="clearfix"></div>
@@ -62,19 +62,17 @@
   )
   
   loaded: ->
-    # $('#comment-form').addEventListener('touchstart', (e) ->
-    #     e.stopPropagation()
-    # , false)
-    # $('#comment-form').addEventListener('mousedown', (e) ->
-    #     e.stopPropagation()
-    # , false)
     $("#commentForm").submit (e) =>
       #alert(@instanceArguments['objectId'])
       fimo.data.post "objects/#{@instanceArguments['objectId']}/comment", { text : $("#commentText").val(), jumbleId : @instanceArguments['jumbleId'] } , (data) =>
         commentsHtml = ""
-        _.each(data.comments, (comment) =>
-          commentsHtml = "#{commentsHtml}<div class='well conversation-comment'><img src='#{comment.userImageUrl}' width='30' height='30'><strong>#{comment.username}</strong>:&nbsp;#{comment.text}%></div><div class='clearfix'></div>" )
-        #console.log commentsHtml
+        _.each( data.comments, (comment) =>
+          if comment.userId == @instanceArguments['content'].user._id
+            commentsHtml = "#{commentsHtml}<div class='well author-comment'><img src='#{comment.userImageUrl}' width='45' height='45'><strong>#{comment.username}</strong>:&nbsp;#{fimo.formatTagStrings(comment.text)}</div><div class='clearfix'></div>"
+          else
+            commentsHtml = "#{commentsHtml}<div class='well conversation-comment'><img src='#{comment.userImageUrl}' width='45' height='45'><strong>#{comment.username}</strong>:&nbsp;#{fimo.formatTagStrings(comment.text)}</div><div class='clearfix'></div>" 
+          commentsHtml )
+          
         $("#comments").html(commentsHtml)
         $("#commentText}").val("")
         fimo.page.scrollable.refresh()

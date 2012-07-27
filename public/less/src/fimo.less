@@ -136,7 +136,6 @@ a, a:hover {
 .round-image(@radius) {
   img {
     border-radius: @radius;
-    margin: 5px 8px 0 2px;
   }
 }
 
@@ -146,7 +145,8 @@ a, a:hover {
   background: @white;
   border-top-left-radius: 5px;
   border-top-right-radius: 5px;
-    
+  
+  img { margin: 5px 8px 0 2px; }
   img, div { float: left; }
   .round-image(30px);
   
@@ -185,32 +185,30 @@ a, a:hover {
 }
 
 .comment(@floatside) {
-  width: 200px;
+  width: 220px;
   margin: 10px 5px 10px 5px;
-  padding: 10px 0 10px;
+  padding: 10px 4px 10px 4px;
+  
+  a { color: #08C; }
   
   img {
     float: @floatside;
     width: 30;
-    margin-left: 2px;
   }
   
   .round-image(20px);
 }
 
 .author-comment {
-  div {
-    margin: 0 42px 0 5px; 
-  }
+  img { margin: -35px -8px 0 2px; }
+  
   float: right;
   .comment(right);
   background-color: #C3F7B3;
 }
 
 .conversation-comment {
-  div {
-    margin: 0 5px 0 42px; 
-  }
+  img { margin: -35px 8px 0 -8px; }
   .comment(left)  
 }
 

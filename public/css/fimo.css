@@ -2059,13 +2059,15 @@ a:hover {
   border-top-left-radius: 5px;
   border-top-right-radius: 5px;
 }
+.object-user img {
+  margin: 5px 8px 0 2px;
+}
 .object-user img,
 .object-user div {
   float: left;
 }
 .object-user img {
   border-radius: 30px;
-  margin: 5px 8px 0 2px;
 }
 .object-user div {
   padding: 8px 0 0;
@@ -2111,39 +2113,41 @@ a:hover {
 }
 .author-comment {
   float: right;
-  width: 200px;
+  width: 220px;
   margin: 10px 5px 10px 5px;
-  padding: 10px 0 10px;
+  padding: 10px 4px 10px 4px;
   background-color: #C3F7B3;
 }
-.author-comment div {
-  margin: 0 42px 0 5px;
+.author-comment img {
+  margin: -35px -8px 0 2px;
+}
+.author-comment a {
+  color: #08C;
 }
 .author-comment img {
   float: right;
   width: 30;
-  margin-left: 2px;
 }
 .author-comment img {
   border-radius: 20px;
-  margin: 5px 8px 0 2px;
 }
 .conversation-comment {
-  width: 200px;
+  width: 220px;
   margin: 10px 5px 10px 5px;
-  padding: 10px 0 10px;
+  padding: 10px 4px 10px 4px;
 }
-.conversation-comment div {
-  margin: 0 5px 0 42px;
+.conversation-comment img {
+  margin: -35px 8px 0 -8px;
+}
+.conversation-comment a {
+  color: #08C;
 }
 .conversation-comment img {
   float: left;
   width: 30;
-  margin-left: 2px;
 }
 .conversation-comment img {
   border-radius: 20px;
-  margin: 5px 8px 0 2px;
 }
 .no-comments {
   color: #999999;

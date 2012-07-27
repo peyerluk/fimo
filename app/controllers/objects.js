@@ -121,7 +121,7 @@ app.post("/objects/:id/comment", function(req, res) {
             console.log("created comment");
             return res.send({
               status: 200,
-              comments: object.getComments
+              comments: object.getComments()
             });
           }
         });

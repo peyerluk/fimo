@@ -55,7 +55,7 @@ Item.methods.getComments = function() {
       comment = _ref[_i];
       _results.push({
         text: comment.text,
-        userImageUrl: Image.url(comment.userImage, "30x30"),
+        userImageUrl: Image.url(comment.userImage, "45x45"),
         username: comment.username,
         userId: comment.user
       });

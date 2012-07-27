@@ -17,7 +17,7 @@ Item = new Schema({
 
 Item.methods.getComments = () ->
   itemComments = for comment in this.comments
-    { text : comment.text, userImageUrl : Image.url(comment.userImage, "30x30"), username : comment.username, userId: comment.user }
+    { text : comment.text, userImageUrl : Image.url(comment.userImage, "45x45"), username : comment.username, userId: comment.user }
   itemComments  
 
 # INDEXES

@@ -73,4 +73,4 @@ app.post "/objects/:id/comment", (req, res) ->
             console.log "created comment"
             # comments = for comment in object.comments
             #   { text : comment.text, userImageUrl : Image.url(comment.userImage, "30x30") }
-            return res.send { status : 200, comments: object.getComments }
+            return res.send { status : 200, comments: object.getComments() }
