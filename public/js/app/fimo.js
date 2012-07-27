@@ -35,7 +35,7 @@
       }
       action = controller[path];
       if (action) {
-        action(params);
+        action.call(controller, params);
       } else if (path !== "" && path !== "#") {
         alert("" + path + " not implemented");
       }

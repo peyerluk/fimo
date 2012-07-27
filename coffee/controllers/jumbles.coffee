@@ -27,33 +27,39 @@ app.get '/jumbles', (req, res) ->
 
 app.get '/jumbles/:id/wall', (req, res) ->
   Item.where('jumble', req.params.id ).desc("created").limit(100).run (err, items) ->
-    wall = for item in items
+    wallItems = for item in items
       { 
         url: Image.url(item.image, "100x100")
-        objectId: item._id
+        itemId: item._id
+        lastActivity: item.lastActivity
+      }
+
+    # todo: load title
+    res.send
+      title: 'Jumble',
+      items: wallItems,
+      status: 200
+      
+app.get '/jumbles/:id/wall-by-users', (req, res) ->
+  Item.where('jumble', req.params.id ).desc("created").limit(100).populate("owner").run (err, items) ->
+    
+    itemsByUsers = {}
+    for item in items
+      itemsByUsers[item.owner.id] ?= { user: {}, items: [] }
+      itemsByUsers[item.owner.id].user = {
+        username: item.owner.username
+        userImage: Image.url(item.owner.picture, "45x45")
+      }
+      itemsByUsers[item.owner.id].items.push {
+        url: Image.url(item.image, "100x100")
+        itemId: item._id
+        user: item.owner
         lastActivity: item.lastActivity
       }
 
     res.send
       title: 'Jumble',
-      objects: wall,
-      status: 200
-      
-app.get '/jumbles/:id/by-users', (req, res) ->
-  Item.where('jumble', req.params.id ).desc("created").limit(100).populate("owner").run (err, items) ->
-    
-    itemsByUsers = {}
-    for item in items
-      byOwners[item.owner.id] ?= { user: item.owner, items: [] }
-      byOwners[item.owner.id].items.push { 
-        url: Image.url(item.image, "45x45")
-        itemId: item._id
-        user: owner 
-      }
-
-    res.send
-      title: 'Jumble',
-      items: itemsByUsers,
+      itemsByUsers: itemsByUsers,
       status: 200
 
 

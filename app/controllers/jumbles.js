@@ -42,15 +42,15 @@ app.get('/jumbles', function(req, res) {
 
 app.get('/jumbles/:id/wall', function(req, res) {
   return Item.where('jumble', req.params.id).desc("created").limit(100).run(function(err, items) {
-    var item, wall;
-    wall = (function() {
+    var item, wallItems;
+    wallItems = (function() {
       var _i, _len, _results;
       _results = [];
       for (_i = 0, _len = items.length; _i < _len; _i++) {
         item = items[_i];
         _results.push({
           url: Image.url(item.image, "100x100"),
-          objectId: item._id,
+          itemId: item._id,
           lastActivity: item.lastActivity
         });
       }
@@ -58,33 +58,38 @@ app.get('/jumbles/:id/wall', function(req, res) {
     })();
     return res.send({
       title: 'Jumble',
-      objects: wall,
+      items: wallItems,
       status: 200
     });
   });
 });
 
-app.get('/jumbles/:id/by-users', function(req, res) {
+app.get('/jumbles/:id/wall-by-users', function(req, res) {
   return Item.where('jumble', req.params.id).desc("created").limit(100).populate("owner").run(function(err, items) {
     var item, itemsByUsers, _i, _len, _name, _ref;
     itemsByUsers = {};
     for (_i = 0, _len = items.length; _i < _len; _i++) {
       item = items[_i];
-      if ((_ref = byOwners[_name = item.owner.id]) == null) {
-        byOwners[_name] = {
-          user: item.owner,
+      if ((_ref = itemsByUsers[_name = item.owner.id]) == null) {
+        itemsByUsers[_name] = {
+          user: {},
           items: []
         };
       }
-      byOwners[item.owner.id].items.push({
-        url: Image.url(item.image, "45x45"),
+      itemsByUsers[item.owner.id].user = {
+        username: item.owner.username,
+        userImage: Image.url(item.owner.picture, "45x45")
+      };
+      itemsByUsers[item.owner.id].items.push({
+        url: Image.url(item.image, "100x100"),
         itemId: item._id,
-        user: owner
+        user: item.owner,
+        lastActivity: item.lastActivity
       });
     }
     return res.send({
       title: 'Jumble',
-      items: itemsByUsers,
+      itemsByUsers: itemsByUsers,
       status: 200
     });
   });

@@ -52,8 +52,19 @@
       )
     
   wall: (params) ->
+    @wallByUsers(params)
+    return
+    
     fimo.data.load "jumbles/#{params['jumbleId']}/wall", (content) ->
-      page.create(views.wall({ objects : content.objects, jumbleId: params['jumbleId'] }), 
+      page.create(views.wall({ items : content.items, jumbleId: params['jumbleId'] }), 
+        title: content.title
+        level: 3
+        scroll: true
+      )
+  
+  wallByUsers: (params) ->
+    fimo.data.load "jumbles/#{params['jumbleId']}/wall-by-users", (content) ->
+      page.create(views.wallByUsers({ itemsByUsers : content.itemsByUsers, jumbleId: params['jumbleId'] }), 
         title: content.title
         level: 3
         scroll: true

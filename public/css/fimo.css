@@ -2010,23 +2010,23 @@ a:hover {
   background-image: url(../img/icons/comment-25.png);
 }
 /* JUMBLE WALL */
-#wall {
+.wall {
   margin: 0;
   list-style: none;
   padding-top: 5px;
 }
-#wall li {
+.wall li {
   position: relative;
   overflow: hidden;
   float: left;
   padding: 0 0 3px 3px;
 }
-#wall i {
+.wall i {
   position: absolute;
   top: -3px;
   right: -3px;
 }
-#wall img {
+.wall img {
   border: 1px solid #ffffff;
   cursor: pointer;
 }
@@ -2087,6 +2087,52 @@ a:hover {
   line-height: 20px;
 }
 .object-user .object-jumble {
+  color: #999999;
+}
+.wall-user {
+  margin: 3px 4px 0;
+  padding: 2px 3px 2px 0;
+  background: #ffffff;
+  border-radius: 17px;
+  overflow: hidden;
+}
+.wall-user img,
+.wall-user div {
+  float: left;
+}
+.wall-user img {
+  border-radius: 45px;
+  margin: -5px 8px -5px -1px;
+}
+.wall-user .name {
+  font-size: 16px;
+  line-height: 35px;
+}
+.wall-user-backup {
+  margin: 3px 2px 0;
+  padding: 2px 3px;
+  background: rgba(255, 255, 255, 0.75);
+  border-radius: 5px;
+}
+.wall-user-backup img,
+.wall-user-backup div {
+  float: left;
+}
+.wall-user-backup img {
+  border-radius: 45px;
+  margin: 3px 8px 0 2px;
+}
+.wall-user-backup div {
+  padding: 6px 0 0;
+}
+.wall-user-backup em {
+  display: block;
+}
+.wall-user-backup .name {
+  font-size: 16px;
+  line-height: 20px;
+}
+.wall-user-backup .object-jumble {
   color: #999999;
 }
 .object-verbs {
