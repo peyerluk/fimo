@@ -2158,6 +2158,9 @@ a:hover {
   margin: 3px 10px 0;
   text-align: right;
 }
+.comments-container {
+  margin-top: 30px;
+}
 .object-comments {
   margin: 3px 10px 20px;
   background: #ffffff;

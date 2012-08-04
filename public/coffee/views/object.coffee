@@ -26,7 +26,7 @@
           <% }); %>
         </ul>
         
-        <div id="comments">
+        <div id="comments" class="comments-container">
         <% if ( content.comments && content.comments.length > 0 ) { %>
           <% _.each( content.comments, function(comment) { %>
             <% if ( comment.userId == content.user._id ) { %>

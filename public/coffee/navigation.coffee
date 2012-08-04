@@ -34,7 +34,7 @@
   customBack = _.template(
     """
     <ul class="navbar-items">
-      <li><a href="<%= back %>" class="btn-back"><span>back</span></a></li>
+      <li><a href="" class="btn-back" id="back"><span>back</span></a></li>
       <li><div id="navbar-title" class="navbar-title-back"><%= title %></div></li>
     </ul>
     """
