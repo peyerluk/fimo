@@ -72,6 +72,22 @@
       
   object: (params) ->
     fimo.data.load "objects/#{ params['objectId'] }/show", (content) ->
+      
+      # separate tags into rows if they don't fit in one row
+      rowLength = 0
+      content.rows = []
+      row = 0
+      for tag in content.tags
+        tagLength = (tag.length * 6) + 35 # 6 pixels per character and 35 pixels margin
+        if (rowLength + tagLength) < 285
+          rowLength += tagLength
+        else
+          rowLength = tagLength
+          row += 1
+          
+        content.rows[row] ?= []
+        content.rows[row].push(tag)
+      
       page.create(views.object({ content : content, jumbleId: params['jumbleId'], objectId: params['objectId'] }),
         level: 4
         scroll: true

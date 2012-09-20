@@ -97,7 +97,7 @@ Image.statics.url = (id, suffix) ->
       "http://fimo.s3.amazonaws.com/images/#{ id }.jpg"
   else
     if suffix
-      "img/profile-#{ suffix }.png"
+      "img/profile-#{ suffix }-filled.png"
     else
       ""
     

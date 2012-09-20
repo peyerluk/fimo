@@ -20,11 +20,13 @@
       </div>
       
       <div class="object-comments">
-        <ul class="tags clearfix">
-          <% _.each(content.tags, function(tag) { %>
-            <li><a href=""><%= tag %></a></li>
-          <% }); %>
-        </ul>
+        <% _.each(content.rows, function(row) { %>
+          <ul class="tags clearfix">
+            <% _.each(row, function(tag) { %>
+              <li><a href=""><%= tag %></a></li>
+            <% }); %>
+          </ul>
+        <% }); %>
         
         <div id="comments" class="comments-container">
         <% if ( content.comments && content.comments.length > 0 ) { %>
@@ -43,7 +45,7 @@
           <% }); %>
         <% } else { %>
           <div class="no-comments">
-            <img src="img/profile-45x45.png" width="45" height="45">
+            <img src="img/profile-45x45-filled.png" width="45" height="45">
             <div>
               no comments yet, dare say something?
             </div>

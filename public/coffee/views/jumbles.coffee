@@ -18,8 +18,10 @@
     <div class="jumble-wall">
       <div class="handwriting handwriting-jumbles">
         <h3>welcome to jumbler!</h3>
-        If you don't find a jumble that suits you, open your own
-        by clicking the plus.
+        <p>
+          If you don't find a jumble that suits you, open your own
+          by clicking the plus.
+        </p>
       </div>
       
       <% _.each(jumbles, function(jumble) { %>
@@ -33,18 +35,20 @@
             <% }); %>
             </ul>
           </div>
-          <div class="jumble-activity">
-            <% var i = 0 %>
-            <% _.chain(jumble.activities).first(4).each(function(activity) { %>
-            <% i += 1; %>
-              <a href="object?objectId=<%= activity.itemId %>&jumbleId=<%= jumble.id %>">
-                <img src="<%= activity.itemImage %>" width="55" heigth="55">
-                <i class="action-icon action-icon-<%= activity.activity %>"></i>
-                <% activity.activity %>
-              </a>
-            <% }) %>
-            <div class="jumble-activity-indicator"><span class="badge badge-inverse"><%= i %></span> latest activity</div>
-          </div>
+          <% if (jumble.activities && jumble.activities.length) { %>
+            <div class="jumble-activity">
+              <% var i = 0 %>
+              <% _.chain(jumble.activities).first(4).each(function(activity) { %>
+              <% i += 1; %>
+                <a href="object?objectId=<%= activity.itemId %>&jumbleId=<%= jumble.id %>">
+                  <img src="<%= activity.itemImage %>" width="55" heigth="55">
+                  <i class="action-icon action-icon-<%= activity.activity %>"></i>
+                  <% activity.activity %>
+                </a>
+              <% }) %>
+              <div class="jumble-activity-indicator"><span class="badge badge-inverse"><%= i %></span> latest activity</div>
+            </div>
+          <% } %>
         </div>
       <% }); %>
       

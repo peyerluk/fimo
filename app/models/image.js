@@ -139,7 +139,7 @@ Image.statics.url = function(id, suffix) {
     }
   } else {
     if (suffix) {
-      return "img/profile-" + suffix + ".png";
+      return "img/profile-" + suffix + "-filled.png";
     } else {
       return "";
     }

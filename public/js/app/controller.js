@@ -84,6 +84,25 @@
       },
       object: function(params) {
         return fimo.data.load("objects/" + params['objectId'] + "/show", function(content) {
+          var row, rowLength, tag, tagLength, _base, _i, _len, _ref, _ref1;
+          rowLength = 0;
+          content.rows = [];
+          row = 0;
+          _ref = content.tags;
+          for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+            tag = _ref[_i];
+            tagLength = (tag.length * 6) + 35;
+            if ((rowLength + tagLength) < 285) {
+              rowLength += tagLength;
+            } else {
+              rowLength = tagLength;
+              row += 1;
+            }
+            if ((_ref1 = (_base = content.rows)[row]) == null) {
+              _base[row] = [];
+            }
+            content.rows[row].push(tag);
+          }
           return page.create(views.object({
             content: content,
             jumbleId: params['jumbleId'],
