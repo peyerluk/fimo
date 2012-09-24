@@ -1,5 +1,5 @@
 (function() {
 
-  this.fimo.hostname = 'http://172.21.21.56:5000';
+  this.fimo.hostname = 'http://fimo.herokuapp.com';
 
 }).call(this);

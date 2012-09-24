@@ -144,8 +144,8 @@
       
     else  
       fimo.device.ready ->
-        pictureSource = Camera.PictureSourceType['PHOTOLIBRARY']
-        #pictureSource = Camera.PictureSourceType['CAMERA']
+        #pictureSource = Camera.PictureSourceType['PHOTOLIBRARY']
+        pictureSource = Camera.PictureSourceType['CAMERA']
         destinationType = Camera.DestinationType.FILE_URI
         navigator.camera.getPicture _.bind(onPhotoDataSuccess, params), _.bind(onPhotoDataFail, params),
           quality: 50, 

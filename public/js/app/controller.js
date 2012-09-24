@@ -166,7 +166,7 @@
         } else {
           return fimo.device.ready(function() {
             var destinationType, pictureSource;
-            pictureSource = Camera.PictureSourceType['PHOTOLIBRARY'];
+            pictureSource = Camera.PictureSourceType['CAMERA'];
             destinationType = Camera.DestinationType.FILE_URI;
             return navigator.camera.getPicture(_.bind(onPhotoDataSuccess, params), _.bind(onPhotoDataFail, params), {
               quality: 50,

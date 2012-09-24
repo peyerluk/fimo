@@ -113,7 +113,8 @@
         fimo.device.ready =>    
           navigator.camera.getPicture _.bind(@onPhotoDataSuccess, @), _.bind(@onPhotoDataFail, @),
             destinationType: Camera.DestinationType.FILE_URI,
-            sourceType: Camera.PictureSourceType.PHOTOLIBRARY,
+            #sourceType: Camera.PictureSourceType.PHOTOLIBRARY,
+            sourceType: Camera.PictureSourceType.CAMERA,
             quality: 50
           false
         false        
